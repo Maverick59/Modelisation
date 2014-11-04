@@ -1,4 +1,5 @@
 projet modélisation année 2 DUT info IUT A lille1
+
 IMPORTANT
 le dossier à utiliser pour être compatible avec eclispe lors des commit+push est le dossier sans numéro merci
 
