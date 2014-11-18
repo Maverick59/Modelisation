@@ -90,7 +90,9 @@ public class Model3D {
 			public int compare(Face f1, Face f2) {
 				if (f1.centreZ() > f2.centreZ()) {
 					return 1;
-				} else {
+				} else if(f1.centreZ()==f2.centreZ()){
+					return 0;
+				}else{
 					return -1;
 				}
 			}
