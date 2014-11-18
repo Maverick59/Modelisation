@@ -89,7 +89,12 @@ public class UserListener implements MouseWheelListener, MouseMotionListener,
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-
+		if (e.getKeyCode() == KeyEvent.VK_DELETE && !modelSelect.isEmpty()) {
+			ecran.getModels().removeAll(modelSelect);
+			ecran.getBarreSelect().removeAll(modelSelect);
+			modelSelect.clear();
+			ecran.repaint();
+		}
 	}
 
 	@Override
@@ -109,6 +114,12 @@ public class UserListener implements MouseWheelListener, MouseMotionListener,
 
 	public void addModel(Model3D m3d) {
 		modelSelect.add(m3d);
+
+	}
+
+	public void refreshModelSelect() {
+
+		Calcul.recalulerCentreGravite(modelSelect);
 
 	}
 

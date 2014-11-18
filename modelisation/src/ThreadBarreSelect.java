@@ -8,11 +8,12 @@ public class ThreadBarreSelect extends Thread {
 
 	@Override
 	public void run() {
-		if (ecran.getBarreSelect().getX() < ecran.getWidth()) {
+		if (ecran.getBarreSelect().isOuvert()) {
 			ouvrir();
 		} else {
 			fermer();
 		}
+		ecran.getBarreSelect().switchposition();
 	}
 
 	private void fermer() {

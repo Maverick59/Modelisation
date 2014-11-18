@@ -1,8 +1,12 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 public class Ecran extends JPanel {
@@ -17,6 +21,7 @@ public class Ecran extends JPanel {
 	private BarreAjout barreAjout;
 	private BarreSelect barreSelect;
 	private final UserListener userListener;
+	private Image background;
 
 	public Ecran(Main f) {
 
@@ -34,15 +39,37 @@ public class Ecran extends JPanel {
 		barreAjout = new BarreAjout(this);
 		barreSelect = new BarreSelect(this);
 		affichage = 2;
-		lumiere.add(new Point(0, 0, 1));
+		lumiere.add(new Point(2, 0, 1));
+		background = new ImageIcon("fond.jpg").getImage();
+
+	}
+
+	public void trifigure() {
+		try {
+			Collections.sort(models, new Comparator<Model3D>() {
+				@Override
+				public int compare(Model3D m1, Model3D m2) {
+					if (m1.maxZ() > m2.maxZ()) {
+						return 1;
+					} else if (m1.maxZ() == m2.maxZ()) {
+						return 0;
+					} else {
+						return -1;
+					}
+				}
+			});
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	// @SuppressWarnings("unused")
 	@Override
 	public void paintComponent(Graphics g) {
 
-		g.setColor(Color.WHITE);
-		g.fillRect(0, 0, this.getWidth(), this.getHeight());
+		g.drawImage(background, 0, 0, null);
 
 		if (affichage == 0) {
 			for (Model3D m : models) {
@@ -50,16 +77,16 @@ public class Ecran extends JPanel {
 			}
 		} else if (affichage == 1) {
 			for (Model3D m : models) {
-				m.afficherFaces(g, null);
+				m.afficherFaces(g);
 			}
 		} else {
+			trifigure();
 			for (Model3D m : models) {
 				m.afficher(g, lumiere);
 			}
 		}
 		g.setColor(Color.BLACK);
-		g.drawLine(600, 600, (int) lumiere.get(0).x + 600,
-				(int) lumiere.get(0).y + 600);
+		g.drawLine(600, 600, (int) lumiere.get(0).x + 600, (int) lumiere.get(0).y + 600);
 
 	}
 

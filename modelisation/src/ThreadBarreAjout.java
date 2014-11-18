@@ -8,11 +8,12 @@ public class ThreadBarreAjout extends Thread {
 
 	@Override
 	public void run() {
-		if (ecran.getBarreAjout().getX() + ecran.getBarreAjout().getWidth() > 0) {
-			fermer();
-		} else {
+		if (ecran.getBarreAjout().isOuvert()) {
 			ouvrir();
+		} else {
+			fermer();
 		}
+		ecran.getBarreAjout().switchposition();
 	}
 
 	private void fermer() {

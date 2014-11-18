@@ -10,15 +10,16 @@ public class Model3D {
 	ArrayList<Point> points;
 	ArrayList<Segment> segments;
 	ArrayList<Face> faces;
-	double decalageY = 0;
-	double decalageX = 0;
+	private double decalageY = 0;
+	private double decalageX = 0;
 	private Color color = Color.BLACK;
+	private String nom;
 
-	public Model3D(ArrayList<Point> points, ArrayList<Segment> segments,
-			ArrayList<Face> faces) {
+	public Model3D(ArrayList<Point> points, ArrayList<Segment> segments, ArrayList<Face> faces, String nom) {
 		this.points = points;
 		this.segments = segments;
 		this.faces = faces;
+		this.nom = nom;
 		Calcul.recalulerCentreGravite(this);
 	}
 
@@ -29,19 +30,17 @@ public class Model3D {
 	public void afficherSegments(Graphics g) {
 		g.setColor(color);
 		for (Segment s : segments) {
-			g.drawLine((int) (s.p1.x + decalageX), (int) (s.p1.y + decalageY),
-					(int) (s.p2.x + decalageX), (int) (s.p2.y + decalageY));
+			g.drawLine((int) (s.p1.x + decalageX), (int) (s.p1.y + decalageY), (int) (s.p2.x + decalageX), (int) (s.p2.y + decalageY));
 		}
 	}
 
-	public void afficherFaces(Graphics g, ArrayList<Point> lumiere) {
+	public void afficherFaces(Graphics g) {
 		g.setColor(color);
 
 		tri();
 		Polygon p;
 		for (Face f : faces) {
 			p = f.getTriangle((int) decalageX, (int) decalageY);
-			// g.setColor(eclairage(lumiere, f));
 			g.fillPolygon(p);
 		}
 
@@ -85,18 +84,24 @@ public class Model3D {
 	}
 
 	public void tri() {
-		Collections.sort(faces, new Comparator<Face>() {
-			@Override
-			public int compare(Face f1, Face f2) {
-				if (f1.centreZ() > f2.centreZ()) {
-					return 1;
-				} else if(f1.centreZ()==f2.centreZ()){
-					return 0;
-				}else{
-					return -1;
+		try {
+			Collections.sort(faces, new Comparator<Face>() {
+				@Override
+				public int compare(Face f1, Face f2) {
+					if (f1.centreZ() > f2.centreZ()) {
+						return 1;
+					} else if (f1.centreZ() == f2.centreZ()) {
+						return 0;
+					} else {
+						return -1;
+					}
 				}
-			}
-		});
+			});
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	public void zoom(double i) {
@@ -144,6 +149,48 @@ public class Model3D {
 	public void setColor(Color c) {
 		color = c;
 
+	}
+
+	@Override
+	public String toString() {
+		return nom;
+	}
+
+	public void setDecalageX(double i) {
+		this.decalageX = i;
+	}
+
+	public void setDecalageY(double i) {
+		this.decalageY = i;
+	}
+
+	public double getDecalageX() {
+		// TODO Auto-generated method stub
+		return decalageX;
+	}
+
+	public double getDecalageY() {
+		// TODO Auto-generated method stub
+		return decalageY;
+	}
+
+	public double centreZ() {
+		double d = 0;
+		for (Face f : faces) {
+			d += f.centreZ();
+		}
+
+		return d / faces.size();
+	}
+
+	public double maxZ() {
+		double max = faces.get(0).centreZ();
+		for (Face f : faces) {
+			if (max < faces.get(0).centreZ()) {
+				max = faces.get(0).centreZ();
+			}
+		}
+		return max;
 	}
 
 }

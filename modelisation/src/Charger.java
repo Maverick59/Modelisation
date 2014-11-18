@@ -45,7 +45,8 @@ public class Charger {
 						.get(Integer.parseInt(ligne.split(" ")[2]) - 1)));
 			}
 
-			return new Model3D(points, segments, faces);
+			return new Model3D(points, segments, faces, fichier.replaceAll(
+					".gts", ""));
 		} catch (Exception e) {
 			System.out.println("bug");
 			e.printStackTrace();
