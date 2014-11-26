@@ -12,6 +12,9 @@ public class Model3D {
 	ArrayList<Face> faces;
 	private double decalageY = 0;
 	private double decalageX = 0;
+	private double rotationH = 0;
+	private double rotationV = 0;
+	private double zoom = 1;
 	private Color color = Color.BLACK;
 	private String nom;
 
@@ -24,7 +27,9 @@ public class Model3D {
 	}
 
 	public Model3D() {
-
+		this.points = new ArrayList<Point>();
+		this.segments = new ArrayList<Segment>();
+		this.faces = new ArrayList<Face>();
 	}
 
 	public void afficherSegments(Graphics g) {
@@ -105,12 +110,14 @@ public class Model3D {
 	}
 
 	public void zoom(double i) {
+		zoom *= i;
 		for (Point p : points) {
 			p.zoom(i);
 		}
 	}
 
 	public void pivoH(double i) {
+		this.setRotationH(this.getRotationH() + i);
 		double tmpx;
 		double tmpz;
 		for (Point p : points) {
@@ -125,6 +132,7 @@ public class Model3D {
 	}
 
 	public void pivoV(double i) {
+		this.setRotationV(this.getRotationV() + i);
 		double tmpy;
 		double tmpz;
 		for (Point p : points) {
@@ -135,7 +143,6 @@ public class Model3D {
 			p.z = Math.sin(i) * tmpy + Math.cos(i) * tmpz;
 
 		}
-
 	}
 
 	public void deplacementV(int i) {
@@ -193,4 +200,37 @@ public class Model3D {
 		return max;
 	}
 
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public double getRotationH() {
+		return rotationH;
+	}
+
+	public void setRotationH(double rotationH) {
+		this.rotationH = rotationH % (Math.PI * 2);
+		if (this.rotationH < 0) {
+			this.rotationH += (Math.PI * 2);
+		}
+	}
+
+	public double getRotationV() {
+		return rotationV;
+	}
+
+	public void setRotationV(double rotationV) {
+		this.rotationV = rotationV % (Math.PI * 2);
+		if (this.rotationV < 0) {
+			this.rotationV += (Math.PI * 2);
+		}
+	}
+
+	public double getZoom() {
+		return zoom;
+	}
 }

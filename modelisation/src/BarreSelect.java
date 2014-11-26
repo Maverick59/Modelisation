@@ -39,10 +39,8 @@ public class BarreSelect extends JPanel {
 		this.setBounds(e.getWidth(), 0, e.getWidth() / 5 + 20, e.getHeight());
 		this.setLocation(e.getWidth(), 0);
 		scroll.getVerticalScrollBar().setUnitIncrement(5);
-		scroll.setPreferredSize(new Dimension(e.getWidth() / 5 + 20, e
-				.getHeight()));
-		scroll.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED,
-				Color.black, Color.gray));
+		scroll.setPreferredSize(new Dimension(e.getWidth() / 5 + 20, e.getHeight()));
+		scroll.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.black, Color.gray));
 
 		bouton = new JButton(new ImageIcon("fleche.png"));
 		bouton.setFocusable(false);
@@ -79,8 +77,7 @@ public class BarreSelect extends JPanel {
 			public void valueChanged(ListSelectionEvent ex) {
 				e.getUserListener().getModelSelect().clear();
 				for (int i = 0; i < listModels.getSelectedValues().length; i++) {
-					e.getUserListener().getModelSelect()
-							.add((Model3D) listModels.getSelectedValues()[i]);
+					e.getUserListener().getModelSelect().add((Model3D) listModels.getSelectedValues()[i]);
 				}
 				e.getUserListener().refreshModelSelect();
 			}
@@ -89,12 +86,18 @@ public class BarreSelect extends JPanel {
 	}
 
 	public void repositionnerBouton() {
-		bouton.setBounds(this.getX() - bouton.getIcon().getIconWidth(),
-				this.getHeight() / 2 - 40, 80, 80);
+		bouton.setBounds(this.getX() - bouton.getIcon().getIconWidth(), this.getHeight() / 2 - 40, 80, 80);
 	}
 
 	public void add(Model3D m) {
 		models.addElement(m);
+	}
+
+	public void addAll(ArrayList<Model3D> l) {
+		models.clear();
+		for (Model3D m : l) {
+			models.addElement(m);
+		}
 	}
 
 	public void removeAll(ArrayList<Model3D> l) {
@@ -105,15 +108,13 @@ public class BarreSelect extends JPanel {
 
 	public void refresh() {
 
-		scroll.setPreferredSize(new Dimension(e.getWidth() / 5 + 20, e
-				.getHeight()));
 		if (ouvert) {
-			this.setBounds(e.getWidth() - e.getWidth() / 5, 0,
-					e.getWidth() / 5 + 20, e.getHeight());
+			this.setBounds(e.getWidth() - e.getWidth() / 5, 0, e.getWidth() / 5 + 20, e.getHeight());
 		} else {
-			this.setBounds(e.getWidth(), 0, e.getWidth() / 5 + 20,
-					e.getHeight());
+			this.setBounds(e.getWidth(), 0, e.getWidth() / 5 + 20, e.getHeight());
 		}
+		scroll.setPreferredSize(new Dimension(e.getWidth() / 5 + 20, e.getHeight()));
+
 		this.repositionnerBouton();
 	}
 
@@ -123,6 +124,10 @@ public class BarreSelect extends JPanel {
 
 	public boolean isOuvert() {
 		return ouvert;
+	}
+
+	public void clear() {
+		models.clear();
 	}
 
 }

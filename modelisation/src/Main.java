@@ -17,7 +17,6 @@ public class Main extends JFrame implements ComponentListener {
 	}
 
 	public Main() {
-
 		e = new Ecran(this);
 		this.setTitle("Modelisation");
 		this.setResizable(true);
@@ -42,6 +41,7 @@ public class Main extends JFrame implements ComponentListener {
 	public void componentResized(ComponentEvent arg0) {
 		e.getBarreAjout().refresh();
 		e.getBarreSelect().refresh();
+		e.validate();
 	}
 
 	@Override

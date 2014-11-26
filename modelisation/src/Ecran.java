@@ -15,7 +15,7 @@ public class Ecran extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final ArrayList<Model3D> models = new ArrayList<Model3D>();
+	private ArrayList<Model3D> models = new ArrayList<Model3D>();
 	private int affichage;
 	private final ArrayList<Point> lumiere = new ArrayList<Point>();
 	private BarreAjout barreAjout;
@@ -92,6 +92,12 @@ public class Ecran extends JPanel {
 
 	public ArrayList<Model3D> getModels() {
 		return models;
+	}
+
+	public void setModels(ArrayList<Model3D> models) {
+		this.models = models;
+		System.out.println(models.get(0).points.get(0).x);
+		this.repaint();
 	}
 
 	public BarreAjout getBarreAjout() {

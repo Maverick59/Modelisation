@@ -34,31 +34,23 @@ public class BarreAjout extends JPanel {
 		chooser.setFileFilter(filter);
 		int returnVal = chooser.showOpenDialog(e);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			System.out.println("You chose to open this file: " + chooser.getSelectedFile().getName());
 			PanneauModel panneau = new PanneauModel(chooser.getSelectedFile().getName(), e);
 			models.add(panneau);
 			jp.add(panneau);
-			this.refresh2();
 			this.refresh();
-			panneau.refresh();
-			panneau.repaint();
-			panneau.refresh();
-			jp.repaint();
-			scroll.repaint();
-			System.out.println("ss");
-			e.getBarreSelect().refresh();
+			scroll.validate();
 		}
 	}
 
 	private void init() {
-		/*
-		 * models.add(new PanneauModel("x_wing.gts", e)); models.add(new
-		 * PanneauModel("tie.gts", e)); models.add(new
-		 * PanneauModel("space_station.gts", e)); models.add(new
-		 * PanneauModel("space_shuttle.gts", e)); models.add(new
-		 * PanneauModel("horse.gts", e)); models.add(new
-		 * PanneauModel("bunny.gts", e));
-		 */
+
+		models.add(new PanneauModel("x_wing.gts", e));
+		models.add(new PanneauModel("tie.gts", e));
+		models.add(new PanneauModel("space_station.gts", e));
+		models.add(new PanneauModel("space_shuttle.gts", e));
+		models.add(new PanneauModel("horse.gts", e));
+		models.add(new PanneauModel("bunny.gts", e));
+
 		for (PanneauModel p : models) {
 			jp.add(p);
 		}
@@ -67,11 +59,12 @@ public class BarreAjout extends JPanel {
 		this.setBounds(0, 0, e.getWidth() / 5 + 20, e.getHeight());
 		this.setLocation(0, 0);
 		jp.setPreferredSize(new Dimension(e.getWidth() / 5, 50 * e.getWidth() / 5));
-		scroll.getVerticalScrollBar().setUnitIncrement(5);
+		scroll.getVerticalScrollBar().setUnitIncrement(20);
 		scroll.setPreferredSize(new Dimension(e.getWidth() / 5 + 20, e.getHeight()));
 		jp.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.black, Color.gray));
 
 		choix = new JButton();
+		choix.setFocusable(false);
 		choix.addActionListener(new ActionListener() {
 
 			@Override
@@ -113,9 +106,8 @@ public class BarreAjout extends JPanel {
 	}
 
 	public void refresh() {
-		System.out.println("yolo");
 		if (ouvert) {
-			this.setBounds(-e.getWidth() / 5 + 20, 0, e.getWidth() / 5 + 25, e.getHeight());
+			this.setBounds(-e.getWidth() / 5 - 25, 0, e.getWidth() / 5 + 25, e.getHeight());
 		} else {
 			this.setBounds(0, 0, e.getWidth() / 5 + 25, e.getHeight());
 		}
@@ -125,25 +117,8 @@ public class BarreAjout extends JPanel {
 		for (PanneauModel pm : models) {
 			pm.refresh();
 		}
-	}
 
-	// /////////////////
-	public void refresh2() {
-		System.out.println("yolo");
-		if (ouvert) {
-			this.setBounds(-e.getWidth() / 5, 0, e.getWidth() / 5, e.getHeight());
-		} else {
-			this.setBounds(0, 0, e.getWidth() / 5 + 25, e.getHeight());
-		}
-		this.repositionnerBouton();
-		jp.setPreferredSize(new Dimension(e.getWidth() / 5, (e.getWidth()) * models.size() / 5));
-		scroll.setPreferredSize(new Dimension(e.getWidth() / 5, e.getHeight()));
-		for (PanneauModel pm : models) {
-			pm.refresh();
-		}
 	}
-
-	// ////////////////
 
 	public void switchposition() {
 		this.ouvert = !this.ouvert;

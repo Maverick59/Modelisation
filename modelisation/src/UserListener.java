@@ -7,14 +7,16 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.util.ArrayList;
 
-public class UserListener implements MouseWheelListener, MouseMotionListener,
-		MouseListener, KeyListener {
+public class UserListener implements MouseWheelListener, MouseMotionListener, MouseListener, KeyListener {
 
 	private final Ecran ecran;
 	private int x = 0;
 	private int y = 0;
+	private boolean wheeluse = false;
 	private int bouton;
 	private final ArrayList<Model3D> modelSelect = new ArrayList<Model3D>();
+	private final UndoRedo<ArrayList<SaveModel3D>> undoRedo = new UndoRedo<ArrayList<SaveModel3D>>();
+	private boolean control = false;
 
 	public UserListener(Ecran ecran) {
 		this.ecran = ecran;
@@ -22,6 +24,14 @@ public class UserListener implements MouseWheelListener, MouseMotionListener,
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
+		if (!wheeluse) {
+			ArrayList<SaveModel3D> savemodels = new ArrayList<SaveModel3D>();
+			for (Model3D m : ecran.getModels()) {
+				savemodels.add(new SaveModel3D(m));
+			}
+			undoRedo.ajouteZ(savemodels);
+		}
+		wheeluse = true;
 		for (Model3D m : modelSelect) {
 			if (e.getWheelRotation() > 0) {
 				m.zoom(1.1);
@@ -78,33 +88,60 @@ public class UserListener implements MouseWheelListener, MouseMotionListener,
 	@Override
 	public void mousePressed(MouseEvent e) {
 		bouton = e.getButton();
-
+		wheeluse = false;
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
+		ArrayList<SaveModel3D> savemodels = new ArrayList<SaveModel3D>();
+		for (Model3D m : ecran.getModels()) {
+			savemodels.add(new SaveModel3D(m));
+		}
+		undoRedo.ajouteZ(savemodels);
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_DELETE && !modelSelect.isEmpty()) {
+		int key = e.getKeyCode();
+		if (key == KeyEvent.VK_DELETE && !modelSelect.isEmpty()) {
+			System.out.println("c");
 			ecran.getModels().removeAll(modelSelect);
 			ecran.getBarreSelect().removeAll(modelSelect);
 			modelSelect.clear();
-			ecran.repaint();
+		} else if (key == KeyEvent.VK_CONTROL) {
+			control = true;
+		} else if (control && key == KeyEvent.VK_Z) {
+			if (undoRedo.retourZ()) {
+				ecran.getModels().clear();
+				ecran.getBarreSelect().clear();
+				for (SaveModel3D sm : undoRedo.retourArriere()) {
+					ecran.getModels().add(sm.getModel());
+					ecran.getBarreSelect().add(sm.getModel());
+				}
+			}
+		} else if (control && key == KeyEvent.VK_Y) {
+			if (undoRedo.retourY()) {
+				ecran.getModels().clear();
+				ecran.getBarreSelect().clear();
+				for (SaveModel3D sm : undoRedo.retourAvant()) {
+					ecran.getModels().add(sm.getModel());
+					ecran.getBarreSelect().add(sm.getModel());
+				}
+			}
+		}
+		ecran.repaint();
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		int key = e.getKeyCode();
+		if (key == KeyEvent.VK_CONTROL) {
+			control = false;
 		}
 	}
 
 	@Override
-	public void keyReleased(KeyEvent arg0) {
-
-	}
-
-	@Override
 	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 

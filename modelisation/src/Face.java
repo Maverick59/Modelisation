@@ -22,6 +22,12 @@ public class Face {
 		}
 	}
 
+	public Face(Point p1, Point p2, Point p3) {
+		this.p1 = p1;
+		this.p2 = p2;
+		this.p3 = p3;
+	}
+
 	public double centreX() {
 		return (p1.x + p2.x + p3.x) / 3;
 	}
@@ -36,10 +42,8 @@ public class Face {
 
 	public Polygon getTriangle(int decX, int decY) {
 
-		int[] coordx = new int[] { (int) p1.x + decX, (int) p2.x + decX,
-				(int) p3.x + decX };
-		int[] coordy = new int[] { (int) p1.y + decY, (int) p2.y + decY,
-				(int) p3.y + decY };
+		int[] coordx = new int[] { (int) p1.x + decX, (int) p2.x + decX, (int) p3.x + decX };
+		int[] coordy = new int[] { (int) p1.y + decY, (int) p2.y + decY, (int) p3.y + decY };
 
 		return new Polygon(coordx, coordy, 3);
 	}

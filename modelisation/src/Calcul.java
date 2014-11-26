@@ -111,6 +111,8 @@ public class Calcul {
 	}
 
 	public static void zoom(Model3D m, double d, int w, int h) {
+		if (h < 6 || w < 6)
+			return;
 		m.setDecalageX(w / 2);
 		m.setDecalageY(h / 2);
 		double smlX = w, hgX = 0, smlY = h, hgY = 0;
@@ -133,6 +135,30 @@ public class Calcul {
 		} else {
 			m.zoom((h / sizeY) * d);
 		}
+	}
+
+	public static ArrayList<Model3D> clone(ArrayList<Model3D> l) {
+		ArrayList<Model3D> models = new ArrayList<Model3D>();
+		Model3D model;
+		for (Model3D m : l) {
+			model = new Model3D();
+			for (Face f : m.faces) {
+				model.faces.add(new Face(new Point(f.p1.x, f.p1.y, f.p1.z), new Point(f.p2.x, f.p2.y, f.p2.z), new Point(f.p3.x, f.p3.y, f.p3.z)));
+			}
+			for (Segment s : m.segments) {
+				model.segments.add(new Segment(new Point(s.p1.x, s.p1.y, s.p1.z), new Point(s.p2.x, s.p2.y, s.p2.z)));
+			}
+			for (Point p : m.points) {
+				model.points.add(new Point(p.x, p.y, p.z));
+			}
+			model.setDecalageX(m.getDecalageX());
+			model.setDecalageY(m.getDecalageY());
+			model.setNom(m.getNom());
+			models.add(model);
+
+		}
+
+		return models;
 	}
 
 }
