@@ -33,10 +33,8 @@ public class GestionBDD {
                 	query="select chemin from modeles";
                 }
         		ResultSet rs = stmt.executeQuery(query);
-        		int i=0;
         		while(rs.next()){
         			res.add(rs.getString("chemin"));
-        			i++;
                 }
         	}catch(Exception e){
                 System.out.println("Erreur "+e);
