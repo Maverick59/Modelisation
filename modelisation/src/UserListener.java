@@ -47,11 +47,11 @@ public class UserListener implements MouseWheelListener, MouseMotionListener, Mo
 		int h = x - e.getX();
 		int v = y - e.getY();
 		for (Model3D m : modelSelect) {
-			if (bouton == e.BUTTON1) {
+			if (bouton == MouseEvent.BUTTON1) {
 				m.pivoH(h / 360.0);
 				m.pivoV(v / 360.0);
 
-			} else if (bouton == e.BUTTON3) {
+			} else if (bouton == MouseEvent.BUTTON3) {
 				m.deplacementH(h);
 				m.deplacementV(v);
 			}

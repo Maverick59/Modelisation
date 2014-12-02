@@ -17,8 +17,6 @@ public class UndoRedo<E> {
 	}
 
 	public void ajouteY(E e) {
-		E l;
-		l = e;
 		if (controleY.size() > 9)
 			controleY.remove(0);
 

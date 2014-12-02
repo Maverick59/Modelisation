@@ -24,7 +24,7 @@ public class ThreadBarreAjout extends Thread {
 					ecran.getBarreAjout().getY());
 			ecran.getBarreAjout().repositionnerBouton();
 			try {
-				this.sleep(10);
+				Thread.sleep(10);
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
@@ -42,7 +42,7 @@ public class ThreadBarreAjout extends Thread {
 					ecran.getBarreAjout().getY());
 			ecran.getBarreAjout().repositionnerBouton();
 			try {
-				this.sleep(10);
+				Thread.sleep(10);
 			} catch (Exception e) {
 				// TODO: handle exception
 			}

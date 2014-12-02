@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -13,9 +14,9 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EtchedBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+@SuppressWarnings("serial")
 public class BarreAjout extends JPanel {
-
-	private final Ecran e;
+	private Ecran e;
 	private JButton bouton = new JButton();
 	private JScrollPane scroll;
 	private JButton choix;
@@ -24,36 +25,51 @@ public class BarreAjout extends JPanel {
 	private boolean ouvert = false;
 
 	public BarreAjout(Ecran e) {
+
 		this.e = e;
 		init();
 	}
 
+	
+	/*
 	public void choisir() {
 		JFileChooser chooser = new JFileChooser();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("GTS file", "gts");
 		chooser.setFileFilter(filter);
 		int returnVal = chooser.showOpenDialog(e);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			PanneauModel panneau = new PanneauModel(chooser.getSelectedFile().getName(), e);
+			PanneauModel panneau = new PanneauModel(chooser.getSelectedFile().getName(), main);
 			models.add(panneau);
 			jp.add(panneau);
 			this.refresh();
 			scroll.validate();
 		}
 	}
+	*/
 
 	private void init() {
-
-		models.add(new PanneauModel("x_wing.gts", e));
-		models.add(new PanneauModel("tie.gts", e));
-		models.add(new PanneauModel("space_station.gts", e));
-		models.add(new PanneauModel("space_shuttle.gts", e));
+		/*
+		models.add(new PanneauModel("Altair.gts", e));
+		models.add(new PanneauModel("cloud.gts", e));
+		models.add(new PanneauModel("panda.gts", e));
+		models.add(new PanneauModel("snowman.gts", e));
 		models.add(new PanneauModel("horse.gts", e));
 		models.add(new PanneauModel("bunny.gts", e));
+		models.add(new PanneauModel("StormTrooper.gts", e));
+		*/
+		
+		File folder = new File("model");
+		File[] listOfFiles = folder.listFiles();
 
+		for (File file : listOfFiles) {
+		    if (file.isFile()) {
+				models.add(new PanneauModel(file.getName(), e));
+		    }
+		}
 		for (PanneauModel p : models) {
 			jp.add(p);
 		}
+		
 		scroll = new JScrollPane(jp);
 		this.add(scroll);
 		this.setBounds(0, 0, e.getWidth() / 5 + 20, e.getHeight());
@@ -63,13 +79,14 @@ public class BarreAjout extends JPanel {
 		scroll.setPreferredSize(new Dimension(e.getWidth() / 5 + 20, e.getHeight()));
 		jp.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.black, Color.gray));
 
+
 		choix = new JButton();
 		choix.setFocusable(false);
 		choix.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				choisir();
+			
 
 			}
 		});
@@ -91,6 +108,8 @@ public class BarreAjout extends JPanel {
 		});
 		repositionnerBouton();
 
+
+		
 		e.setLayout(null);
 		e.add(this);
 		e.add(bouton);

@@ -1,4 +1,4 @@
-import java.awt.Color;
+
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -7,13 +7,13 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Ecran extends JPanel {
 
-	/**
-	 * 
-	 */
+	
+	private	 Main main;
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Model3D> models = new ArrayList<Model3D>();
 	private int affichage;
@@ -22,15 +22,19 @@ public class Ecran extends JPanel {
 	private BarreSelect barreSelect;
 	private final UserListener userListener;
 	private Image background;
+	
+	private JLabel infoModel;
 
-	public Ecran(Main f) {
+	public Ecran(Main main) {
+		this.main = main;
+		infoModel = new JLabel("");
 
 		this.setSize(new Dimension(1000, 750));
 		userListener = new UserListener(this);
 		this.addMouseWheelListener(userListener);
 		this.addMouseMotionListener(userListener);
 		this.addMouseListener(userListener);
-		f.addKeyListener(userListener);
+		main.addKeyListener(userListener);
 		this.repaint();
 		init();
 	}
@@ -41,7 +45,7 @@ public class Ecran extends JPanel {
 		affichage = 2;
 		lumiere.add(new Point(2, 0, 1));
 		background = new ImageIcon("fond.jpg").getImage();
-
+		this.add(infoModel);
 	}
 
 	public void trifigure() {
@@ -65,7 +69,6 @@ public class Ecran extends JPanel {
 
 	}
 
-	// @SuppressWarnings("unused")
 	@Override
 	public void paintComponent(Graphics g) {
 
@@ -85,9 +88,6 @@ public class Ecran extends JPanel {
 				m.afficher(g, lumiere);
 			}
 		}
-		g.setColor(Color.BLACK);
-		g.drawLine(600, 600, (int) lumiere.get(0).x + 600, (int) lumiere.get(0).y + 600);
-
 	}
 
 	public ArrayList<Model3D> getModels() {

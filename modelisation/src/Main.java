@@ -5,9 +5,6 @@ import javax.swing.JFrame;
 
 public class Main extends JFrame implements ComponentListener {
 
-	/**
-	 * 
-	 */
 	private final Ecran e;
 
 	public static void main(String[] args) {

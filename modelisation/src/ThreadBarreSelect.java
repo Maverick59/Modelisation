@@ -25,7 +25,7 @@ public class ThreadBarreSelect extends Thread {
 					ecran.getBarreSelect().getY());
 			ecran.getBarreSelect().repositionnerBouton();
 			try {
-				this.sleep(10);
+				Thread.sleep(10);
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
@@ -43,7 +43,7 @@ public class ThreadBarreSelect extends Thread {
 					ecran.getBarreSelect().getY());
 			ecran.getBarreSelect().repositionnerBouton();
 			try {
-				this.sleep(10);
+				Thread.sleep(10);
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
