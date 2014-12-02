@@ -1,8 +1,5 @@
 Projet de Modélisation -  DUT Informatique S3 IUT A lille1
 
-IMPORTANT :
-  Le dossier à utiliser pour être compatible avec eclispe lors des commit+push est le dossier sans numéro.
-
 Utiliser le repository :
 Installer EGit
 
@@ -18,7 +15,7 @@ Eclipse Git Team Provider Source code, Task ... et JGit doivent rester décoché
 
 Laisser les box du bas dans l'état ou elles sont (Normalement une décochée, le reste cochée), puis cliquer sur next.
 
-Suivez les instructions pour installer, jusqu'à ce que Eclipse demande de redemarrer (obéisse lui !).
+Suivez les instructions pour installer, jusqu'à ce que Eclipse demande de redemarrer (obéissez lui !).
 
 Configurer EGit
 
@@ -30,7 +27,9 @@ Git => Configuration Cliquer sur "Add Entry"
 
 Clé : user.name / Value.Name : Ton Nom (Exemple : Cuvillier Alexandre) Puis encore une fois
 
-Clé : user.email / Value/Name : Ton email (Exemple : alexandre.cuvillier59@gmail.com) La dernière étape étant d'activer la toolbar :
+Clé : user.email / Value/Name : Ton email (Exemple : alexandre.cuvillier59@gmail.com) 
+
+La dernière étape étant d'activer la toolbar :
 
 Window => Customize perspective Et dans les command groups, ajouter Git et Git Navigation Actions.
 
@@ -46,23 +45,23 @@ Url Dans URL : L'url du dépôt, dispo sur Git Hub Host : Laisser par défaut (g
 
 Laisser tout cocher sur la page "Import projects from git, puis next.
 
-Encore un next. !)
+Encore un next.
 
 Use project (ou du style, 1ère option en haut ! Qui permet de récuperer le projet déjà présent sur github) Puis Finish.
 
-Le projet projet est maintenant prêt à être utilisé avec Git !
+Le projet est maintenant prêt à être utilisé avec Git !
 
 Utiliser le dépôt
 
 A chaque fois que vous lancerez le projet (donc avant de commencer à coder) :
 
-Git => Pull (dans la toolbar) Ensuite, une fois que les changements effectués en codant vous conviennent, ou qu'une nouvelle classe a été crée, sauvegarder comme d'habitude, puis :
+Git => Pull (dans la toolbar) pour recupere la dernière version mise en ligne (OBLIGATOIRE!!!) 
 
-Git => Commit Entrer dans la description vos actions effectuées (en anglais please), de manière concise et claire. Puis selectionnez les fichiers à envoyer en bas. (Normalement tous ceux proposés). Vérifiez que l'auteur et le committer soient bien renseignés, et cliquez sur Commit.
+Ensuite, une fois que les changements effectués en codant vous conviennent, ou qu'une nouvelle classe a été crée, sauvegarder comme d'habitude, puis :
 
-Enfin, avant de quitter Eclipse, il suffira d'utiliser
+Git => Commit Entrer dans la description vos actions effectuées, de manière concise et claire. Puis selectionnez les fichiers à envoyer en bas. (Normalement tous ceux proposés). Vérifiez que l'auteur et le committer soient bien renseignés, et cliquez sur Commit and push.
 
-Git => Push to upstream Pour envoyer votre travail dans le dépôt, et que les autres puissent le récuperer avec un pull !
+Voilà, le commit a été créé et les changements sont en lign,e, les autres pourront le récupérer.
 
 Pourquoi utiliser Git ?
 
