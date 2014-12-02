@@ -66,3 +66,10 @@ Voilà, le commit a été créé et les changements sont en lign,e, les autres p
 Pourquoi utiliser Git ?
 
 D'une part, comme dans google drive, cela permet de partager facilement le code entre nous. De plus, Git offre en arrière un gestionnaire de version, permettant de récuperer un ancien fichier, de vérifier qui à modifier quoi (à la ligne de code prêt), et ainsi de mieux gérer un projet avec de nombreuses versions !
+
+Concernant la BDD avec sqlite3:
+
+pour que votre programme puisse utiliser la BDD, il vous faut faire la manip suivante sous eclipse: 
+
+si ce n'est pas déjà fait, mettre l'archive sqlite-jdbc-3.8.7.jar dans votre dossier du projet, il apparaitra sous eclipse.
+clic droit sur l'archive, build path, configure build path, libraries, add external jar, ajouter l'archive, retournez dans l'onglet order of export, cochez le fichier concernant l'archive puis validez tout. 
