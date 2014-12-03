@@ -5,7 +5,7 @@ public class GestionBDD {
        
         public static void main(String[] args){
         	System.out.println("\n");
-        	System.out.println(rechercheGTS("empire").toString());
+        	System.out.println(rechercheGTS("emp v").toString());
         	System.out.println(recherchePNG("/pif").toString());
         }
        
@@ -21,14 +21,14 @@ public class GestionBDD {
         		Statement stmt=con.createStatement();
         		String query;
         		if(hashtags.length()!=0){
-        			query = "select chemin from modeles where nom in(select nom from correspondances where tag in(";
+        			query = "select chemin from modeles where nom in(select nom from correspondances where tag like ";
         			for(int i=0; i<s.length; i++){
-        				query+="\""+s[i]+"\"";
+        				query+="'%"+s[i]+"%'";
         				if(i<=s.length-2){
-        					query+=", ";
+        					query+=" or tag like ";
                 		}
                 	}	
-        			query+="))";
+        			query+=")";
                 }else{
                 	query="select chemin from modeles";
                 }
