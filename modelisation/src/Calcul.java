@@ -161,4 +161,24 @@ public class Calcul {
 		return models;
 	}
 
+	public static double minZ(Model3D m) {
+		double min = m.points.get(0).z;
+		for (Point p : m.points) {
+			if (p.z < min) {
+				min = p.z;
+			}
+		}
+		return min;
+	}
+
+	public static double maxZ(Model3D m) {
+		double max = m.points.get(0).z;
+		for (Point p : m.points) {
+			if (p.z > max) {
+				max = p.z;
+			}
+		}
+		return max;
+	}
+
 }

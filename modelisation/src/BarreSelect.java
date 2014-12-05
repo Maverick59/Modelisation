@@ -76,6 +76,7 @@ public class BarreSelect extends JPanel {
 
 			@Override
 			public void valueChanged(ListSelectionEvent ex) {
+				e.getFrame().requestFocus();
 				e.getUserListener().getModelSelect().clear();
 				for (int i = 0; i < listModels.getSelectedValues().length; i++) {
 					e.getUserListener().getModelSelect().add((Model3D) listModels.getSelectedValues()[i]);

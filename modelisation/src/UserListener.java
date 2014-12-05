@@ -24,19 +24,30 @@ public class UserListener implements MouseWheelListener, MouseMotionListener, Mo
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		if (!wheeluse) {
-			ArrayList<SaveModel3D> savemodels = new ArrayList<SaveModel3D>();
-			for (Model3D m : ecran.getModels()) {
-				savemodels.add(new SaveModel3D(m));
-			}
-			undoRedo.ajouteZ(savemodels);
-		}
-		wheeluse = true;
-		for (Model3D m : modelSelect) {
+
+		if (ecran.getAffichage() > 2) {
 			if (e.getWheelRotation() > 0) {
-				m.zoom(1.1);
+				ecran.setCoupeEnZ(ecran.getCoupeEnZ() - 1);
+				System.out.println(ecran.getCoupeEnZ());
 			} else {
-				m.zoom(0.9);
+				ecran.setCoupeEnZ(ecran.getCoupeEnZ() + 1);
+			}
+
+		} else {
+			if (!wheeluse) {
+				ArrayList<SaveModel3D> savemodels = new ArrayList<SaveModel3D>();
+				for (Model3D m : ecran.getModels()) {
+					savemodels.add(new SaveModel3D(m));
+				}
+				undoRedo.ajouteZ(savemodels);
+			}
+			wheeluse = true;
+			for (Model3D m : modelSelect) {
+				if (e.getWheelRotation() > 0) {
+					m.zoom(1.1);
+				} else {
+					m.zoom(0.9);
+				}
 			}
 		}
 		ecran.repaint();
@@ -87,6 +98,7 @@ public class UserListener implements MouseWheelListener, MouseMotionListener, Mo
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		ecran.getFrame().requestFocus();
 		bouton = e.getButton();
 		wheeluse = false;
 	}
@@ -104,7 +116,6 @@ public class UserListener implements MouseWheelListener, MouseMotionListener, Mo
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 		if (key == KeyEvent.VK_DELETE && !modelSelect.isEmpty()) {
-			System.out.println("c");
 			ecran.getModels().removeAll(modelSelect);
 			ecran.getBarreSelect().removeAll(modelSelect);
 			modelSelect.clear();
@@ -114,7 +125,7 @@ public class UserListener implements MouseWheelListener, MouseMotionListener, Mo
 			if (undoRedo.retourZ()) {
 				ecran.getModels().clear();
 				ecran.getBarreSelect().clear();
-				for (SaveModel3D sm : undoRedo.retourArriere()) {
+				for (SaveModel3D sm : undoRedo.retourArrière()) {
 					ecran.getModels().add(sm.getModel());
 					ecran.getBarreSelect().add(sm.getModel());
 				}

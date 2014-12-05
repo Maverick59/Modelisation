@@ -20,14 +20,14 @@ public class PanneauModel extends JPanel implements MouseListener {
 
 	public PanneauModel(String m, Ecran e) {
 		ModelToPNG modelPng = new ModelToPNG(m);
-		modelPng.getScreenShot();
+		String img = modelPng.getScreenShot();
 		this.m = m;
 		this.e = e;
 		this.addMouseListener(this);
 		this.refresh();
 		imgX = e.getWidth() / 5;
 		imgY = imgX;
-		image = new ImageIcon("./img/" + m.replaceAll(".gts", "") + ".png").getImage();
+		image = new ImageIcon(img).getImage();
 	}
 
 	@Override
@@ -54,8 +54,7 @@ public class PanneauModel extends JPanel implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
+		e.getFrame().requestFocus();
 	}
 
 	@Override

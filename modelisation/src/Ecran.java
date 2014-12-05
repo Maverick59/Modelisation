@@ -1,4 +1,3 @@
-
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -12,8 +11,7 @@ import javax.swing.JPanel;
 
 public class Ecran extends JPanel {
 
-	
-	private	 Main main;
+	private final Main main;
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Model3D> models = new ArrayList<Model3D>();
 	private int affichage;
@@ -22,14 +20,17 @@ public class Ecran extends JPanel {
 	private BarreSelect barreSelect;
 	private final UserListener userListener;
 	private Image background;
-	
-	private JLabel infoModel;
 
-	public Ecran(Main main) {
-		this.main = main;
+	private final JLabel infoModel;
+	private int CoupeEnZ = -100;
+
+	public Ecran(Main f) {
+
+		this.setPreferredSize(new Dimension(f.getWidth(), f.getHeight()));
+
+		this.main = f;
 		infoModel = new JLabel("");
 
-		this.setSize(new Dimension(1000, 750));
 		userListener = new UserListener(this);
 		this.addMouseWheelListener(userListener);
 		this.addMouseMotionListener(userListener);
@@ -42,8 +43,9 @@ public class Ecran extends JPanel {
 	private void init() {
 		barreAjout = new BarreAjout(this);
 		barreSelect = new BarreSelect(this);
-		affichage = 2;
-		lumiere.add(new Point(2, 0, 1));
+
+		affichage = 3;
+		lumiere.add(new Point(0, 0, 1));
 		background = new ImageIcon("fond.jpg").getImage();
 		this.add(infoModel);
 	}
@@ -82,10 +84,15 @@ public class Ecran extends JPanel {
 			for (Model3D m : models) {
 				m.afficherFaces(g);
 			}
-		} else {
+		} else if (affichage == 2) {
 			trifigure();
 			for (Model3D m : models) {
 				m.afficher(g, lumiere);
+			}
+		} else {
+			for (Model3D m : models) {
+				m.afficherSegments(g, Coupe.tranche(m, CoupeEnZ));
+
 			}
 		}
 	}
@@ -96,7 +103,6 @@ public class Ecran extends JPanel {
 
 	public void setModels(ArrayList<Model3D> models) {
 		this.models = models;
-		System.out.println(models.get(0).points.get(0).x);
 		this.repaint();
 	}
 
@@ -110,6 +116,26 @@ public class Ecran extends JPanel {
 
 	public UserListener getUserListener() {
 		return userListener;
+	}
+
+	public Main getFrame() {
+		return main;
+	}
+
+	public int getAffichage() {
+		return affichage;
+	}
+
+	public void setAffichage(int affichage) {
+		this.affichage = affichage;
+	}
+
+	public int getCoupeEnZ() {
+		return CoupeEnZ;
+	}
+
+	public void setCoupeEnZ(int coupeEnZ) {
+		CoupeEnZ = coupeEnZ;
 	}
 
 }

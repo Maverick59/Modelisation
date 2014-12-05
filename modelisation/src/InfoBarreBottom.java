@@ -1,20 +1,29 @@
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class InfoBarreBottom extends JPanel {
 
-	String s;
-	
-    /** Creates a new instance of StatusBar */
-    public InfoBarreBottom() {
+	private final Ecran e;
 
-    }
+	public InfoBarreBottom(Ecran e) {
+		this.e = e;
+		init();
+	}
 
-    public  void setMessage(String message) {
-    
-    }        
+	private void init() {
+		this.setBounds(0, 0, e.getWidth(), e.getHeight() / 5);
+		this.setPreferredSize(new Dimension(e.getWidth(), e.getHeight() / 5));
+		
+		
+		this.repaint();
+	}
+
+	@Override
+	public void paintComponent(Graphics g) {
+		g.setColor(Color.gray);
+		g.fillRect(0, 0, e.getWidth(), e.getHeight());
+	}
 }
-	
-

@@ -19,9 +19,10 @@ public class Model3D {
 	private String nom;
 
 	public Model3D(ArrayList<Point> points, ArrayList<Segment> segments, ArrayList<Face> faces, String nom) {
-		int R = (int)(Math.random()*256);
-		int G = (int)(Math.random()*256);
-		int B= (int)(Math.random()*256);
+		System.out.println(nom);
+		int R = (int) (Math.random() * 256);
+		int G = (int) (Math.random() * 256);
+		int B = (int) (Math.random() * 256);
 		color = new Color(R, G, B);
 		this.points = points;
 		this.segments = segments;
@@ -39,6 +40,13 @@ public class Model3D {
 	public void afficherSegments(Graphics g) {
 		g.setColor(color);
 		for (Segment s : segments) {
+			g.drawLine((int) (s.p1.x + decalageX), (int) (s.p1.y + decalageY), (int) (s.p2.x + decalageX), (int) (s.p2.y + decalageY));
+		}
+	}
+
+	public void afficherSegments(Graphics g, ArrayList<Segment> seg) {
+		g.setColor(Color.BLACK);
+		for (Segment s : seg) {
 			g.drawLine((int) (s.p1.x + decalageX), (int) (s.p1.y + decalageY), (int) (s.p2.x + decalageX), (int) (s.p2.y + decalageY));
 		}
 	}
@@ -66,8 +74,7 @@ public class Model3D {
 			g.fillPolygon(p);
 		}
 	}
-	
-	
+
 	private Color eclairage(ArrayList<Point> lumiere, Face f) {
 		Point u = new Point(f.p1.x - f.p2.x, f.p1.y - f.p2.y, f.p1.z - f.p2.z);
 		Point v = new Point(f.p1.x - f.p3.x, f.p1.y - f.p3.y, f.p1.z - f.p3.z);
@@ -84,41 +91,8 @@ public class Model3D {
 		double ps = x * r.x + y * r.y + z * r.z;
 
 		double cos = Math.abs(ps);
-		if(cos > 1.00){
-			cos = 1.00;
-		}
-		return new Color((int)(cos*color.getRed()), (int)(cos*color.getGreen()), (int)(cos*color.getBlue()));
+		return new Color((int) (cos * color.getRed()), (int) (cos * color.getGreen()), (int) (cos * color.getBlue()));
 	}
-	
-	
-/*
-	private Color eclairage(ArrayList<Point> lumiere, Face f) {
-		Point u = new Point(f.p1.x - f.p2.x, f.p1.y - f.p2.y, f.p1.z - f.p2.z);
-		Point v = new Point(f.p1.x - f.p3.x, f.p1.y - f.p3.y, f.p1.z - f.p3.z);
-
-		double x = u.y * v.z - u.z * v.y;
-		double y = u.z * v.x - u.x * v.z;
-		double z = u.x * v.y - u.y * v.x;
-		double longueur = Math.sqrt(x * x + y * y + z * z);
-		x /= longueur;
-		y /= longueur;
-		z /= longueur;
-		Point r = lumiere.get(0);
-
-		double ps = x * r.x + y * r.y + z * r.z;
-
-		double cos = Math.abs(ps);
-		if(cos > 1.00){
-			cos = 1.00;
-		}else if(cos < 0.3){
-			cos = 0.3;
-		}
-		System.out.println(cos);
-
-		return new Color((int)(cos*color.getRed()), (int)(cos*color.getGreen()), (int)(cos*color.getBlue()));
-	}
-	
-	*/
 
 	public void tri() {
 		try {

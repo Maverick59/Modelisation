@@ -19,8 +19,10 @@ public class Main extends JFrame implements ComponentListener {
 		this.setResizable(true);
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.add(e);
 
-		this.setContentPane(e);
+		this.setJMenuBar(new MenuBarre(e));
+
 		this.setSize(1000, 750);
 		this.setLocationRelativeTo(null);
 		this.addComponentListener(this);
@@ -44,4 +46,5 @@ public class Main extends JFrame implements ComponentListener {
 	@Override
 	public void componentShown(ComponentEvent arg0) {
 	}
+
 }
