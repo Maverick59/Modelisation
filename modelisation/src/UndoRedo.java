@@ -26,7 +26,7 @@ public class UndoRedo<E> {
 		current = e;
 	}
 
-	public E retourArrière() {
+	public E retourArriere() {
 		E e = null;
 		if (!controleZ.isEmpty()) {
 			e = controleZ.pop();

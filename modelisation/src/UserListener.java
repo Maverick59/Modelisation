@@ -125,7 +125,7 @@ public class UserListener implements MouseWheelListener, MouseMotionListener, Mo
 			if (undoRedo.retourZ()) {
 				ecran.getModels().clear();
 				ecran.getBarreSelect().clear();
-				for (SaveModel3D sm : undoRedo.retourArrière()) {
+				for (SaveModel3D sm : undoRedo.retourArriere()) {
 					ecran.getModels().add(sm.getModel());
 					ecran.getBarreSelect().add(sm.getModel());
 				}
