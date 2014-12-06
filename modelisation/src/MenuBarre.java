@@ -1,10 +1,13 @@
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JColorChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
 public class MenuBarre extends JMenuBar {
@@ -169,10 +172,44 @@ public class MenuBarre extends JMenuBar {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("--Couleur de modèle--");
+				/*
+				 * change la couleur des modeles dans l'ecran (change la couleur pour chaque modele de 
+				 * l'ecran meme si non selectionne (pas dans la bdd, juste l'instance de l'objet) )
+				 * ajouter un selecteur de couleur
+				 */
 				ArrayList<Model3D> l = e.getModels();
+				//Color c = new Color(179, 103, 0);
+				Color c = new Color(174, 137, 100);
+				//Color c = new Color(167, 85, 2);
 				for(int i=0; i<l.size(); i++){
 					System.out.println(l.get(i).getNom());
-					GestionBDD.setColor(l.get(i).getNom(), "200/200/200");
+					l.get(i).setColor(c);
+				}
+				e.repaint();
+			}
+		});
+		menu.get(i).add(c);
+		
+		c = new JMenuItem("Couleur par defaut du modèle");
+		c.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("--Couleur par défaut du modèle--");
+				/*
+				 * change la couleur des modeles dans la BDD (change la couleur pour chaque modele de 
+				 * l'ecran meme si non selectionne. le faire changer à l'ecran?)
+				 * ajouter un selecteur couleur
+				 */
+				ArrayList<Model3D> l = new ArrayList<Model3D>();
+				l=e.getModels();
+				Color c2 = new Color(255,255,255);
+				int R=c2.getRed();
+				int V=c2.getGreen();
+				int B=c2.getBlue();
+				String color=R+"/"+V+"/"+B;
+				for(int i=0; i<l.size(); i++){
+					GestionBDD.setColor(l.get(i).getNom(), color);
 				}
 				e.repaint();
 			}
