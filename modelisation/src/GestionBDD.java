@@ -12,8 +12,10 @@ public class GestionBDD {
 		File file = new File("model");
 		for (File f : file.listFiles()) {
 			System.out.println(f.getPath());
-			GestionBDD.insert(f.getPath());
+			GestionBDD.insert(f.getPath());	
 		}
+		setColor("squirtle", "255/255/253");
+		insertHashTag("squirtle", "pokemon");
 	}
 
 	public static ArrayList<String> rechercheGTS(String hashtags) {
@@ -98,9 +100,11 @@ public class GestionBDD {
 			Class.forName("org.sqlite.JDBC");
 			con = DriverManager.getConnection("jdbc:sqlite:bdd_models");
 			Statement stmt = con.createStatement();
-			String query = "INSERT INTO modeles  values('" + nom + "','" + gts + "','" + png + "','', '" + model.points.size() + "','" + model.segments.size() + "','" + model.faces.size()
+			if(!stmt.executeQuery("select chemin from modeles where chemin='"+gts+"'").getString("chemin").equals(gts)){
+				String query = "INSERT INTO modeles  values('" + nom + "','" + gts + "','" + png + "','', '" + model.points.size() + "','" + model.segments.size() + "','" + model.faces.size()
 					+ "','255/255/255')";
-			ResultSet rs = stmt.executeQuery(query);
+				stmt.executeUpdate(query);
+			}
 		} catch (Exception e) {
 			System.out.println("Erreur " + e);
 		} finally {
@@ -111,4 +115,77 @@ public class GestionBDD {
 			}
 		}
 	}
+	
+	public static void insertHashTag(String nom, String hashtag){
+		Connection con = null;
+		try {
+			Class.forName("org.sqlite.JDBC");
+			con = DriverManager.getConnection("jdbc:sqlite:bdd_models");
+			Statement stmt = con.createStatement();
+			Statement stmt2 = con.createStatement();
+			Statement stmt3 = con.createStatement();
+			ResultSet rs;
+			ResultSet rs2;
+			ResultSet rs3;
+			rs=stmt.executeQuery("select nom from modeles where nom='"+nom+"'");
+			rs.next();
+			if(rs.getString("nom").equals(nom)){
+				System.out.println("1");
+				rs2=stmt2.executeQuery("select tag from hashTags where tag='"+hashtag+"'");
+				rs2.next();
+				if(rs2.getString("tag").equals(hashtag)){
+					System.out.println("3");
+					System.out.println("ce tag existe deja et ne sera donc pas créé");
+				}else{
+					System.out.println("2");
+					System.out.println("ce tag va etre créé");
+					stmt.executeUpdate("insert into hashTags values('"+hashtag+"')");
+				}
+				rs3=stmt3.executeQuery("select nom from correspondances where nom='"+nom+"' and tag='"+hashtag+"'");
+				rs3.next();
+				if(rs3.getString("nom").equals(nom)){
+					System.out.println("5");
+					System.out.println("cette correspondace existe deja");
+				}else{
+					System.out.println("4");
+					System.out.println("insertion dan la table de correspondances");
+					stmt.executeUpdate("insert into correspondances values('"+hashtag+"', '"+nom+"')");
+				}
+			}else{
+				System.out.println("6");
+				System.out.println("ce modele n'existe pas");
+			}
+		} catch (Exception e) {
+			System.out.println("Erreur " + e);
+		} finally {
+			try {
+				con.close();
+			} catch (Exception e) {
+
+			}
+		}
+	}
+	
+	public static void setColor(String nom, String color){
+		Connection con = null;
+		try {
+			Class.forName("org.sqlite.JDBC");
+			con = DriverManager.getConnection("jdbc:sqlite:bdd_models");
+			Statement stmt = con.createStatement();
+			String query = "select nom from modeles where nom=\"" + nom + "\"";
+			ResultSet rs = stmt.executeQuery(query);
+			if(rs.getString("nom").equals(nom)){
+				stmt.executeUpdate("update modeles set color='"+color+"' where nom='"+nom+"'");
+			}
+		} catch (Exception e) {
+			System.out.println("Erreur " + e);
+		} finally {
+			try {
+				con.close();
+			} catch (Exception e) {
+
+			}
+		}
+	}
+	
 }

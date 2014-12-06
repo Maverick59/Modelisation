@@ -17,6 +17,7 @@ public class UserListener implements MouseWheelListener, MouseMotionListener, Mo
 	private final ArrayList<Model3D> modelSelect = new ArrayList<Model3D>();
 	private final UndoRedo<ArrayList<SaveModel3D>> undoRedo = new UndoRedo<ArrayList<SaveModel3D>>();
 	private boolean control = false;
+	private boolean reaffichage2 = false;
 
 	public UserListener(Ecran ecran) {
 		this.ecran = ecran;
@@ -57,6 +58,16 @@ public class UserListener implements MouseWheelListener, MouseMotionListener, Mo
 	public void mouseDragged(MouseEvent e) {
 		int h = x - e.getX();
 		int v = y - e.getY();
+		if (ecran.getAffichage() == 2) {
+			int points = 0;
+			for (Model3D m : modelSelect) {
+				points += m.points.size();
+			}
+			if (points > Parametre.nbLimitePoint) {
+				ecran.setAffichage(0);
+			}
+			reaffichage2 = true;
+		}
 		for (Model3D m : modelSelect) {
 			if (bouton == MouseEvent.BUTTON1) {
 				m.pivoH(h / 360.0);
@@ -110,6 +121,11 @@ public class UserListener implements MouseWheelListener, MouseMotionListener, Mo
 			savemodels.add(new SaveModel3D(m));
 		}
 		undoRedo.ajouteZ(savemodels);
+
+		if (reaffichage2) {
+			ecran.setAffichage(2);
+		}
+		ecran.repaint();
 	}
 
 	@Override
@@ -125,7 +141,7 @@ public class UserListener implements MouseWheelListener, MouseMotionListener, Mo
 			if (undoRedo.retourZ()) {
 				ecran.getModels().clear();
 				ecran.getBarreSelect().clear();
-				for (SaveModel3D sm : undoRedo.retourArriere()) {
+				for (SaveModel3D sm : undoRedo.retourArrière()) {
 					ecran.getModels().add(sm.getModel());
 					ecran.getBarreSelect().add(sm.getModel());
 				}

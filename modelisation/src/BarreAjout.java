@@ -103,6 +103,9 @@ public class BarreAjout extends JPanel {
 		for (PanneauModel p : models) {
 			jp.add(p);
 		}
+		System.out.println(tab);
+		System.out.println(models);
+
 		this.refresh();
 	}
 
@@ -124,22 +127,21 @@ public class BarreAjout extends JPanel {
 			pm.refresh();
 			pm.validate();
 		}
-		this.validate();
-		jp.validate();
 		e.validate();
+		this.validate();
+		jp.repaint();
+
 	}
 
 	public void choisir() {
 		JFileChooser chooser = new JFileChooser(new File("model"));
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("GTS file", "gts");
 		chooser.setFileFilter(filter);
-		System.out.println(filter.toString());
 		int returnVal = chooser.showOpenDialog(e);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			// GestionBDD.insert(filter.toString());
 			ajouterModels(GestionBDD.rechercheGTS(textfield.getText()));
 			this.refresh();
-			scroll.validate();
 		}
 	}
 
