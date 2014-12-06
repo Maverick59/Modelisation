@@ -9,13 +9,13 @@ import java.util.ArrayList;
 public class GestionBDD {
 
 	public static void main(String[] args) throws IOException {
-		File file = new File("model");
+		/*File file = new File("model");
 		for (File f : file.listFiles()) {
 			System.out.println(f.getPath());
 			GestionBDD.insert(f.getPath());	
 		}
 		setColor("squirtle", "255/255/250");
-		insertHashTag("squirtle", "pokemon");
+		insertHashTag("squirtle", "pokemon");*/
 	}
 
 	public static ArrayList<String> rechercheGTS(String hashtags) {
@@ -92,15 +92,17 @@ public class GestionBDD {
 
 	public static void insert(String gts) {
 		Connection con = null;
-		String nom = gts.replace(".gts", "");
-		nom = nom.split("/")[nom.split("/").length - 1];
 		try {
+			String nom = gts.replace(".gts", "");
+			nom = nom.split("/")[nom.split("/").length - 1];
 			Model3D model = Charger.chargerModel(gts);
 			String png = "img/" + nom + ".png";
 			Class.forName("org.sqlite.JDBC");
 			con = DriverManager.getConnection("jdbc:sqlite:bdd_models");
 			Statement stmt = con.createStatement();
-			if(!stmt.executeQuery("select chemin from modeles where chemin='"+gts+"'").getString("chemin").equals(gts)){
+			ResultSet rs = stmt.executeQuery("select chemin from modeles where chemin='"+gts+"'");
+			if(rs.next()==false && !rs.getString("chemin").equals(gts)){
+				
 				String query = "INSERT INTO modeles  values('" + nom + "','" + gts + "','" + png + "','', '" + model.points.size() + "','" + model.segments.size() + "','" + model.faces.size()
 					+ "','255/255/255')";
 				stmt.executeUpdate(query);
@@ -122,37 +124,26 @@ public class GestionBDD {
 			Class.forName("org.sqlite.JDBC");
 			con = DriverManager.getConnection("jdbc:sqlite:bdd_models");
 			Statement stmt = con.createStatement();
-			Statement stmt2 = con.createStatement();
-			Statement stmt3 = con.createStatement();
 			ResultSet rs;
 			ResultSet rs2;
 			ResultSet rs3;
 			rs=stmt.executeQuery("select nom from modeles where nom='"+nom+"'");
-			rs.next();
-			if(rs.getString("nom").equals(nom)){
-				System.out.println("1");
-				rs2=stmt2.executeQuery("select tag from hashTags where tag='"+hashtag+"'");
-				rs2.next();
-				if(rs2.getString("tag").equals(hashtag)){
-					System.out.println("3");
+			if(rs.next()!=false && rs.getString("nom").equals(nom)){
+				rs2=stmt.executeQuery("select tag from hashTags where tag='"+hashtag+"'");
+				if(rs2.next()!=false && rs2.getString("tag").toString().equals(hashtag)){
 					System.out.println("ce tag existe deja et ne sera donc pas créé");
 				}else{
-					System.out.println("2");
 					System.out.println("ce tag va etre créé");
 					stmt.executeUpdate("insert into hashTags values('"+hashtag+"')");
 				}
-				rs3=stmt3.executeQuery("select nom from correspondances where nom='"+nom+"' and tag='"+hashtag+"'");
-				rs3.next();
-				if(rs3.getString("nom").equals(nom)){
-					System.out.println("5");
+				rs3=stmt.executeQuery("select nom from correspondances where nom='"+nom+"' and tag='"+hashtag+"'");
+				if(rs3.next()!=false && rs3.getString("nom").equals(nom)){
 					System.out.println("cette correspondace existe deja");
 				}else{
-					System.out.println("4");
 					System.out.println("insertion dan la table de correspondances");
 					stmt.executeUpdate("insert into correspondances values('"+hashtag+"', '"+nom+"')");
 				}
 			}else{
-				System.out.println("6");
 				System.out.println("ce modele n'existe pas");
 			}
 		} catch (Exception e) {
@@ -174,7 +165,7 @@ public class GestionBDD {
 			Statement stmt = con.createStatement();
 			String query = "select nom from modeles where nom=\"" + nom + "\"";
 			ResultSet rs = stmt.executeQuery(query);
-			if(rs.getString("nom").equals(nom)){
+			if(rs.next()!=false && rs.getString("nom").equals(nom)){
 				stmt.executeUpdate("update modeles set color='"+color+"' where nom='"+nom+"'");
 			}
 		} catch (Exception e) {
@@ -196,7 +187,7 @@ public class GestionBDD {
 			Statement stmt = con.createStatement();
 			String query = "select nom from modeles where nom=\"" + nom + "\"";
 			ResultSet rs = stmt.executeQuery(query);
-			if(rs.getString("nom").equals(nom)){
+			if(rs.next()!=false && rs.getString("nom").equals(nom)){
 				return stmt.executeQuery("select color from modeles where nom='"+nom+"'").getString("color");
 			}
 		} catch (Exception e) {
