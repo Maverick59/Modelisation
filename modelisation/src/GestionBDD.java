@@ -14,7 +14,7 @@ public class GestionBDD {
 			System.out.println(f.getPath());
 			GestionBDD.insert(f.getPath());	
 		}
-		setColor("squirtle", "255/255/253");
+		setColor("squirtle", "255/255/250");
 		insertHashTag("squirtle", "pokemon");
 	}
 
@@ -186,6 +186,29 @@ public class GestionBDD {
 
 			}
 		}
+	}
+	
+	public static String getColor(String nom){
+		Connection con = null;
+		try {
+			Class.forName("org.sqlite.JDBC");
+			con = DriverManager.getConnection("jdbc:sqlite:bdd_models");
+			Statement stmt = con.createStatement();
+			String query = "select nom from modeles where nom=\"" + nom + "\"";
+			ResultSet rs = stmt.executeQuery(query);
+			if(rs.getString("nom").equals(nom)){
+				return stmt.executeQuery("select color from modeles where nom='"+nom+"'").getString("color");
+			}
+		} catch (Exception e) {
+			System.out.println("Erreur " + e);
+		} finally {
+			try {
+				con.close();
+			} catch (Exception e) {
+
+			}
+		}
+		return null;
 	}
 	
 }

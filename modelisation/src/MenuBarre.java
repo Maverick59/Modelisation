@@ -169,6 +169,12 @@ public class MenuBarre extends JMenuBar {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("--Couleur de modèle--");
+				ArrayList<Model3D> l = e.getModels();
+				for(int i=0; i<l.size(); i++){
+					System.out.println(l.get(i).getNom());
+					GestionBDD.setColor(l.get(i).getNom(), "200/200/200");
+				}
+				e.repaint();
 			}
 		});
 		menu.get(i).add(c);

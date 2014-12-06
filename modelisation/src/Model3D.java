@@ -20,9 +20,18 @@ public class Model3D {
 
 	public Model3D(ArrayList<Point> points, ArrayList<Segment> segments, ArrayList<Face> faces, String nom) {
 		System.out.println(nom);
-		int R = (int) (Math.random() * 256);
+		/*int R = (int) (Math.random() * 256);
 		int G = (int) (Math.random() * 256);
-		int B = (int) (Math.random() * 256);
+		int B = (int) (Math.random() * 256);*/
+		int R;
+		int G;
+		int B;
+		String[] s;
+		String c = GestionBDD.getColor(nom);
+		s=c.split("[/]");
+		R=Integer.parseInt(s[0]);
+		G=Integer.parseInt(s[1]);
+		B=Integer.parseInt(s[2]);
 		color = new Color(R, G, B);
 		this.points = points;
 		this.segments = segments;
