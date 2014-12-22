@@ -42,6 +42,7 @@ public class Charger {
 			}
 			fichier = fichier.replaceAll(".gts", "");
 			fichier = fichier.split("[/]")[fichier.split("[/]").length - 1];
+			System.out.println(fichier);
 			return new Model3D(points, segments, faces, fichier);
 		} catch (Exception e) {
 			System.out.println("bug");

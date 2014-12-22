@@ -1,7 +1,9 @@
+import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -13,9 +15,7 @@ public class GestionBDD {
 		for (File f : file.listFiles()) {
 			System.out.println(f.getPath());
 			GestionBDD.insert(f.getPath());	
-		}
-		setColor("squirtle", "255/255/250");
-		insertHashTag("squirtle", "pokemon");*/
+		}*/
 	}
 
 	public static ArrayList<String> rechercheGTS(String hashtags) {
@@ -29,7 +29,7 @@ public class GestionBDD {
 			Statement stmt = con.createStatement();
 			String query;
 			if (hashtags.length() != 0) {
-				query = "select chemin from modeles where nom in(select nom from correspondances where tag like ";
+				query = "select chemin from modeles where chemin in(select chemin from modeles where nom in(select nom from correspondances where tag like ";
 				for (int i = 0; i < s.length; i++) {
 					if (!s[i].equals("")) {
 						query += "'%" + s[i] + "%' ";
@@ -48,7 +48,16 @@ public class GestionBDD {
 						}
 					}
 				}
-				
+				query += ")";
+				//ajout nombre de points limites (par exemple utilisateur tape <500)
+				for(int i=0; i<s.length ; i++){
+					if(!s[i].equals("") && (s[i].charAt(0)=='<' || s[i].charAt(0)=='>' || s[i].charAt(0)=='=')){
+						if(Integer.parseInt(s[i].substring(1, s[i].length()))>0){
+							query+=" and nb_points";
+							query +=s[i].charAt(0)+s[i].substring(1, s[i].length());
+						}
+					}
+				}
 			} else {
 				query = "select chemin from modeles";
 			}
@@ -75,16 +84,17 @@ public class GestionBDD {
 			Class.forName("org.sqlite.JDBC");
 			con = DriverManager.getConnection("jdbc:sqlite:bdd_models");
 			Statement stmt = con.createStatement();
-			String query = "select chemin_screen from modeles where chemin=\"" + gts + "\"";
-			ResultSet rs = stmt.executeQuery(query);
-			return rs.getString("chemin_screen");
+			ResultSet rs = stmt.executeQuery("select chemin_screen from modeles where chemin='"+gts+"'");
+			if(rs.next()!=false){
+				return rs.getString("chemin_screen");
+			}
 		} catch (Exception e) {
 			System.out.println("Erreur " + e);
 		} finally {
 			try {
 				con.close();
 			} catch (Exception e) {
-
+				e.printStackTrace();
 			}
 		}
 		return null;
@@ -100,13 +110,9 @@ public class GestionBDD {
 			Class.forName("org.sqlite.JDBC");
 			con = DriverManager.getConnection("jdbc:sqlite:bdd_models");
 			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("select chemin from modeles where chemin='"+gts+"'");
-			if(rs.next()==false && !rs.getString("chemin").equals(gts)){
-				
-				String query = "INSERT INTO modeles  values('" + nom + "','" + gts + "','" + png + "','', '" + model.points.size() + "','" + model.segments.size() + "','" + model.faces.size()
-					+ "','255/255/255')";
-				stmt.executeUpdate(query);
-			}
+			String query = "INSERT INTO modeles  values('" + nom + "','" + gts + "','" + png + "','', '" + model.points.size() + "','" + model.segments.size() + "','" + model.faces.size()
+				+ "','"+0xffffff+"')";
+			stmt.executeUpdate(query);
 		} catch (Exception e) {
 			System.out.println("Erreur " + e);
 		} finally {
@@ -157,7 +163,7 @@ public class GestionBDD {
 		}
 	}
 	
-	public static void setColor(String nom, String color){
+	public static void setColor(String nom, int color){
 		Connection con = null;
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -179,7 +185,7 @@ public class GestionBDD {
 		}
 	}
 	
-	public static String getColor(String nom){
+	public static Color getColor(String nom){
 		Connection con = null;
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -188,7 +194,30 @@ public class GestionBDD {
 			String query = "select nom from modeles where nom=\"" + nom + "\"";
 			ResultSet rs = stmt.executeQuery(query);
 			if(rs.next()!=false && rs.getString("nom").equals(nom)){
-				return stmt.executeQuery("select color from modeles where nom='"+nom+"'").getString("color");
+				return new Color(Integer.parseInt(stmt.executeQuery("select color from modeles where nom='"+nom+"'").getString("color")));
+			}
+		} catch (Exception e) {
+			System.out.println("Erreur " + e);
+		} finally {
+			try {
+				con.close();
+			} catch (Exception e) {
+
+			}
+		}
+		return new Color(0x999999);
+	}
+	
+	public static String getNom(String chemin){
+		Connection con = null;
+		try {
+			Class.forName("org.sqlite.JDBC");
+			con = DriverManager.getConnection("jdbc:sqlite:bdd_models");
+			Statement stmt = con.createStatement();
+			String query = "select nom from modeles where chemin=\"" + chemin + "\"";
+			ResultSet rs = stmt.executeQuery(query);
+			if(rs.next()!=false){
+				return rs.getString("nom");
 			}
 		} catch (Exception e) {
 			System.out.println("Erreur " + e);
