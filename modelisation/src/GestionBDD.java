@@ -231,4 +231,48 @@ public class GestionBDD {
 		return null;
 	}
 	
+	public static ArrayList<String> selectAllTags(){
+		Connection con = null;
+		ArrayList<String> l = new ArrayList<String>();
+		try {
+			Class.forName("org.sqlite.JDBC");
+			con = DriverManager.getConnection("jdbc:sqlite:bdd_models");
+			Statement stmt = con.createStatement();
+			String query = "select tag from hashTags";
+			ResultSet rs = stmt.executeQuery(query);
+			while(rs.next()){
+				l.add(rs.getString("tag"));
+			}
+			return l;
+		} catch (Exception e) {
+			System.out.println("Erreur " + e);
+		} finally {
+			try {
+				con.close();
+			} catch (Exception e) {
+
+			}
+		}
+		return l;
+	}
+	
+	public static void deleteTagFor(String model, String tag){
+		Connection con = null;
+		try {
+			Class.forName("org.sqlite.JDBC");
+			con = DriverManager.getConnection("jdbc:sqlite:bdd_models");
+			Statement stmt = con.createStatement();
+			String query = "delete from correspondances where nom='"+model+"' and tag='"+tag+"'";
+			stmt.executeUpdate(query);
+		} catch (Exception e) {
+			System.out.println("Erreur " + e);
+		} finally {
+			try {
+				con.close();
+			} catch (Exception e) {
+
+			}
+		}
+	}
+	
 }
