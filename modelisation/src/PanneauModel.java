@@ -63,6 +63,7 @@ public class PanneauModel extends JPanel implements MouseListener {
 		Calcul.zoom(m3d, 0.5, e.getWidth(), e.getHeight());
 		e.getBarreSelect().add(m3d);
 		e.getModels().add(m3d);
+		//e.getUserListener().getModelSelect().add(m3d);
 		e.repaint();
 	}
 

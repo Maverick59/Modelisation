@@ -6,37 +6,36 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class Ecran extends JPanel {
 
 	private final Main main;
-	private static final long serialVersionUID = 1L;
-	private ArrayList<Model3D> models = new ArrayList<Model3D>();
 	private int affichage;
+	private Image background;
+
+	private int CoupeEnZ = -100;
+
+	private ArrayList<Model3D> models = new ArrayList<Model3D>();
 	private final ArrayList<Point> lumiere = new ArrayList<Point>();
+
 	private BarreAjout barreAjout;
 	private BarreSelect barreSelect;
 	private final UserListener userListener;
-	private Image background;
-
-	private final JLabel infoModel;
-	private int CoupeEnZ = -100;
 
 	public Ecran(Main f) {
 
 		this.setPreferredSize(new Dimension(f.getWidth(), f.getHeight()));
 
 		this.main = f;
-		infoModel = new JLabel("");
 
 		userListener = new UserListener(this);
 		this.addMouseWheelListener(userListener);
 		this.addMouseMotionListener(userListener);
 		this.addMouseListener(userListener);
 		main.addKeyListener(userListener);
-		this.repaint();
+
 		init();
 	}
 
@@ -44,10 +43,10 @@ public class Ecran extends JPanel {
 		barreAjout = new BarreAjout(this);
 		barreSelect = new BarreSelect(this);
 
-		affichage = 3;
+		affichage = 4;
 		lumiere.add(new Point(0, 0, 1));
 		background = new ImageIcon("fond.jpg").getImage();
-		this.add(infoModel);
+
 	}
 
 	public void trifigure() {
@@ -73,8 +72,7 @@ public class Ecran extends JPanel {
 
 	@Override
 	public void paintComponent(Graphics g) {
-
-		g.drawImage(background, 0, 0, null);
+		g.drawImage(background, 0, 0, main.getWidth(), main.getHeight(), null);
 
 		if (affichage == 0) {
 			for (Model3D m : models) {
@@ -89,10 +87,13 @@ public class Ecran extends JPanel {
 			for (Model3D m : models) {
 				m.afficher(g, lumiere);
 			}
-		} else {
+		} else if (affichage == 3) {
 			for (Model3D m : models) {
 				m.afficherSegments(g, Coupe.tranche(m, CoupeEnZ));
-
+			}
+		} else if (affichage == 4) {
+			for (Model3D m : models) {
+				m.afficherPoint(g);
 			}
 		}
 	}
@@ -102,8 +103,8 @@ public class Ecran extends JPanel {
 	}
 
 	public void setModels(ArrayList<Model3D> models) {
+		this.models.clear();
 		this.models = models;
-		this.repaint();
 	}
 
 	public BarreAjout getBarreAjout() {
@@ -136,6 +137,11 @@ public class Ecran extends JPanel {
 
 	public void setCoupeEnZ(int coupeEnZ) {
 		CoupeEnZ = coupeEnZ;
+	}
+
+	public void setBackground(String name) {
+		background = new ImageIcon(name).getImage();
+		this.repaint();
 	}
 
 }

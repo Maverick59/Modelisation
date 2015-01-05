@@ -20,11 +20,13 @@ import javax.swing.event.ListSelectionListener;
 public class BarreSelect extends JPanel {
 
 	private final Ecran e;
-	private JButton bouton = new JButton();
-	private JScrollPane scroll;
-	private final DefaultListModel models = new DefaultListModel();
-	private final JList listModels = new JList(models);
-	private boolean ouvert = false;
+	private JButton boutonFleche = new JButton();
+	private JScrollPane scrollBarre;
+	private DefaultListModel listModelDefault = new DefaultListModel();
+
+	private JList listModelJList = new JList(listModelDefault);
+
+	private boolean ouvert = true;
 
 	public BarreSelect(Ecran e) {
 		this.e = e;
@@ -33,24 +35,24 @@ public class BarreSelect extends JPanel {
 
 	private void init() {
 
-		listModels.setFocusable(false);
-		scroll = new JScrollPane(listModels);
-		scroll.setViewportView(listModels);
-		this.add(scroll);
+		listModelJList.setFocusable(false);
+		scrollBarre = new JScrollPane(listModelJList);
+		scrollBarre.setViewportView(listModelJList);
+		this.add(scrollBarre);
 		this.setBounds(e.getWidth(), 0, e.getWidth() / 5 + 20, e.getHeight());
 		this.setLocation(e.getWidth(), 0);
-		scroll.getVerticalScrollBar().setUnitIncrement(5);
-		scroll.setPreferredSize(new Dimension(e.getWidth() / 5 + 20, e.getHeight()));
-		scroll.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.black, Color.gray));
+		scrollBarre.getVerticalScrollBar().setUnitIncrement(5);
+		scrollBarre.setPreferredSize(new Dimension(e.getWidth() / 5 + 20, e.getHeight()));
+		scrollBarre.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.black, Color.gray));
 
-		bouton = new JButton(new ImageIcon("fleche.png"));
-		bouton.setFocusable(false);
+		boutonFleche = new JButton(new ImageIcon("flecheG.png"));
+		boutonFleche.setFocusable(false);
 
-		bouton.setBorderPainted(false);
-		bouton.setContentAreaFilled(false);
-		bouton.setFocusPainted(false);
-		bouton.setOpaque(false);
-		bouton.addActionListener(new ActionListener() {
+		boutonFleche.setBorderPainted(false);
+		boutonFleche.setContentAreaFilled(false);
+		boutonFleche.setFocusPainted(false);
+		boutonFleche.setOpaque(false);
+		boutonFleche.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -60,26 +62,26 @@ public class BarreSelect extends JPanel {
 		repositionnerBouton();
 		e.setLayout(null);
 		e.add(this);
-		e.add(bouton);
-		listModels.setSelectionModel(new DefaultListSelectionModel() {
+		e.add(boutonFleche);
+		listModelJList.setSelectionModel(new DefaultListSelectionModel() {
 			@Override
 			public void setSelectionInterval(int index0, int index1) {
-				if (listModels.isSelectedIndex(index0)) {
-					listModels.removeSelectionInterval(index0, index1);
+				if (listModelJList.isSelectedIndex(index0)) {
+					listModelJList.removeSelectionInterval(index0, index1);
 				} else {
-					listModels.addSelectionInterval(index0, index1);
+					listModelJList.addSelectionInterval(index0, index1);
 				}
 			}
 		});
 
-		listModels.addListSelectionListener(new ListSelectionListener() {
+		listModelJList.addListSelectionListener(new ListSelectionListener() {
 
 			@Override
 			public void valueChanged(ListSelectionEvent ex) {
 				e.getFrame().requestFocus();
 				e.getUserListener().getModelSelect().clear();
-				for (int i = 0; i < listModels.getSelectedValues().length; i++) {
-					e.getUserListener().getModelSelect().add((Model3D) listModels.getSelectedValues()[i]);
+				for (int i = 0; i < listModelJList.getSelectedValues().length; i++) {
+					e.getUserListener().getModelSelect().add((Model3D) listModelJList.getSelectedValues()[i]);
 				}
 				e.getUserListener().refreshModelSelect();
 			}
@@ -87,25 +89,38 @@ public class BarreSelect extends JPanel {
 
 	}
 
+	public DefaultListModel getModels() {
+		return listModelDefault;
+	}
+
+	public void setModels(DefaultListModel m) {
+		listModelDefault = m;
+		listModelJList.setModel(listModelDefault);
+	}
+
 	public void repositionnerBouton() {
-		bouton.setBounds(this.getX() - bouton.getIcon().getIconWidth(), this.getHeight() / 2 - 40, 80, 80);
+		boutonFleche.setBounds(this.getX() - boutonFleche.getIcon().getIconWidth(), this.getHeight() / 2 - 40, 80, 80);
 	}
 
 	public void add(Model3D m) {
-		models.addElement(m);
+		listModelDefault.addElement(m);
 	}
 
 	public void addAll(ArrayList<Model3D> l) {
-		models.clear();
+		listModelDefault.clear();
 		for (Model3D m : l) {
-			models.addElement(m);
+			listModelDefault.addElement(m);
 		}
 	}
 
 	public void removeAll(ArrayList<Model3D> l) {
 		while (!l.isEmpty()) {
-			models.removeElement(l.get(0));
+			listModelDefault.removeElement(l.get(0));
 		}
+	}
+
+	public JList getListModels() {
+		return listModelJList;
 	}
 
 	public void refresh() {
@@ -115,7 +130,7 @@ public class BarreSelect extends JPanel {
 		} else {
 			this.setBounds(e.getWidth(), 0, e.getWidth() / 5 + 20, e.getHeight());
 		}
-		scroll.setPreferredSize(new Dimension(e.getWidth() / 5 + 20, e.getHeight()));
+		scrollBarre.setPreferredSize(new Dimension(e.getWidth() / 5 + 20, e.getHeight()));
 
 		this.repositionnerBouton();
 	}
@@ -129,7 +144,7 @@ public class BarreSelect extends JPanel {
 	}
 
 	public void clear() {
-		models.clear();
+		listModelDefault.clear();
 	}
 
 }

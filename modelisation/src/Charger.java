@@ -1,14 +1,14 @@
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
+import java.util.Vector;
 
 public class Charger {
 
 	public static Model3D chargerModel(String fichier) {
 		try {
-			System.out.println(fichier);
 			InputStream ips = new FileInputStream(fichier);
 			InputStreamReader ipsr = new InputStreamReader(ips);
 			BufferedReader in = new BufferedReader(ipsr);
@@ -23,9 +23,9 @@ public class Charger {
 				nbface = Integer.parseInt(ligne.split(" ")[2]);
 			}
 
-			ArrayList<Point> points = new ArrayList<Point>();
-			ArrayList<Segment> segments = new ArrayList<Segment>();
-			ArrayList<Face> faces = new ArrayList<Face>();
+			Vector<Point> points = new Vector<Point>();
+			Vector<Segment> segments = new Vector<Segment>();
+			Vector<Face> faces = new Vector<Face>();
 
 			for (int i = 0; i < nbpoint; i++) {
 				ligne = in.readLine();
@@ -40,14 +40,30 @@ public class Charger {
 				faces.add(new Face(segments.get(Integer.parseInt(ligne.split(" ")[0]) - 1), segments.get(Integer.parseInt(ligne.split(" ")[1]) - 1),
 						segments.get(Integer.parseInt(ligne.split(" ")[2]) - 1)));
 			}
-			fichier = fichier.replaceAll(".gts", "");
-			fichier = fichier.split("[/]")[fichier.split("[/]").length - 1];
-			System.out.println(fichier);
+			ipsr.close();
+			ips.close();
 			return new Model3D(points, segments, faces, fichier);
 		} catch (Exception e) {
 			System.out.println("bug");
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public static int[] chargerModelHeader(String gts) throws IOException {
+		InputStream ips = new FileInputStream(gts);
+		InputStreamReader ipsr = new InputStreamReader(ips);
+		BufferedReader in = new BufferedReader(ipsr);
+		String ligne = in.readLine();
+		int nbpoint = 0;
+		int nbsegment = 0;
+		int nbface = 0;
+
+		if (ligne != null) {
+			nbpoint = Integer.parseInt(ligne.split(" ")[0]);
+			nbsegment = Integer.parseInt(ligne.split(" ")[1]);
+			nbface = Integer.parseInt(ligne.split(" ")[2]);
+		}
+		return new int[] { nbpoint, nbsegment, nbface };
 	}
 }

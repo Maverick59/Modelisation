@@ -181,4 +181,11 @@ public class Calcul {
 		return max;
 	}
 
+	public static void normaliser(Point p) {
+		double longueur = Math.sqrt(p.x * p.x + p.y * p.y + p.z * p.z);
+		p.x /= longueur;
+		p.y /= longueur;
+		p.z /= longueur;
+	}
+
 }

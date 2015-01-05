@@ -1,6 +1,7 @@
 import java.awt.Polygon;
+import java.io.Serializable;
 
-public class Face {
+public class Face implements Serializable {
 
 	Point p1, p2, p3;
 

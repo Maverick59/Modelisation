@@ -30,8 +30,6 @@ public class ModelToPNG extends JPanel {
 
 	public String getScreenShot() {
 		try {
-			System.out.println(m);
-			System.out.println(GestionBDD.recherchePNG(m));
 			File f = new File(GestionBDD.recherchePNG(m));
 			if (!f.exists()) {
 				this.model = Charger.chargerModel(m);
@@ -41,8 +39,6 @@ public class ModelToPNG extends JPanel {
 				this.paint(g);
 				System.out.println("Creation image : " + f.getPath());
 				ImageIO.write(bufferedImage, "png", new File(f.getPath()));
-			} else {
-				System.out.println("Existant : " + f.getPath());
 			}
 			return f.getPath();
 		} catch (Exception e) {

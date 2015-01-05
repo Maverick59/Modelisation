@@ -299,5 +299,10 @@ public class GestionBDD {
 			}
 		}
 	}
+
+	public static void ajoutHashTag(String text) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

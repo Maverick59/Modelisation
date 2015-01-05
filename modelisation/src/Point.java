@@ -1,4 +1,6 @@
-public class Point {
+import java.io.Serializable;
+
+public class Point implements Serializable {
 
 	double x, y, z;
 
@@ -31,6 +33,13 @@ public class Point {
 		if (z != other.z)
 			return false;
 		return true;
+	}
+
+	public void set(Point p) {
+		this.x = p.x;
+		this.y = p.y;
+		this.z = p.z;
+		
 	}
 
 }

@@ -1,4 +1,6 @@
-public class Segment {
+import java.io.Serializable;
+
+public class Segment implements Serializable {
 
 	Point p1, p2;
 

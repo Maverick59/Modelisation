@@ -3,14 +3,16 @@ import java.awt.event.ComponentListener;
 
 import javax.swing.JFrame;
 
+@SuppressWarnings("serial")
 public class Main extends JFrame implements ComponentListener {
 
 	private final Ecran e;
 
 	public static void main(String[] args) {
-
+		SplashScreen splash = new SplashScreen();
+		splash.showSplash();
 		new Main();
-
+		splash.dispose();
 	}
 
 	public Main() {
@@ -23,7 +25,7 @@ public class Main extends JFrame implements ComponentListener {
 
 		this.setJMenuBar(new MenuBarre(e));
 
-		this.setSize(1000, 750);
+		this.setSize(1280, 720);
 		this.setLocationRelativeTo(null);
 		this.addComponentListener(this);
 	}

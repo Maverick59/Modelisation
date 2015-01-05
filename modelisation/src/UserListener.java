@@ -19,14 +19,17 @@ public class UserListener implements MouseWheelListener, MouseMotionListener, Mo
 	private boolean control = false;
 	private boolean reaffichage2 = false;
 
+	// private final ThreadTourne threadTourne;
+
 	public UserListener(Ecran ecran) {
 		this.ecran = ecran;
+		// threadTourne = new ThreadTourne(ecran);
 	}
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 
-		if (ecran.getAffichage() > 2) {
+		if (ecran.getAffichage() == 3) {
 			if (e.getWheelRotation() > 0) {
 				ecran.setCoupeEnZ(ecran.getCoupeEnZ() - 1);
 				System.out.println(ecran.getCoupeEnZ());
@@ -60,13 +63,17 @@ public class UserListener implements MouseWheelListener, MouseMotionListener, Mo
 		int v = y - e.getY();
 		if (ecran.getAffichage() == 2) {
 			int points = 0;
-			for (Model3D m : modelSelect) {
+			for (Model3D m : ecran.getModels()) {
 				points += m.points.size();
 			}
 			if (points > Parametre.nbLimitePoint) {
 				ecran.setAffichage(0);
 			}
 			reaffichage2 = true;
+		}
+		if (control && bouton == MouseEvent.BUTTON1) {
+			// threadTourne.init(h, v);
+
 		}
 		for (Model3D m : modelSelect) {
 			if (bouton == MouseEvent.BUTTON1) {
@@ -87,11 +94,11 @@ public class UserListener implements MouseWheelListener, MouseMotionListener, Mo
 	public void mouseMoved(MouseEvent e) {
 		x = e.getX();
 		y = e.getY();
+		ecran.repaint();
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -112,6 +119,7 @@ public class UserListener implements MouseWheelListener, MouseMotionListener, Mo
 		ecran.getFrame().requestFocus();
 		bouton = e.getButton();
 		wheeluse = false;
+		// threadTourne.init(0, 0);
 	}
 
 	@Override
@@ -124,6 +132,7 @@ public class UserListener implements MouseWheelListener, MouseMotionListener, Mo
 
 		if (reaffichage2) {
 			ecran.setAffichage(2);
+			reaffichage2 = false;
 		}
 		ecran.repaint();
 	}
@@ -131,17 +140,19 @@ public class UserListener implements MouseWheelListener, MouseMotionListener, Mo
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
+
+		if (key == KeyEvent.VK_CONTROL)
+			control = true;
+
 		if (key == KeyEvent.VK_DELETE && !modelSelect.isEmpty()) {
 			ecran.getModels().removeAll(modelSelect);
 			ecran.getBarreSelect().removeAll(modelSelect);
 			modelSelect.clear();
-		} else if (key == KeyEvent.VK_CONTROL) {
-			control = true;
 		} else if (control && key == KeyEvent.VK_Z) {
 			if (undoRedo.retourZ()) {
 				ecran.getModels().clear();
 				ecran.getBarreSelect().clear();
-				for (SaveModel3D sm : undoRedo.retourArrière()) {
+				for (SaveModel3D sm : undoRedo.retourArriere()) {
 					ecran.getModels().add(sm.getModel());
 					ecran.getBarreSelect().add(sm.getModel());
 				}
@@ -155,8 +166,19 @@ public class UserListener implements MouseWheelListener, MouseMotionListener, Mo
 					ecran.getBarreSelect().add(sm.getModel());
 				}
 			}
+		} else if (key == KeyEvent.VK_F1) {
+			ecran.setAffichage(0);
+		} else if (key == KeyEvent.VK_F2) {
+			ecran.setAffichage(1);
+		} else if (key == KeyEvent.VK_F3) {
+			ecran.setAffichage(2);
+		} else if (key == KeyEvent.VK_F4) {
+			ecran.setAffichage(3);
+		} else if (key == KeyEvent.VK_F5) {
+			ecran.setAffichage(4);
 		}
 		ecran.repaint();
+
 	}
 
 	@Override
@@ -185,6 +207,10 @@ public class UserListener implements MouseWheelListener, MouseMotionListener, Mo
 
 		Calcul.recalulerCentreGravite(modelSelect);
 
+	}
+
+	public Point getPoint() {
+		return new Point(x, y, 0);
 	}
 
 }

@@ -1,20 +1,19 @@
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.swing.JColorChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
 public class MenuBarre extends JMenuBar {
 
 	private final Ecran e;
 	private final ArrayList<JMenu> menu = new ArrayList<JMenu>();
-
+	private ArrayList<Model3D> copier=new ArrayList<Model3D>();
+	
 	public MenuBarre(Ecran e) {
 		this.e = e;
 		init();
@@ -58,22 +57,31 @@ public class MenuBarre extends JMenuBar {
 
 		menu.get(i).add(new JSeparator());
 
-		c = new JMenuItem("Enregistrer");
+		c = new JMenuItem("Ouvrir");
 		c.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("--Enregister--");
+				System.out.println("--Ouvrir--");
+				SaveLoadProject.deserialise(e);
 			}
 		});
 		menu.get(i).add(c);
 
-		c = new JMenuItem("Enregistrer sous");
+		c = new JMenuItem("Enregistrer sous...");
 		c.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("--Enregistrer sous--");
+
+				try {
+					SaveLoadProject.serialise(e);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
 			}
 		});
 		menu.get(i).add(c);
@@ -106,7 +114,6 @@ public class MenuBarre extends JMenuBar {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("--Quitter--");
 				System.exit(1);
 			}
 		});
@@ -128,12 +135,12 @@ public class MenuBarre extends JMenuBar {
 		});
 		menu.get(i).add(c);
 
-		c = new JMenuItem("Rétablir");
+		c = new JMenuItem("Retablir");
 		c.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("--Rétablir--");
+				System.out.println("--Retablir--");
 			}
 		});
 		menu.get(i).add(c);
@@ -144,7 +151,10 @@ public class MenuBarre extends JMenuBar {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("--Copier--");
+				copier.clear();
+				for(Model3D m : e.getUserListener().getModelSelect()){
+					copier.add(m.clone());
+				}
 			}
 		});
 		menu.get(i).add(c);
@@ -154,7 +164,11 @@ public class MenuBarre extends JMenuBar {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("--Coller--");
+				for(Model3D m : copier){
+					m=m.clone();
+					e.getModels().add(m);
+					e.getBarreSelect().add(m);
+				}
 			}
 		});
 		menu.get(i).add(c);
@@ -166,55 +180,24 @@ public class MenuBarre extends JMenuBar {
 		// menu.get(i).add(new JMenuItem("Nouveau"));
 		// menu.get(i).add(new JSeparator());
 
-		c = new JMenuItem("Couleur de modèle");
+		c = new JMenuItem("Couleur de modele");
 		c.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("--Couleur de modèle--");
-				/*
-				 * change la couleur des modeles dans l'ecran 
-				 * ajouter une IHM
-				 */
-				ArrayList<Model3D> l = e.getUserListener().getModelSelect();
-				Color c = new Color(0xff8889);
-				for(int i=0; i<l.size(); i++){
-					System.out.println(l.get(i).getNom());
-					l.get(i).setColor(c);
-				}
-				e.repaint();
-			}
-		});
-		menu.get(i).add(c);
-		
-		c = new JMenuItem("Couleur par defaut du modèle");
-		c.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("--Couleur par défaut du modèle--");
-				/*
-				 * change la couleur des modeles dans la BDD 
-				 * ajouter une IHM
-				 */
-				ArrayList<Model3D> l = new ArrayList<Model3D>();
-				l=e.getUserListener().getModelSelect();
-				Color c = new Color(0xff0000);
-				for(int i=0; i<l.size(); i++){
-					GestionBDD.setColor(l.get(i).getNom(), c.getRGB());
-				}
-				e.repaint();
+				new FenetreCouleur(e);
 			}
 		});
 		menu.get(i).add(c);
 		menu.get(i).add(new JSeparator());
 
-		c = new JMenuItem("Fond d'écran");
+		c = new JMenuItem("Fond d'ecran");
 		c.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("--Fond d'écran--");
+				new FondEcran(e);
 			}
 		});
 		menu.get(i).add(c);
@@ -240,9 +223,8 @@ public class MenuBarre extends JMenuBar {
 			}
 		});
 		menu.get(i).add(c);
-		menu.get(i).add(new JSeparator());
 
-		c = new JMenuItem("Lumière");
+		c = new JMenuItem("Lumiere");
 		c.addActionListener(new ActionListener() {
 
 			@Override
@@ -263,19 +245,28 @@ public class MenuBarre extends JMenuBar {
 			}
 		});
 		menu.get(i).add(c);
+		
+		c = new JMenuItem("Point");
+		c.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				e.setAffichage(4);
+				e.repaint();
+			}
+		});
+		menu.get(i).add(c);
 		/*
 		 * MENU MODELISATION
 		 */
 		i = 3;
-		// menu.get(i).add(new JMenuItem("Nouveau"));
-		// menu.get(i).add(new JSeparator());
 
 		c = new JMenuItem("Pivot");
 		c.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("--Pivot--");
+				new FenetrePivo(e);
 			}
 		});
 		menu.get(i).add(c);
@@ -308,7 +299,7 @@ public class MenuBarre extends JMenuBar {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("--Découpage en tranche--");
+				new FenetreConfigModel(e);
 			}
 		});
 		menu.get(i).add(c);

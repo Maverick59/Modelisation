@@ -1,25 +1,24 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Polygon;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Vector;
 
-public class Model3D {
+public class Model3D implements Serializable {
 
-	ArrayList<Point> points;
-	ArrayList<Segment> segments;
-	ArrayList<Face> faces;
+	Vector<Point> points;
+	Vector<Segment> segments;
+	Vector<Face> faces;
+
 	private double decalageY = 0;
 	private double decalageX = 0;
-	private double rotationH = 0;
-	private double rotationV = 0;
-	private double zoom = 1;
 	private Color color;
 	private String nom;
 
-	public Model3D(ArrayList<Point> points, ArrayList<Segment> segments, ArrayList<Face> faces, String nom) {
-		System.out.println(nom);
+	public Model3D(Vector<Point> points, Vector<Segment> segments, Vector<Face> faces, String nom) {
 		color = GestionBDD.getColor(nom);
 		this.points = points;
 		this.segments = segments;
@@ -29,9 +28,9 @@ public class Model3D {
 	}
 
 	public Model3D() {
-		this.points = new ArrayList<Point>();
-		this.segments = new ArrayList<Segment>();
-		this.faces = new ArrayList<Face>();
+		this.points = new Vector<Point>();
+		this.segments = new Vector<Segment>();
+		this.faces = new Vector<Face>();
 	}
 
 	public void afficherSegments(Graphics g) {
@@ -42,13 +41,14 @@ public class Model3D {
 	}
 
 	public void afficherSegments(Graphics g, ArrayList<Segment> seg) {
-		g.setColor(Color.BLACK);
+		g.setColor(color);
 		for (Segment s : seg) {
 			g.drawLine((int) (s.p1.x + decalageX), (int) (s.p1.y + decalageY), (int) (s.p2.x + decalageX), (int) (s.p2.y + decalageY));
 		}
 	}
 
 	public void afficherFaces(Graphics g) {
+		g.setColor(color);
 		tri();
 		Polygon p;
 		for (Face f : faces) {
@@ -56,6 +56,13 @@ public class Model3D {
 			g.fillPolygon(p);
 		}
 
+	}
+
+	public void afficherPoint(Graphics g) {
+		g.setColor(color);
+		for (Point p : points) {
+			g.fillOval((int) (p.x + decalageX), (int) (p.y + decalageY), 2, 2);
+		}
 	}
 
 	public void afficher(Graphics g, ArrayList<Point> lumiere) {
@@ -73,54 +80,66 @@ public class Model3D {
 	}
 
 	private Color eclairage(ArrayList<Point> lumiere, Face f) {
+
 		Point u = new Point(f.p1.x - f.p2.x, f.p1.y - f.p2.y, f.p1.z - f.p2.z);
 		Point v = new Point(f.p1.x - f.p3.x, f.p1.y - f.p3.y, f.p1.z - f.p3.z);
 
-		double x = u.y * v.z - u.z * v.y;
-		double y = u.z * v.x - u.x * v.z;
-		double z = u.x * v.y - u.y * v.x;
-		double longueur = Math.sqrt(x * x + y * y + z * z);
-		x /= longueur;
-		y /= longueur;
-		z /= longueur;
-		Point r = lumiere.get(0);
+		Point n = new Point(u.y * v.z - u.z * v.y, u.z * v.x - u.x * v.z, u.x * v.y - u.y * v.x);
 
-		double ps = x * r.x + y * r.y + z * r.z;
+		Calcul.normaliser(n);
+
+		Point r = lumiere.get(0);
+		Calcul.normaliser(r);
+
+		double ps = n.x * r.x + n.y * r.y + n.z * r.z;
 
 		double cos = Math.abs(ps);
+
+		/*if (p != null) {
+			r = new Point(p.x - f.p1.x, p.y - f.p1.y, p.z - f.p1.z);
+			Calcul.normaliser(r);
+			ps = n.x * r.x + n.y * r.y + n.z * r.z;
+
+			double cos2 = Math.abs(ps);
+
+			if (cos < cos2) {
+				cos = cos2;
+			}
+		}*/
+
 		return new Color((int) (cos * color.getRed()), (int) (cos * color.getGreen()), (int) (cos * color.getBlue()));
 	}
 
 	public void tri() {
-		try {
-			Collections.sort(faces, new Comparator<Face>() {
-				@Override
-				public int compare(Face f1, Face f2) {
-					if (f1.centreZ() > f2.centreZ()) {
-						return 1;
-					} else if (f1.centreZ() == f2.centreZ()) {
-						return 0;
-					} else {
-						return -1;
+		synchronized (this) {
+			try {
+				Collections.sort(faces, new Comparator<Face>() {
+					@Override
+					public int compare(Face f1, Face f2) {
+						if (f1.centreZ() > f2.centreZ()) {
+							return 1;
+						} else if (f1.centreZ() == f2.centreZ()) {
+							return 0;
+						} else {
+							return -1;
+						}
 					}
-				}
-			});
+				});
 
-		} catch (Exception e) {
-			e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 
 	}
 
 	public void zoom(double i) {
-		zoom *= i;
 		for (Point p : points) {
 			p.zoom(i);
 		}
 	}
 
 	public void pivoH(double i) {
-		this.setRotationH(this.getRotationH() + i);
 		double tmpx;
 		double tmpz;
 		for (Point p : points) {
@@ -135,7 +154,6 @@ public class Model3D {
 	}
 
 	public void pivoV(double i) {
-		this.setRotationV(this.getRotationV() + i);
 		double tmpy;
 		double tmpz;
 		for (Point p : points) {
@@ -144,6 +162,19 @@ public class Model3D {
 
 			p.y = Math.cos(i) * tmpy - Math.sin(i) * tmpz;
 			p.z = Math.sin(i) * tmpy + Math.cos(i) * tmpz;
+
+		}
+	}
+	
+	public void pivoZ(double i) {
+		double tmpx;
+		double tmpy;
+		for (Point p : points) {
+			tmpx = p.x;
+			tmpy = p.y;
+
+			p.x = Math.cos(i) * tmpx - Math.sin(i) * tmpy;
+			p.y = Math.sin(i) * tmpx + Math.cos(i) * tmpy;
 
 		}
 	}
@@ -163,7 +194,12 @@ public class Model3D {
 
 	@Override
 	public String toString() {
-		return nom;
+		String s = "" + nom;
+		s = s.replaceAll(".gts", "");
+		s = s.replace('\\', '/');
+		s = s.split("[/]")[s.split("[/]").length - 1];
+
+		return s;
 	}
 
 	public void setDecalageX(double i) {
@@ -211,29 +247,16 @@ public class Model3D {
 		this.nom = nom;
 	}
 
-	public double getRotationH() {
-		return rotationH;
-	}
-
-	public void setRotationH(double rotationH) {
-		this.rotationH = rotationH % (Math.PI * 2);
-		if (this.rotationH < 0) {
-			this.rotationH += (Math.PI * 2);
+	
+	public Model3D clone(){
+	
+		Model3D clone =Charger.chargerModel(nom);
+		for(int i=0;i<points.size();i++){
+			clone.points.get(i).set(points.get(i));
 		}
-	}
-
-	public double getRotationV() {
-		return rotationV;
-	}
-
-	public void setRotationV(double rotationV) {
-		this.rotationV = rotationV % (Math.PI * 2);
-		if (this.rotationV < 0) {
-			this.rotationV += (Math.PI * 2);
-		}
-	}
-
-	public double getZoom() {
-		return zoom;
+		clone.decalageX=decalageX;
+		clone.decalageY=decalageY;
+		return clone;
+		
 	}
 }

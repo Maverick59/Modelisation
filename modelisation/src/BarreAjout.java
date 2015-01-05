@@ -19,16 +19,16 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 @SuppressWarnings("serial")
 public class BarreAjout extends JPanel {
+
 	private final Ecran e;
-	private JButton bouton = new JButton();
-	private JScrollPane scroll;
+	private JButton boutonFleche = new JButton();
+	private JScrollPane scrollBarre;
 	private final JPanel jp = new JPanel();
 	private final ArrayList<PanneauModel> models = new ArrayList<PanneauModel>();
 	private boolean ouvert = false;
 	private JTextField textfield;
 
 	public BarreAjout(Ecran e) {
-
 		this.e = e;
 		init();
 	}
@@ -38,6 +38,11 @@ public class BarreAjout extends JPanel {
 		textfield = new JTextField();
 		this.add(textfield);
 		textfield.addKeyListener(new KeyListener() {
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				ajouterModels(GestionBDD.rechercheGTS(textfield.getText()));
+
+			}
 
 			@Override
 			public void keyTyped(KeyEvent arg0) {
@@ -46,33 +51,27 @@ public class BarreAjout extends JPanel {
 			}
 
 			@Override
-			public void keyReleased(KeyEvent arg0) {
-				ajouterModels(GestionBDD.rechercheGTS(textfield.getText()));
-
-			}
-
-			@Override
 			public void keyPressed(KeyEvent arg0) {
 
 			}
 		});
-		scroll = new JScrollPane(jp);
-		this.add(scroll);
+		scrollBarre = new JScrollPane(jp);
+		this.add(scrollBarre);
 		jp.setPreferredSize(new Dimension(e.getWidth() / 5, 50 * e.getWidth() / 5));
-		scroll.getVerticalScrollBar().setUnitIncrement(20);
-		scroll.setPreferredSize(new Dimension(e.getWidth() / 5 + 20, e.getHeight()));
+		scrollBarre.getVerticalScrollBar().setUnitIncrement(20);
+		scrollBarre.setPreferredSize(new Dimension(e.getWidth() / 5 + 20, e.getHeight()));
 		jp.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.black, Color.gray));
 
 		ajouterModels(GestionBDD.rechercheGTS(""));
 
-		bouton = new JButton(new ImageIcon("fleche.png"));
-		bouton.setFocusable(false);
+		boutonFleche = new JButton(new ImageIcon("flecheD.png"));
+		boutonFleche.setFocusable(false);
 
-		bouton.setBorderPainted(false);
-		bouton.setContentAreaFilled(false);
-		bouton.setFocusPainted(false);
-		bouton.setOpaque(false);
-		bouton.addActionListener(new ActionListener() {
+		boutonFleche.setBorderPainted(false);
+		boutonFleche.setContentAreaFilled(false);
+		boutonFleche.setFocusPainted(false);
+		boutonFleche.setOpaque(false);
+		boutonFleche.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -84,7 +83,7 @@ public class BarreAjout extends JPanel {
 
 		e.setLayout(null);
 		e.add(this);
-		e.add(bouton);
+		e.add(boutonFleche);
 
 	}
 
@@ -103,14 +102,12 @@ public class BarreAjout extends JPanel {
 		for (PanneauModel p : models) {
 			jp.add(p);
 		}
-		System.out.println(tab);
-		System.out.println(models);
 
 		this.refresh();
 	}
 
 	public void repositionnerBouton() {
-		bouton.setBounds(this.getX() + this.getWidth(), this.getHeight() / 2 - 40, 80, 80);
+		boutonFleche.setBounds(this.getX() + this.getWidth(), this.getHeight() / 2 - 40, 80, 80);
 	}
 
 	public void refresh() {
@@ -122,7 +119,7 @@ public class BarreAjout extends JPanel {
 		this.textfield.setPreferredSize(new Dimension(this.getWidth() - 20, 25));
 		this.repositionnerBouton();
 		jp.setPreferredSize(new Dimension(e.getWidth() / 5, (e.getWidth() + 30) * models.size() / 5));
-		scroll.setPreferredSize(new Dimension(e.getWidth() / 5 + 20, e.getHeight()));
+		scrollBarre.setPreferredSize(new Dimension(e.getWidth() / 5 + 20, e.getHeight()));
 		for (PanneauModel pm : models) {
 			pm.refresh();
 			pm.validate();
@@ -139,7 +136,8 @@ public class BarreAjout extends JPanel {
 		chooser.setFileFilter(filter);
 		int returnVal = chooser.showOpenDialog(e);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			// GestionBDD.insert(filter.toString());
+			System.out.println(chooser.getSelectedFile().getPath());
+			GestionBDD.insert(chooser.getSelectedFile().getPath());
 			ajouterModels(GestionBDD.rechercheGTS(textfield.getText()));
 			this.refresh();
 		}
