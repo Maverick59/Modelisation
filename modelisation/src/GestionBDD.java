@@ -20,58 +20,77 @@ public class GestionBDD {
 
 	public static ArrayList<String> rechercheGTS(String hashtags) {
 		String[] s;
+		ArrayList<String> tags = new ArrayList<String>();
+		ArrayList<String> limitesPoints = new ArrayList<String>();
 		ArrayList<String> res = new ArrayList<String>();
 		s = hashtags.split("[ ]");
+		if(s.length>0 && s[0]!=""){
+			for(int i=0; i<s.length; i++){
+				if(s[i].charAt(0)!='<' && s[i].charAt(0)!='>' && s[i].charAt(0)!='='){
+					tags.add(s[i]);
+				}else{
+					limitesPoints.add(s[i]);
+				}
+			}
+		}
 		Connection con = null;
 		try {
 			Class.forName("org.sqlite.JDBC");
 			con = DriverManager.getConnection("jdbc:sqlite:bdd_models");
 			Statement stmt = con.createStatement();
 			String query;
-			if (hashtags.length() != 0) {
+			if (tags.size()>0) {
 				query = "select chemin from modeles where chemin in(select chemin from modeles where nom in(select nom from correspondances where tag like ";
-				for (int i = 0; i < s.length; i++) {
-					if (!s[i].equals("")) {
-						query += "'%" + s[i] + "%' ";
-						if (i <= s.length - 2) {
+				for (int i = 0; i < tags.size(); i++) {
+					if (!tags.get(i).equals("")) {
+						query += "'%" + tags.get(i) + "%' ";
+						if (i <= tags.size() - 2) {
 							query += "or tag like ";
 						}
 					}
 				}
 				query += ") ";
 				query += "or nom like ";
-				for (int i = 0; i < s.length; i++) {
-					if (!s[i].equals("")) {
-						query += "'%" + s[i] + "%' ";
-						if (i <= s.length - 2) {
+				for (int i = 0; i < tags.size(); i++) {
+					if (!tags.get(i).equals("")) {
+						query += "'%" + tags.get(i) + "%' ";
+						if (i <= tags.size() - 2) {
 							query += "or nom like ";
 						}
 					}
 				}
 				query += ")";
-				//ajout nombre de points limites (par exemple utilisateur tape <500)
-				for(int i=0; i<s.length ; i++){
-					if(!s[i].equals("") && (s[i].charAt(0)=='<' || s[i].charAt(0)=='>' || s[i].charAt(0)=='=')){
-						if(Integer.parseInt(s[i].substring(1, s[i].length()))>0){
+				if(limitesPoints.size()>0){
+					//ajout nombre de points limites (par exemple utilisateur tape <500)
+					for(int i=0; i<limitesPoints.size() ; i++){
+						System.out.println(limitesPoints.get(i).substring(1, limitesPoints.size())+"coucou");
+						if(Integer.parseInt(limitesPoints.get(i).substring(1, limitesPoints.get(i).length()))>0){
 							query+=" and nb_points";
-							query +=s[i].charAt(0)+s[i].substring(1, s[i].length());
+							query+=limitesPoints.get(i).charAt(0)+limitesPoints.get(i).substring(1, limitesPoints.get(i).length());
 						}
 					}
 				}
 			} else {
 				query = "select chemin from modeles";
+				if(limitesPoints.size()>0){
+					query+=" where ";
+					for(int i=0; i<limitesPoints.size(); i++){
+						query+=" nb_points";
+						query +=limitesPoints.get(i).charAt(0)+limitesPoints.get(i).substring(1, limitesPoints.get(i).length());
+					}
+				}
 			}
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {
 				res.add(rs.getString("chemin"));
 			}
 		} catch (Exception e) {
-			System.out.println("Erreur " + e);
+			e.printStackTrace();
 		} finally {
 			try {
 				con.close();
 			} catch (Exception e) {
-
+				e.printStackTrace();
 			}
 		}
 		return res;
@@ -89,7 +108,7 @@ public class GestionBDD {
 				return rs.getString("chemin_screen");
 			}
 		} catch (Exception e) {
-			System.out.println("Erreur " + e);
+			e.printStackTrace();
 		} finally {
 			try {
 				con.close();
@@ -114,12 +133,12 @@ public class GestionBDD {
 				+ "','"+0xffffff+"')";
 			stmt.executeUpdate(query);
 		} catch (Exception e) {
-			System.out.println("Erreur " + e);
+			e.printStackTrace();
 		} finally {
 			try {
 				con.close();
 			} catch (Exception e) {
-
+				e.printStackTrace();
 			}
 		}
 	}
@@ -153,12 +172,12 @@ public class GestionBDD {
 				System.out.println("ce modele n'existe pas");
 			}
 		} catch (Exception e) {
-			System.out.println("Erreur " + e);
+			e.printStackTrace();
 		} finally {
 			try {
 				con.close();
 			} catch (Exception e) {
-
+				e.printStackTrace();
 			}
 		}
 	}
@@ -175,12 +194,12 @@ public class GestionBDD {
 				stmt.executeUpdate("update modeles set color='"+color+"' where nom='"+nom+"'");
 			}
 		} catch (Exception e) {
-			System.out.println("Erreur " + e);
+			e.printStackTrace();
 		} finally {
 			try {
 				con.close();
 			} catch (Exception e) {
-
+				e.printStackTrace();
 			}
 		}
 	}
@@ -197,12 +216,12 @@ public class GestionBDD {
 				return new Color(Integer.parseInt(stmt.executeQuery("select color from modeles where nom='"+nom+"'").getString("color")));
 			}
 		} catch (Exception e) {
-			System.out.println("Erreur " + e);
+			e.printStackTrace();
 		} finally {
 			try {
 				con.close();
 			} catch (Exception e) {
-
+				e.printStackTrace();
 			}
 		}
 		return new Color(0x999999);
@@ -220,12 +239,12 @@ public class GestionBDD {
 				return rs.getString("nom");
 			}
 		} catch (Exception e) {
-			System.out.println("Erreur " + e);
+			e.printStackTrace();
 		} finally {
 			try {
 				con.close();
 			} catch (Exception e) {
-
+				e.printStackTrace();
 			}
 		}
 		return null;
@@ -245,12 +264,12 @@ public class GestionBDD {
 			}
 			return l;
 		} catch (Exception e) {
-			System.out.println("Erreur " + e);
+			e.printStackTrace();
 		} finally {
 			try {
 				con.close();
 			} catch (Exception e) {
-
+				e.printStackTrace();
 			}
 		}
 		return l;
@@ -265,12 +284,12 @@ public class GestionBDD {
 			String query = "delete from correspondances where nom='"+model+"' and tag='"+tag+"'";
 			stmt.executeUpdate(query);
 		} catch (Exception e) {
-			System.out.println("Erreur " + e);
+			e.printStackTrace();
 		} finally {
 			try {
 				con.close();
 			} catch (Exception e) {
-
+				e.printStackTrace();
 			}
 		}
 	}
