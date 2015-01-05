@@ -20,17 +20,25 @@ public class GestionBDD {
 
 	public static ArrayList<String> rechercheGTS(String hashtags) {
 		String[] s;
+		boolean chiffres=true;
 		ArrayList<String> tags = new ArrayList<String>();
 		ArrayList<String> limitesPoints = new ArrayList<String>();
 		ArrayList<String> res = new ArrayList<String>();
 		s = hashtags.split("[ ]");
-		if(s.length>0 && s[0]!=""){
-			for(int i=0; i<s.length; i++){
-				if(s[i].charAt(0)!='<' && s[i].charAt(0)!='>' && s[i].charAt(0)!='='){
-					tags.add(s[i]);
-				}else{
+		for(int i=0; i<s.length; i++){
+			if(s[i].length()>0 && s[i].charAt(0)!='<' && s[i].charAt(0)!='>' && s[i].charAt(0)!='='){
+				tags.add(s[i]);
+			}else if(s[i].length()>0 && (s[i].charAt(0)=='<' || s[i].charAt(0)=='>' || s[i].charAt(0)=='=')){
+				for(int j=0; j<s[i].substring(1, s[i].length()).length(); j++){
+					if(((int)s[i].charAt(j+1)<48) || ((int)s[i].charAt(j+1)>57)){
+						chiffres=false;
+						System.out.println((int)s[i].charAt(j+1));
+					}
+				}
+				if(s[i].length()>1 && chiffres && Integer.parseInt(s[i].substring(1, s[i].length()))>0){
 					limitesPoints.add(s[i]);
 				}
+				chiffres=true;
 			}
 		}
 		Connection con = null;
@@ -42,40 +50,38 @@ public class GestionBDD {
 			if (tags.size()>0) {
 				query = "select chemin from modeles where chemin in(select chemin from modeles where nom in(select nom from correspondances where tag like ";
 				for (int i = 0; i < tags.size(); i++) {
-					if (!tags.get(i).equals("")) {
-						query += "'%" + tags.get(i) + "%' ";
-						if (i <= tags.size() - 2) {
-							query += "or tag like ";
-						}
+					query += "'%" + tags.get(i) + "%' ";
+					if (i <= tags.size() - 2) {
+						query += "or tag like ";
 					}
 				}
 				query += ") ";
 				query += "or nom like ";
 				for (int i = 0; i < tags.size(); i++) {
-					if (!tags.get(i).equals("")) {
-						query += "'%" + tags.get(i) + "%' ";
-						if (i <= tags.size() - 2) {
-							query += "or nom like ";
-						}
+					query += "'%" + tags.get(i) + "%' ";
+					if (i <= tags.size() - 2) {
+						query += "or nom like ";
 					}
 				}
 				query += ")";
 				if(limitesPoints.size()>0){
-					//ajout nombre de points limites (par exemple utilisateur tape <500)
+					//ajout nombre de points limites comme critere supplementaire(par exemple utilisateur tape <500)
 					for(int i=0; i<limitesPoints.size() ; i++){
-						System.out.println(limitesPoints.get(i).substring(1, limitesPoints.size())+"coucou");
-						if(Integer.parseInt(limitesPoints.get(i).substring(1, limitesPoints.get(i).length()))>0){
-							query+=" and nb_points";
-							query+=limitesPoints.get(i).charAt(0)+limitesPoints.get(i).substring(1, limitesPoints.get(i).length());
-						}
+						query+=" and nb_points";
+						query+=limitesPoints.get(i).charAt(0)+limitesPoints.get(i).substring(1, limitesPoints.get(i).length());
 					}
 				}
 			} else {
+				//pas de critere(s) de recherche par hashtag/nom (selectionne tout les modeles)
 				query = "select chemin from modeles";
+				//critere(s) de recherche par nombre de points present, ajout d'un where pour limiter les modeles par rapport au(x) critere(s) donne(s)
 				if(limitesPoints.size()>0){
 					query+=" where ";
 					for(int i=0; i<limitesPoints.size(); i++){
-						query+=" nb_points";
+						if(i>0){
+							query+=" and ";
+						}
+						query+="nb_points";
 						query +=limitesPoints.get(i).charAt(0)+limitesPoints.get(i).substring(1, limitesPoints.get(i).length());
 					}
 				}
