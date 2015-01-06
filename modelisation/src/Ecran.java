@@ -43,7 +43,7 @@ public class Ecran extends JPanel {
 		barreAjout = new BarreAjout(this);
 		barreSelect = new BarreSelect(this);
 
-		affichage = 4;
+		affichage = 2;
 		lumiere.add(new Point(0, 0, 1));
 		background = new ImageIcon("fond.jpg").getImage();
 

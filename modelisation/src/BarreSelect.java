@@ -24,7 +24,7 @@ public class BarreSelect extends JPanel {
 	private JScrollPane scrollBarre;
 	private DefaultListModel listModelDefault = new DefaultListModel();
 
-	private JList listModelJList = new JList(listModelDefault);
+	private final JList listModelJList = new JList(listModelDefault);
 
 	private boolean ouvert = true;
 

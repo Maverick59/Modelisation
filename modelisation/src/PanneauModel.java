@@ -14,13 +14,14 @@ public class PanneauModel extends JPanel implements MouseListener {
 	private Model3D model;
 
 	private final Ecran e;
+	private String img;
 	private final Image image;
 	private int imgX = 0;
 	private int imgY = 0;
 
 	public PanneauModel(String m, Ecran e) {
 		ModelToPNG modelPng = new ModelToPNG(m);
-		String img = modelPng.getScreenShot();
+		img = modelPng.getScreenShot();
 		this.m = m;
 		this.e = e;
 		this.addMouseListener(this);
@@ -30,9 +31,12 @@ public class PanneauModel extends JPanel implements MouseListener {
 		image = new ImageIcon(img).getImage();
 	}
 
+	
+	
 	@Override
 	public void paintComponent(Graphics g) {
 		g.drawImage(image, 0, 0, imgX, imgY, null);
+		g.drawString(m.replaceAll("model/", "").replaceAll(".gts", ""), 10, 20);
 	}
 
 	@Override
@@ -63,7 +67,7 @@ public class PanneauModel extends JPanel implements MouseListener {
 		Calcul.zoom(m3d, 0.5, e.getWidth(), e.getHeight());
 		e.getBarreSelect().add(m3d);
 		e.getModels().add(m3d);
-		//e.getUserListener().getModelSelect().add(m3d);
+		// e.getUserListener().getModelSelect().add(m3d);
 		e.repaint();
 	}
 

@@ -5,6 +5,8 @@ import java.io.File;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
@@ -44,6 +46,36 @@ public class ModelToPNG extends JPanel {
 		} catch (Exception e) {
 			System.out.println("erreur enregistrement image...");
 			e.printStackTrace();
+		}
+		return null;
+	}
+	
+
+	public static String exportPng(Ecran e) {
+		try {
+
+			JFrame parentFrame = new JFrame();
+			File fileToSave = null;
+			JFileChooser fileChooser = new JFileChooser();
+			fileChooser.setDialogTitle("Specify a file to save");
+
+			int userSelection = fileChooser.showSaveDialog(parentFrame);
+
+			if (userSelection == JFileChooser.APPROVE_OPTION) {
+				fileToSave = fileChooser.getSelectedFile();
+				System.out.println("Save as file: " + fileToSave.getAbsolutePath());
+
+				BufferedImage bufferedImage = null;
+				bufferedImage = new BufferedImage(e.getWidth(), e.getHeight(), BufferedImage.TYPE_INT_RGB);
+				Graphics g = bufferedImage.createGraphics();
+				e.paint(g);
+				System.out.println("SCREENSHOT !");
+				ImageIO.write(bufferedImage, "png", new File(fileToSave.getAbsolutePath() + ".png"));
+			}
+
+		} catch (Exception i) {
+			System.out.println("erreur enregistrement image...");
+			i.printStackTrace();
 		}
 		return null;
 	}

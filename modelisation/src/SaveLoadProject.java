@@ -15,6 +15,11 @@ import javax.swing.JFrame;
 
 public class SaveLoadProject implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public static void serialise(Ecran e) throws IOException {
 		try {
 			JFrame parentFrame = new JFrame();

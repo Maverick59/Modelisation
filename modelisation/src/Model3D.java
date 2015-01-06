@@ -9,6 +9,10 @@ import java.util.Vector;
 
 public class Model3D implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	Vector<Point> points;
 	Vector<Segment> segments;
 	Vector<Face> faces;
@@ -19,11 +23,12 @@ public class Model3D implements Serializable {
 	private String nom;
 
 	public Model3D(Vector<Point> points, Vector<Segment> segments, Vector<Face> faces, String nom) {
-		color = GestionBDD.getColor(nom);
+
 		this.points = points;
 		this.segments = segments;
 		this.faces = faces;
 		this.nom = nom;
+		color = GestionBDD.getColor(this.toString());
 		Calcul.recalulerCentreGravite(this);
 	}
 
@@ -95,17 +100,15 @@ public class Model3D implements Serializable {
 
 		double cos = Math.abs(ps);
 
-		/*if (p != null) {
-			r = new Point(p.x - f.p1.x, p.y - f.p1.y, p.z - f.p1.z);
-			Calcul.normaliser(r);
-			ps = n.x * r.x + n.y * r.y + n.z * r.z;
-
-			double cos2 = Math.abs(ps);
-
-			if (cos < cos2) {
-				cos = cos2;
-			}
-		}*/
+		/*
+		 * if (p != null) { r = new Point(p.x - f.p1.x, p.y - f.p1.y, p.z -
+		 * f.p1.z); Calcul.normaliser(r); ps = n.x * r.x + n.y * r.y + n.z *
+		 * r.z;
+		 * 
+		 * double cos2 = Math.abs(ps);
+		 * 
+		 * if (cos < cos2) { cos = cos2; } }
+		 */
 
 		return new Color((int) (cos * color.getRed()), (int) (cos * color.getGreen()), (int) (cos * color.getBlue()));
 	}
@@ -165,7 +168,7 @@ public class Model3D implements Serializable {
 
 		}
 	}
-	
+
 	public void pivoZ(double i) {
 		double tmpx;
 		double tmpy;
@@ -247,16 +250,16 @@ public class Model3D implements Serializable {
 		this.nom = nom;
 	}
 
-	
-	public Model3D clone(){
-	
-		Model3D clone =Charger.chargerModel(nom);
-		for(int i=0;i<points.size();i++){
+	@Override
+	public Model3D clone() {
+
+		Model3D clone = Charger.chargerModel(nom);
+		for (int i = 0; i < points.size(); i++) {
 			clone.points.get(i).set(points.get(i));
 		}
-		clone.decalageX=decalageX;
-		clone.decalageY=decalageY;
+		clone.decalageX = decalageX;
+		clone.decalageY = decalageY;
 		return clone;
-		
+
 	}
 }

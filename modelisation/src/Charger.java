@@ -7,6 +7,8 @@ import java.util.Vector;
 
 public class Charger {
 
+	private static BufferedReader in;
+
 	public static Model3D chargerModel(String fichier) {
 		try {
 			InputStream ips = new FileInputStream(fichier);
@@ -29,7 +31,8 @@ public class Charger {
 
 			for (int i = 0; i < nbpoint; i++) {
 				ligne = in.readLine();
-				points.add(new Point((Double.parseDouble(ligne.split(" ")[0])), (Double.parseDouble(ligne.split(" ")[1])), (Double.parseDouble(ligne.split(" ")[2]))));
+				points.add(new Point((Double.parseDouble(ligne.split(" ")[0])), (Double.parseDouble(ligne.split(" ")[1])),
+						(Double.parseDouble(ligne.split(" ")[2]))));
 			}
 			for (int i = 0; i < nbsegment; i++) {
 				ligne = in.readLine();
@@ -37,8 +40,8 @@ public class Charger {
 			}
 			for (int i = 0; i < nbface; i++) {
 				ligne = in.readLine();
-				faces.add(new Face(segments.get(Integer.parseInt(ligne.split(" ")[0]) - 1), segments.get(Integer.parseInt(ligne.split(" ")[1]) - 1),
-						segments.get(Integer.parseInt(ligne.split(" ")[2]) - 1)));
+				faces.add(new Face(segments.get(Integer.parseInt(ligne.split(" ")[0]) - 1), segments.get(Integer.parseInt(ligne.split(" ")[1]) - 1), segments
+						.get(Integer.parseInt(ligne.split(" ")[2]) - 1)));
 			}
 			ipsr.close();
 			ips.close();
@@ -53,7 +56,7 @@ public class Charger {
 	public static int[] chargerModelHeader(String gts) throws IOException {
 		InputStream ips = new FileInputStream(gts);
 		InputStreamReader ipsr = new InputStreamReader(ips);
-		BufferedReader in = new BufferedReader(ipsr);
+		in = new BufferedReader(ipsr);
 		String ligne = in.readLine();
 		int nbpoint = 0;
 		int nbsegment = 0;

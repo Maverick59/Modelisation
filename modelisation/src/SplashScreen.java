@@ -3,10 +3,15 @@ import javax.swing.*;
 
 public class SplashScreen extends JWindow {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public void showSplash() {
 		JPanel content = (JPanel) getContentPane();
 		content.setBackground(Color.white);
-		
+
 		int width = 700;
 		int height = 400;
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
@@ -17,16 +22,15 @@ public class SplashScreen extends JWindow {
 		JLabel img = new JLabel();
 		ImageIcon ii = new ImageIcon("bearwalk.gif");
 		Image ima;
-		ima = ii.getImage();		
+		ima = ii.getImage();
 		img = new JLabel(new ImageIcon(ima), SwingConstants.CENTER);
 		content.add(img, BorderLayout.CENTER);
 
 		JLabel copyrt = new JLabel("Programme Modélisation", JLabel.CENTER);
 		copyrt.setFont(new Font("Sans-Serif", Font.BOLD, 24));
-	
+
 		content.add(copyrt, BorderLayout.SOUTH);
-		
-		
+
 		Color oraRed = new Color(0, 50, 50);
 		content.setBorder(BorderFactory.createLineBorder(oraRed, 10));
 

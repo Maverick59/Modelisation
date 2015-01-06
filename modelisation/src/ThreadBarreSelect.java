@@ -17,12 +17,8 @@ public class ThreadBarreSelect extends Thread {
 	}
 
 	private void fermer() {
-		while (ecran.getBarreSelect().getX() > ecran.getWidth()
-				- ecran.getBarreSelect().getWidth()) {
-			ecran.getBarreSelect().setLocation(
-					ecran.getBarreSelect().getX()
-							- ecran.getBarreSelect().getWidth() / 20,
-					ecran.getBarreSelect().getY());
+		while (ecran.getBarreSelect().getX() > ecran.getWidth() - ecran.getBarreSelect().getWidth()) {
+			ecran.getBarreSelect().setLocation(ecran.getBarreSelect().getX() - ecran.getBarreSelect().getWidth() / 20, ecran.getBarreSelect().getY());
 			ecran.getBarreSelect().repositionnerBouton();
 			try {
 				Thread.sleep(10);
@@ -30,17 +26,13 @@ public class ThreadBarreSelect extends Thread {
 				// TODO: handle exception
 			}
 		}
-		ecran.getBarreSelect().setLocation(
-				ecran.getWidth() - ecran.getBarreSelect().getWidth(), 0);
+		ecran.getBarreSelect().setLocation(ecran.getWidth() - ecran.getBarreSelect().getWidth(), 0);
 		ecran.getBarreSelect().repositionnerBouton();
 	}
 
 	private void ouvrir() {
 		while (ecran.getBarreSelect().getX() < ecran.getWidth()) {
-			ecran.getBarreSelect().setLocation(
-					ecran.getBarreSelect().getX()
-							+ ecran.getBarreSelect().getWidth() / 20,
-					ecran.getBarreSelect().getY());
+			ecran.getBarreSelect().setLocation(ecran.getBarreSelect().getX() + ecran.getBarreSelect().getWidth() / 20, ecran.getBarreSelect().getY());
 			ecran.getBarreSelect().repositionnerBouton();
 			try {
 				Thread.sleep(10);

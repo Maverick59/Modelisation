@@ -12,10 +12,10 @@ public class UserListener implements MouseWheelListener, MouseMotionListener, Mo
 	private final Ecran ecran;
 	private int x = 0;
 	private int y = 0;
-	private boolean wheeluse = false;
+
 	private int bouton;
 	private final ArrayList<Model3D> modelSelect = new ArrayList<Model3D>();
-	private final UndoRedo<ArrayList<SaveModel3D>> undoRedo = new UndoRedo<ArrayList<SaveModel3D>>();
+
 	private boolean control = false;
 	private boolean reaffichage2 = false;
 
@@ -38,14 +38,7 @@ public class UserListener implements MouseWheelListener, MouseMotionListener, Mo
 			}
 
 		} else {
-			if (!wheeluse) {
-				ArrayList<SaveModel3D> savemodels = new ArrayList<SaveModel3D>();
-				for (Model3D m : ecran.getModels()) {
-					savemodels.add(new SaveModel3D(m));
-				}
-				undoRedo.ajouteZ(savemodels);
-			}
-			wheeluse = true;
+
 			for (Model3D m : modelSelect) {
 				if (e.getWheelRotation() > 0) {
 					m.zoom(1.1);
@@ -118,17 +111,12 @@ public class UserListener implements MouseWheelListener, MouseMotionListener, Mo
 	public void mousePressed(MouseEvent e) {
 		ecran.getFrame().requestFocus();
 		bouton = e.getButton();
-		wheeluse = false;
 		// threadTourne.init(0, 0);
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		ArrayList<SaveModel3D> savemodels = new ArrayList<SaveModel3D>();
-		for (Model3D m : ecran.getModels()) {
-			savemodels.add(new SaveModel3D(m));
-		}
-		undoRedo.ajouteZ(savemodels);
+
 
 		if (reaffichage2) {
 			ecran.setAffichage(2);
@@ -148,24 +136,6 @@ public class UserListener implements MouseWheelListener, MouseMotionListener, Mo
 			ecran.getModels().removeAll(modelSelect);
 			ecran.getBarreSelect().removeAll(modelSelect);
 			modelSelect.clear();
-		} else if (control && key == KeyEvent.VK_Z) {
-			if (undoRedo.retourZ()) {
-				ecran.getModels().clear();
-				ecran.getBarreSelect().clear();
-				for (SaveModel3D sm : undoRedo.retourArriere()) {
-					ecran.getModels().add(sm.getModel());
-					ecran.getBarreSelect().add(sm.getModel());
-				}
-			}
-		} else if (control && key == KeyEvent.VK_Y) {
-			if (undoRedo.retourY()) {
-				ecran.getModels().clear();
-				ecran.getBarreSelect().clear();
-				for (SaveModel3D sm : undoRedo.retourAvant()) {
-					ecran.getModels().add(sm.getModel());
-					ecran.getBarreSelect().add(sm.getModel());
-				}
-			}
 		} else if (key == KeyEvent.VK_F1) {
 			ecran.setAffichage(0);
 		} else if (key == KeyEvent.VK_F2) {

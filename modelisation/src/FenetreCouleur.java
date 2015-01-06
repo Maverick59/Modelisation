@@ -6,6 +6,11 @@ import javax.swing.JFrame;
 
 public class FenetreCouleur extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public FenetreCouleur(Ecran ecran) {
 		Color c = JColorChooser.showDialog(null, "Couleur", null);
 		ArrayList<Model3D> list = ecran.getUserListener().getModelSelect();

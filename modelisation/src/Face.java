@@ -3,6 +3,10 @@ import java.io.Serializable;
 
 public class Face implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	Point p1, p2, p3;
 
 	public Face(Segment s1, Segment s2, Segment s3) {

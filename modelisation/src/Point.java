@@ -2,6 +2,10 @@ import java.io.Serializable;
 
 public class Point implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	double x, y, z;
 
 	public Point(double x, double y, double z) {
@@ -39,7 +43,7 @@ public class Point implements Serializable {
 		this.x = p.x;
 		this.y = p.y;
 		this.z = p.z;
-		
+
 	}
 
 }

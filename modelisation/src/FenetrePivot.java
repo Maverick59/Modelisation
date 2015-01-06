@@ -10,9 +10,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class FenetrePivo extends JFrame {
+public class FenetrePivot extends JFrame {
 
-	private final Ecran ecran;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Ecran ecran;
 	private JTextField jTextFieldX;
 	private JTextField jTextFieldY;
 	private JTextField jTextFieldZ;
@@ -34,7 +38,7 @@ public class FenetrePivo extends JFrame {
 	private final JButton jButtonTX2 = new JButton(">");
 	private final JButton jButtonTY2 = new JButton("v");
 
-	public FenetrePivo(Ecran ecran) {
+	public FenetrePivot(Ecran ecran) {
 		this.ecran = ecran;
 		init();
 	}
@@ -47,7 +51,8 @@ public class FenetrePivo extends JFrame {
 		// this.setSize(ecran.getWidth() / 2, ecran.getHeight() / 2);
 
 		this.setLayout(new GridLayout(6, 3));
-		this.setLocation(ecran.getFrame().getX() + ecran.getWidth() / 2 - this.getWidth() / 2, ecran.getFrame().getY() + ecran.getHeight() / 2 - this.getHeight() / 2);
+		this.setLocation(ecran.getFrame().getX() + ecran.getWidth() / 2 - this.getWidth() / 2,
+				ecran.getFrame().getY() + ecran.getHeight() / 2 - this.getHeight() / 2);
 
 		jTextFieldX = new JTextField(15);
 		jTextFieldY = new JTextField(15);
@@ -260,7 +265,7 @@ public class FenetrePivo extends JFrame {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if (e.getKeyCode() == e.VK_ENTER) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					double nb;
 					try {
 						nb = Double.parseDouble(jTextFieldX.getText());
@@ -290,7 +295,7 @@ public class FenetrePivo extends JFrame {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if (e.getKeyCode() == e.VK_ENTER) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					double nb;
 					try {
 						nb = Double.parseDouble(jTextFieldY.getText());
@@ -320,7 +325,7 @@ public class FenetrePivo extends JFrame {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if (e.getKeyCode() == e.VK_ENTER) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					double nb;
 					try {
 						nb = Double.parseDouble(jTextFieldZ.getText());
@@ -350,7 +355,7 @@ public class FenetrePivo extends JFrame {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if (e.getKeyCode() == e.VK_ENTER) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					double nb;
 					try {
 						nb = Double.parseDouble(jTextFieldZoom.getText());
@@ -380,7 +385,7 @@ public class FenetrePivo extends JFrame {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if (e.getKeyCode() == e.VK_ENTER) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					double nb;
 					try {
 						nb = Double.parseDouble(jTextFieldTX.getText());
@@ -410,7 +415,7 @@ public class FenetrePivo extends JFrame {
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if (e.getKeyCode() == e.VK_ENTER) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					double nb;
 					try {
 						nb = Double.parseDouble(jTextFieldTY.getText());

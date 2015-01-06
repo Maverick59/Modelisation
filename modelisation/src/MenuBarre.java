@@ -1,5 +1,7 @@
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -12,8 +14,8 @@ public class MenuBarre extends JMenuBar {
 
 	private final Ecran e;
 	private final ArrayList<JMenu> menu = new ArrayList<JMenu>();
-	private ArrayList<Model3D> copier=new ArrayList<Model3D>();
-	
+	private final ArrayList<Model3D> copier = new ArrayList<Model3D>();
+
 	public MenuBarre(Ecran e) {
 		this.e = e;
 		init();
@@ -27,7 +29,7 @@ public class MenuBarre extends JMenuBar {
 		menu.add(new JMenu("Fichier"));
 		menu.add(new JMenu("Edition"));
 		menu.add(new JMenu("Affichage"));
-		menu.add(new JMenu("Modélisation"));
+		menu.add(new JMenu("Modelisation"));
 		menu.add(new JMenu("Aide"));
 
 		for (JMenu m : menu) {
@@ -98,7 +100,7 @@ public class MenuBarre extends JMenuBar {
 		});
 		menu.get(i).add(c);
 
-		c = new JMenuItem("Exporter");
+		c = new JMenuItem("Exporter to Png");
 		c.addActionListener(new ActionListener() {
 
 			@Override
@@ -107,6 +109,17 @@ public class MenuBarre extends JMenuBar {
 			}
 		});
 		menu.get(i).add(c);
+
+		c = new JMenuItem("Exporter to Gts");
+		c.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("--Exporter--");
+			}
+		});
+		menu.get(i).add(c);
+
 		menu.get(i).add(new JSeparator());
 
 		c = new JMenuItem("Quitter");
@@ -152,7 +165,7 @@ public class MenuBarre extends JMenuBar {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				copier.clear();
-				for(Model3D m : e.getUserListener().getModelSelect()){
+				for (Model3D m : e.getUserListener().getModelSelect()) {
 					copier.add(m.clone());
 				}
 			}
@@ -164,8 +177,8 @@ public class MenuBarre extends JMenuBar {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				for(Model3D m : copier){
-					m=m.clone();
+				for (Model3D m : copier) {
+					m = m.clone();
 					e.getModels().add(m);
 					e.getBarreSelect().add(m);
 				}
@@ -185,7 +198,7 @@ public class MenuBarre extends JMenuBar {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("--Couleur de modèle--");
+				System.out.println("--Couleur de modele--");
 				new FenetreCouleur(e);
 			}
 		});
@@ -203,17 +216,18 @@ public class MenuBarre extends JMenuBar {
 		menu.get(i).add(c);
 		menu.get(i).add(new JSeparator());
 
-		c = new JMenuItem("Design trait");
+		c = new JMenuItem("Avec lumiere");
 		c.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				e.setAffichage(0);
+				e.setAffichage(2);
 				e.repaint();
 			}
 		});
 		menu.get(i).add(c);
-		c = new JMenuItem("Design plein");
+		
+		c = new JMenuItem("Sans lumiere");
 		c.addActionListener(new ActionListener() {
 
 			@Override
@@ -224,17 +238,29 @@ public class MenuBarre extends JMenuBar {
 		});
 		menu.get(i).add(c);
 
-		c = new JMenuItem("Lumiere");
+		c = new JMenuItem("Design trait");
 		c.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				e.setAffichage(2);
+				e.setAffichage(0);
 				e.repaint();
 			}
 		});
 		menu.get(i).add(c);
+		
+		c = new JMenuItem("Design point");
+		c.addActionListener(new ActionListener() {
 
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				e.setAffichage(4);
+				e.repaint();
+			}
+		});
+		menu.get(i).add(c);
+		
+	
 		c = new JMenuItem("Coupe");
 		c.addActionListener(new ActionListener() {
 
@@ -246,22 +272,12 @@ public class MenuBarre extends JMenuBar {
 		});
 		menu.get(i).add(c);
 		
-		c = new JMenuItem("Point");
-		c.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				e.setAffichage(4);
-				e.repaint();
-			}
-		});
-		menu.get(i).add(c);
 		/*
 		 * MENU MODELISATION
 		 */
 		i = 3;
 
-		c = new JMenuItem("Pivot");
+		c = new JMenuItem("Pivot/Translation/Zoom");
 		c.addActionListener(new ActionListener() {
 
 			@Override
@@ -272,29 +288,19 @@ public class MenuBarre extends JMenuBar {
 		menu.get(i).add(c);
 		menu.get(i).add(new JSeparator());
 
-		c = new JMenuItem("Translation");
+		c = new JMenuItem("Couleur en BDD");
 		c.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("--Translation--");
+				new FenetreColor(e);
 			}
 		});
 		menu.get(i).add(c);
+
 		menu.get(i).add(new JSeparator());
 
-		c = new JMenuItem("Zoom");
-		c.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("--Zoom--");
-			}
-		});
-		menu.get(i).add(c);
-		menu.get(i).add(new JSeparator());
-
-		c = new JMenuItem("Découpage en tranche");
+		c = new JMenuItem("Configuration du modele");
 		c.addActionListener(new ActionListener() {
 
 			@Override
@@ -315,7 +321,13 @@ public class MenuBarre extends JMenuBar {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("--Notice d'utilisation--");
+				Desktop d = Desktop.getDesktop();
+				try {
+					d.open(new File("noticeUtilisation.pdf"));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 		menu.get(i).add(c);
@@ -326,7 +338,7 @@ public class MenuBarre extends JMenuBar {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("--Contacts--");
+				new Contact(e);
 			}
 		});
 		menu.get(i).add(c);
