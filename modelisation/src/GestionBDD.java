@@ -9,22 +9,22 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class GestionBDD {
-
+	//enlever le main avant le rendu
 	public static void main(String[] args) throws IOException {
-		/*File file = new File("model");
-		for (File f : file.listFiles()) {
-			System.out.println(f.getPath());
-			GestionBDD.insert(f.getPath());
-		}*/
+		
 	}
-
-	public static void majBDD(Ecran e){
+	/**
+	 * met a jour la BDD en ajoutant les modeles qui ne sont pas encore présents dans celle ci en appelant la methode insert, et supprime toutes les images
+	 * qui se re-regenereront au prochain lancement du programme
+	 * @param e l'ecran du programme auquel on applique la methode
+	 */
+	public static void updateDB(Ecran e){
 		int reply = JOptionPane.showConfirmDialog(null, "Voulez vous mettre a jour la base de donnee ?");
 	    if (reply == JOptionPane.YES_OPTION){
 			File file = new File("model");
 			for (File f : file.listFiles()) {
 				try {
-					GestionBDD.insert(f.getPath());
+					GestionBDD.insertModel(f.getPath());
 				} catch (Exception e2) {
 					// TODO: handle exception
 				}
@@ -33,12 +33,17 @@ public class GestionBDD {
 			for (File f : img.listFiles()) {
 				f.delete();
 			}
-			e.getBarreAjout().ajouterModels(GestionBDD.rechercheGTS(""));
+			e.getBarreAjout().ajouterModels(GestionBDD.searchModel(""));
 			JOptionPane.showMessageDialog(null, "Redemarrez le programme pour appliquer les changements");
 	    }
 	}
+	
+	/**
+	 * vide la table de la BDD passée en paramètre
+	 * @param string la table a vider
+	 */
 
-	private static void clear(String string) {
+	private static void clearTable(String string) {
 		Connection con = null;
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -56,7 +61,15 @@ public class GestionBDD {
 			}
 		}
 	}
-	public static ArrayList<String> rechercheGTS(String hashtags) {
+	
+	/**
+	 * renvoie tous les modeles qui correspondent au(x) critere(s) donnés par le paramètre
+	 * @param hashtags une chaine contenant un ou plusieurs criteres de recherche, voir aucun. Ces criteres peuvent etre: 
+	 * aucune, une ou plusieurs limitation(s) en nombre de points (avec un operateur inferieur, superieur ou egal suivi du nombre de points) 
+	 * aucune, une ou plusieurs chaines de caracteres qui correspondront aux modeles voulus (soit le nom, soit un tag, soit des lettres etc..)
+	 * @return une ArrayList contenant tous les modeles qui correspondent aux criteres de recherche
+	 */
+	public static ArrayList<String> searchModel(String hashtags) {
 		String[] s;
 		boolean chiffres = true;
 		ArrayList<String> tags = new ArrayList<String>();
@@ -144,8 +157,12 @@ public class GestionBDD {
 		return res;
 	}
 
-	// renvoie le chemin vers l'image, en connaissant le chemin du gts
-	public static String recherchePNG(String gts) {
+	/**
+	 * renvoie le chemin de l'image d'un modele
+	 * @param gts le chemin du modele
+	 * @return le chemin vers son image
+	 */
+	public static String searchPNG(String gts) {
 		Connection con = null;
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -167,7 +184,11 @@ public class GestionBDD {
 		return null;
 	}
 
-	public static void insert(String gts) {
+	/**
+	 * ajoute le modele passe en parametre dans la table des modeles, avec toutes les informations necessaires (nom, couleur par defaut, nombre de points; segments et faces etc...)
+	 * @param gts, le chemin du modele a ajouter
+	 */
+	public static void insertModel(String gts) {
 		Connection con = null;
 		try {
 			String nom = gts.replace(".gts", "");
@@ -191,7 +212,13 @@ public class GestionBDD {
 		}
 	}
 
-	public static void insertHashTag(String nom, String hashtag) {
+	/**
+	 * ajoute une correspondance entre nom et hashtag. cree hashtag s'il n'existe pas encore. 
+	 * Ne fait rien si le nom du modele ne correspond a aucun modele existant dans la base
+	 * @param nom le nom du modele
+	 * @param hashtag le tag qu'on veut lui ajouter
+	 */
+	public static void addConnection(String nom, String hashtag) {
 		Connection con = null;
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -202,13 +229,7 @@ public class GestionBDD {
 			ResultSet rs3;
 			rs = stmt.executeQuery("select nom from modeles where nom='" + nom + "'");
 			if (rs.next() != false && rs.getString("nom").equals(nom)) {
-				rs2 = stmt.executeQuery("select tag from hashTags where tag='" + hashtag + "'");
-				if (rs2.next() != false && rs2.getString("tag").toString().equals(hashtag)) {
-					System.out.println("ce tag existe deja et ne sera donc pas créé");
-				} else {
-					System.out.println("ce tag va etre créé");
-					stmt.executeUpdate("insert into hashTags values('" + hashtag + "')");
-				}
+				insertTag(hashtag);
 				rs3 = stmt.executeQuery("select nom from correspondances where nom='" + nom + "' and tag='" + hashtag + "'");
 				if (rs3.next() != false && rs3.getString("nom").equals(nom)) {
 					System.out.println("cette correspondace existe deja");
@@ -230,6 +251,11 @@ public class GestionBDD {
 		}
 	}
 
+	/**
+	 * definit la couleur de base d'un modele. Ne fait rien si le nom du modele passe en parametre n'est lie a aucun modele connu de la base
+	 * @param nom le nom du modele duquel on veut editer la couleur de base
+	 * @param color la couleur debase a lui definir
+	 */
 	public static void setColor(String nom, int color) {
 		Connection con = null;
 		try {
@@ -252,6 +278,11 @@ public class GestionBDD {
 		}
 	}
 
+	/**
+	 * renseigne la couleur de base d'un modele
+	 * @param nom, le nom du modele duquel on veut connaitre la couleur
+	 * @return la couleur du modele correspondant au parametre
+	 */
 	public static Color getColor(String nom) {
 		Connection con = null;
 		try {
@@ -275,7 +306,12 @@ public class GestionBDD {
 		return new Color(0x999999);
 	}
 
-	public static String getNom(String chemin) {
+	/**
+	 * renseine le nom d'un modele
+	 * @param chemin, le chemin du modele
+	 * @return nom, le nom correspondant au modele
+	 */
+	public static String getName(String chemin) {
 		Connection con = null;
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -298,6 +334,10 @@ public class GestionBDD {
 		return null;
 	}
 
+	/**
+	 * renvoie tout les tags existants dans la base de donnees
+	 * @return un ArrayList contenant tous les tags
+	 */
 	public static ArrayList<String> selectAllTags() {
 		Connection con = null;
 		ArrayList<String> l = new ArrayList<String>();
@@ -323,7 +363,12 @@ public class GestionBDD {
 		return l;
 	}
 
-	public static void deleteTagFor(String model, String tag) {
+	/**
+	 * supprime une correspondance entre un modele et un tag
+	 * @param model, le modele duquel on veut supprimer sa relation avec un tag
+	 * @param tag, le tag a supprimer pointant sur le modele
+	 */
+	public static void removeConnection(String model, String tag) {
 		Connection con = null;
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -342,7 +387,11 @@ public class GestionBDD {
 		}
 	}
 
-	public static void ajoutHashTag(String hashtag) {
+	/**
+	 * ajoute un tag dans la table hashTags s'il n'existe pas encore
+	 * @param hashtag, le tag a rajouter
+	 */
+	public static void insertTag(String hashtag) {
 		Connection con = null;
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -367,6 +416,10 @@ public class GestionBDD {
 		}
 	}
 
+	/**
+	 * supprime un completement un tag de la base de donnees (le supprime de la table hashTags ainsi que toutes ses correspondances avec les modeles)
+	 * @param tag, le tag a supprimer
+	 */
 	public static void deleteTag(String tag) {
 		Connection con = null;
 		try {
@@ -388,7 +441,12 @@ public class GestionBDD {
 		}
 	}
 
-	public static ArrayList<String> rechercheParTag(String tag) {
+	/**
+	 * renvoie tous les noms de modeles ayant une correspondance avec le tag passe en parametre
+	 * @param tag, le tag avec lequel la recherche est faite
+	 * @return une ArrayList contenant les noms des modeles pour lesquels une correspondance existe avec le tag
+	 */
+	public static ArrayList<String> searchByTag(String tag) {
 		Connection con = null;
 		ArrayList<String> l = new ArrayList<String>();
 		try {

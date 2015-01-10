@@ -52,7 +52,7 @@ public class MenuBarre extends JMenuBar {
 				e.getBarreSelect().clear();
 				e.getUserListener().getModelSelect().clear();
 				e.getBarreAjout().getTextfield().setText("");
-				e.getBarreAjout().ajouterModels(GestionBDD.rechercheGTS(""));
+				e.getBarreAjout().ajouterModels(GestionBDD.searchModel(""));
 			}
 		});
 		menu.get(i).add(c);

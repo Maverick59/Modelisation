@@ -32,7 +32,7 @@ public class ModelToPNG extends JPanel {
 
 	public String getScreenShot() {
 		try {
-			File f = new File(GestionBDD.recherchePNG(m));
+			File f = new File(GestionBDD.searchPNG(m));
 			if (!f.exists()) {
 				this.model = Charger.chargerModel(m);
 				BufferedImage bufferedImage = null;

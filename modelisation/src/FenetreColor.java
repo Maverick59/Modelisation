@@ -45,7 +45,7 @@ public class FenetreColor extends JFrame {
 		jColorChooser.remove(jColorChooser.getComponent(1));
 
 		String nom;
-		for (String m : GestionBDD.rechercheGTS("")) {
+		for (String m : GestionBDD.searchModel("")) {
 			nom = m.replace(".gts", "");
 			nom = nom.split("/")[nom.split("/").length - 1];
 			listModelDefault_model.addElement(nom);

@@ -225,7 +225,7 @@ public class FenetreConfigModel extends JFrame {
 				for (int i = 0; i < jList_hashtag.getSelectedValues().length; i++) {
 					for (int j = 0; j < jList_model.getSelectedValues().length; j++) {
 						System.out.println("" + (String) jList_hashtag.getSelectedValues()[i] + "," + (String) jList_model.getSelectedValues()[j]);
-						GestionBDD.deleteTagFor((String) jList_model.getSelectedValues()[j], (String) jList_hashtag.getSelectedValues()[i]);
+						GestionBDD.removeConnection((String) jList_model.getSelectedValues()[j], (String) jList_hashtag.getSelectedValues()[i]);
 					}
 				}
 				refreshJListModel();
@@ -239,7 +239,7 @@ public class FenetreConfigModel extends JFrame {
 				for (int i = 0; i < jList_hashtag.getSelectedValues().length; i++) {
 					for (int j = 0; j < jList_model.getSelectedValues().length; j++) {
 						System.out.println("" + (String) jList_hashtag.getSelectedValues()[i] + "," + (String) jList_model.getSelectedValues()[j]);
-						GestionBDD.insertHashTag((String) jList_model.getSelectedValues()[j], (String) jList_hashtag.getSelectedValues()[i]);
+						GestionBDD.addConnection((String) jList_model.getSelectedValues()[j], (String) jList_hashtag.getSelectedValues()[i]);
 					}
 				}
 				refreshJListModel();
@@ -259,7 +259,7 @@ public class FenetreConfigModel extends JFrame {
 
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					if (!ajouthashtag.getText().equals("")) {
-						GestionBDD.ajoutHashTag(ajouthashtag.getText());
+						GestionBDD.insertTag(ajouthashtag.getText());
 					}
 					refreshJlistHashtag();
 				}
@@ -294,9 +294,9 @@ public class FenetreConfigModel extends JFrame {
 	private void refreshJListModel() {
 		ArrayList<String> modelavechashtag = new ArrayList<String>();
 		for (int i = 0; i < jList_hashtag.getSelectedValues().length; i++) {
-			modelavechashtag.addAll(GestionBDD.rechercheParTag((String) jList_hashtag.getSelectedValues()[i]));
+			modelavechashtag.addAll(GestionBDD.searchByTag((String) jList_hashtag.getSelectedValues()[i]));
 		}
-		ArrayList<String> touslesmodel = GestionBDD.rechercheGTS("");
+		ArrayList<String> touslesmodel = GestionBDD.searchModel("");
 
 		listModelDefault_modelavechashtag.clear();
 		listModelDefault_model.clear();

@@ -38,7 +38,7 @@ public class BarreAjout extends JPanel {
 		textfield.addKeyListener(new KeyListener() {
 			@Override
 			public void keyReleased(KeyEvent arg0) {
-				ajouterModels(GestionBDD.rechercheGTS(textfield.getText()));
+				ajouterModels(GestionBDD.searchModel(textfield.getText()));
 
 			}
 
@@ -59,7 +59,7 @@ public class BarreAjout extends JPanel {
 		scrollBarre.getVerticalScrollBar().setUnitIncrement(20);
 		scrollBarre.setPreferredSize(new Dimension(e.getWidth() / 5 + 20, e.getHeight()));
 
-		ajouterModels(GestionBDD.rechercheGTS(""));
+		ajouterModels(GestionBDD.searchModel(""));
 
 		boutonFleche = new JButton(new ImageIcon("flecheD.png"));
 		boutonFleche.setFocusable(false);
@@ -134,8 +134,8 @@ public class BarreAjout extends JPanel {
 		int returnVal = chooser.showOpenDialog(e);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			System.out.println(chooser.getSelectedFile().getPath());
-			GestionBDD.insert(chooser.getSelectedFile().getPath());
-			ajouterModels(GestionBDD.rechercheGTS(textfield.getText()));
+			GestionBDD.insertModel(chooser.getSelectedFile().getPath());
+			ajouterModels(GestionBDD.searchModel(textfield.getText()));
 			this.refresh();
 		}
 	}
