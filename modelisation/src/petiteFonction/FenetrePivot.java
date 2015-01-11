@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 import fenetre.Ecran;
 import model.Model3D;
 
-public class FenetrePivo extends JFrame {
+public class FenetrePivot extends JFrame {
 
 	private final Ecran ecran;
 	private JTextField jTextFieldX;
@@ -38,7 +38,7 @@ public class FenetrePivo extends JFrame {
 	private final JButton jButtonTX2 = new JButton(">");
 	private final JButton jButtonTY2 = new JButton("v");
 
-	public FenetrePivo(Ecran ecran) {
+	public FenetrePivot(Ecran ecran) {
 		this.ecran = ecran;
 		init();
 	}

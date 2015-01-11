@@ -317,7 +317,7 @@ public class MenuBarre extends JMenuBar {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				new FenetrePivo(e);
+				new FenetrePivot(e);
 			}
 		});
 		c.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, KeyEvent.CTRL_MASK));
