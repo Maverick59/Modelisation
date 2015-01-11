@@ -37,7 +37,7 @@ public class Insert {
 		}
 	}
 	/**
-	 * insert dans la bdd les fichier choisit
+	 * insert dans la bdd les fichiers choisis
 	 * @param liens
 	 * @param ecran
 	 */
@@ -46,7 +46,9 @@ public class Insert {
 			String nom;
 			if(lien.getPath().endsWith(".gts")){
 				try {
-					copy(lien.getPath(), Parametre.workspace + "/model/" + lien.getName());
+					if(lien.getPath().equals( Parametre.workspace + "/model/" + lien.getName())){
+						copy(lien.getPath(), Parametre.workspace + "/model/" + lien.getName());
+					}
 					GestionBDD.insertModel("model/" + lien.getName());
 					e.getBarreAjout().refreshImg();
 				} catch (Exception ex) {
@@ -58,7 +60,7 @@ public class Insert {
 		
 	}
 	/**
-	 * copy un fichier
+	 * copie un fichier
 	 * @param source
 	 * @param destination
 	 */

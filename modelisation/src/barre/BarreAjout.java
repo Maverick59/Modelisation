@@ -36,7 +36,7 @@ public class BarreAjout extends JPanel {
 		init();
 	}
 	/**
-	 * initialise le Jpanel
+	 * initialise le Jpanel dans la barre laterale gauche
 	 */
 	private void init() {
 
@@ -91,7 +91,7 @@ public class BarreAjout extends JPanel {
 
 	}
 	/**
-	 * charche les modeles present dans la barre 
+	 * cherche les modeles presents dans la barre 
 	 * @param arraylist des modeles visible sur la barre d'ajout
 	 */
 	public void ajouterModels(ArrayList<String> tab) {

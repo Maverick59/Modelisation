@@ -22,7 +22,7 @@ public class FenetreCoupe extends JFrame {
 		init();
 	}
 	/**
-	 * initialise la fenetre
+	 * initialise la fenetre de choix pour la coupe
 	 */
 	public void init() {
 		this.setTitle("coupe");
@@ -75,7 +75,7 @@ public class FenetreCoupe extends JFrame {
 	/**
 	 * 
 	 * @param taille des tranches en pixel
-	 * @return nombre de tranches que ça va donner
+	 * @return nombre de tranches que l'on va obtenir.
 	 */
 	private int nbTranche(int nb) {
 		return (int) ((Calcul.maxZ(ecran.getModels())-Calcul.minZ(ecran.getModels()))/nb);

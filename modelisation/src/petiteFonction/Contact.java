@@ -18,7 +18,8 @@ public class Contact extends JFrame {
 		init();
 	}
 	/**
-	 * initialise la frame
+	 * initialise la frame comportant les contacts
+	 * avec leur e-mail
 	 */
 	public void init() {
 		this.setTitle("Contact");

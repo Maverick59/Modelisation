@@ -32,6 +32,12 @@ public class Model3D implements Serializable {
 		Calcul.recalulerCentreGravite(this);
 	}
 
+	public Model3D(ArrayList<Point> points, ArrayList<Segment> segments, ArrayList<Face> faces) {
+		this.points = points;
+		this.segments = segments;
+		this.faces = faces;
+	}
+	
 	public Model3D() {
 		this.points = new ArrayList<Point>();
 		this.segments = new ArrayList<Segment>();
@@ -102,7 +108,7 @@ public class Model3D implements Serializable {
 	/**
 	 * return la color de la face par rapport à la lumiere
 	 * @param lumiere (ArrayList<Point>)
-	 * @param face à éclairer
+	 * @param face a eclairer
 	 * @return Color
 	 */
 	private Color eclairage(ArrayList<Point> lumiere, Face f) {
@@ -159,7 +165,7 @@ public class Model3D implements Serializable {
 		}
 	}
 	/**
-	 * pivo Horizontal par rapport à i
+	 * pivot Horizontal par rapport à i
 	 * @param i
 	 */
 	public void pivoH(double i) {
@@ -176,7 +182,7 @@ public class Model3D implements Serializable {
 
 	}
 	/**
-	 * pivo Vertical par rapport à i
+	 * pivot Vertical par rapport à i
 	 * @param i
 	 */
 	public void pivoV(double i) {
@@ -192,7 +198,7 @@ public class Model3D implements Serializable {
 		}
 	}
 	/**
-	 * pivo 2D par rapport à i
+	 * pivot 2D par rapport à i
 	 * @param i
 	 */
 	public void pivoZ(double i) {

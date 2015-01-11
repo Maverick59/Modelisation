@@ -11,7 +11,7 @@ import utilitaire.Parametre;
 
 public class ChangerWorkspace {
 	/**
-	 * change de workspace
+	 * change de workspace (lieu ou se trouve les ressources)
 	 */
 	public static void changer(){
 		try {

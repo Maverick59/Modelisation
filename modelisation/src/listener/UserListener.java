@@ -32,7 +32,7 @@ public class UserListener implements MouseWheelListener, MouseMotionListener, Mo
 		this.ecran = ecran;
 	}
 	/**
-	 * permet le zoom ou fait defiler les tranche
+	 * permet le zoom ou fait defiler les tranches
 	 */
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
@@ -64,7 +64,7 @@ public class UserListener implements MouseWheelListener, MouseMotionListener, Mo
 		ecran.repaint();
 	}
 	/**
-	 * permet le pivo et la translation
+	 * permet le pivot et la translation
 	 */
 	@Override
 	public void mouseDragged(MouseEvent e) {
@@ -193,11 +193,13 @@ public class UserListener implements MouseWheelListener, MouseMotionListener, Mo
 		}
 	}
 	/**
-	 * 
+	 * enregistre le model dans l'undoRedo pour 
+	 * que l'on puisse s'en servir avec le Ctrl Y
+	 * et le Ctrl Z
 	 */
 	public void saveUndoRedo() {
 		int nb = 0;
-		for (Model3D m : modelSelect) {
+		for (Model3D m : ecran.getModels()) {
 			nb += m.getPoints().size();
 		}
 
@@ -243,7 +245,7 @@ public class UserListener implements MouseWheelListener, MouseMotionListener, Mo
 		return new Point(x, y, 0);
 	}
 	/**
-	 * copier les model selectionné
+	 * copier les models selectionnes
 	 */
 	public void copier() {
 		copier.clear();
@@ -252,7 +254,7 @@ public class UserListener implements MouseWheelListener, MouseMotionListener, Mo
 		}
 	}
 	/**
-	 * coller les model selectionné
+	 * coller les models selectionnes
 	 */
 	public void coller() {
 		for (Model3D m : copier) {

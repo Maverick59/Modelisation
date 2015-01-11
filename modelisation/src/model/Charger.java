@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Charger {
 	/**
-	 * charge les données d'un fichier.
+	 * charge les donnees d'un fichier.
 	 * @param nom du fichier
 	 * @return un Model3D
 	 */
@@ -57,7 +57,7 @@ public class Charger {
 		return null;
 	}
 	/**
-	 * renvoye le nb de points/segment/faces du gts
+	 * renvoye le nb de points/segments/faces du gts
 	 * @param lien du fichier
 	 * @return tableau de int avec {points,segment,faces}
 	 * @throws IOException

@@ -21,8 +21,8 @@ public class FenetreColor extends JFrame {
 
 	private final Ecran ecran;
 	private JColorChooser jColorChooser;
-	private final DefaultListModel<String> listModelDefault_model = new DefaultListModel<String>();
-	private final JList<String> jList = new JList<String>(listModelDefault_model);
+	private final DefaultListModel listModelDefault_model = new DefaultListModel();
+	private final JList jList = new JList(listModelDefault_model);
 
 	private final JButton jButtonQuitter = new JButton("Quitter");
 	private final JButton jButtonAppliquer = new JButton("Appliquer");
@@ -32,7 +32,8 @@ public class FenetreColor extends JFrame {
 		init();
 	}
 	/**
-	 * initialise la fenetre
+	 * initialise la fenetre pour changer la couleur
+	 * des models presents dans la bdd
 	 */
 	private void init() {
 		this.setResizable(true);

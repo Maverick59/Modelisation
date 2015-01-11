@@ -9,7 +9,7 @@ public class ThreadBarreSelect extends Thread {
 		this.ecran = ecran;
 	}
 	/**
-	 * ouvre ou ferme la barre
+	 * ouvre ou ferme la barre select (laterale droite)
 	 */
 	@Override
 	public void run() {

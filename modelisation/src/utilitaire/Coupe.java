@@ -28,12 +28,12 @@ public class Coupe {
 	}
 
 	/**
-	 * renvoie l'endroit ou est coupée le triangle
+	 * renvoie l'endroit ou est coupee le triangle
 	 * @param f la face que l'on coupe
 	 * @param z l'endroit ou on coupe sur l'axe z
 	 * @return le segment ou le plan coupe le triangle
 	 */
-	private static Segment intersectionTrianglePlan(Face f, double z) {
+	public static Segment intersectionTrianglePlan(Face f, double z) {
 		Point a = intersectionSegmentPlan(f.p1, f.p2, z);
 		Point b = intersectionSegmentPlan(f.p2, f.p3, z);
 		Point c = intersectionSegmentPlan(f.p3, f.p1, z);
@@ -49,13 +49,13 @@ public class Coupe {
 	}
 
 	/**
-	 * renvoie l'endroit ou est coupée le Segment
+	 * renvoie l'endroit ou est coupee le Segment
 	 * @param a premier point du segment
 	 * @param b deuxieme point du segment
 	 * @param z l'endroit ou on coupe sur l'axe z
 	 * @return le point ou le plan coupe le segment
 	 */
-	private static Point intersectionSegmentPlan(Point a, Point b, double z) {
+	public static Point intersectionSegmentPlan(Point a, Point b, double z) {
 		Point ab = new Point(a.x - b.x, a.y - b.y, a.z - b.z);
 
 		double k = (z - b.z) / ab.z;

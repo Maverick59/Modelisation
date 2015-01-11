@@ -28,7 +28,7 @@ public class ModelToPNG extends JPanel {
 		l.add(new Point(0, 0, 1));
 	}
 	/**
-	 * paint le model
+	 * dessine le model
 	 */
 	@Override
 	public void paintComponent(Graphics g) {
@@ -38,7 +38,7 @@ public class ModelToPNG extends JPanel {
 		model.afficher(g, l);
 	}
 	/**
-	 * cherche ou crée l'image du model
+	 * cherche ou cree l'image du model
 	 * @return l'addresse du model
 	 */
 	public String getScreenShot() {

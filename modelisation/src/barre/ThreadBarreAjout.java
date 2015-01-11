@@ -9,7 +9,7 @@ public class ThreadBarreAjout extends Thread {
 		this.ecran = ecran;
 	}
 	/**
-	 * ouvre ou ferme la barre
+	 * ouvre ou ferme la barre ajout (laterale gauche)
 	 */
 	@Override
 	public void run() {

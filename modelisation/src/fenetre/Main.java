@@ -23,13 +23,13 @@ import utilitaire.Insert;
 import utilitaire.Parametre;
 
 @SuppressWarnings("serial")
-public class Main extends JFrame implements ComponentListener , DropTargetListener{
+public class Main extends JFrame implements ComponentListener , DropTargetListener {
 
 	private final Ecran e;
 	/**
-	 * demande quel workspace choisir
-	 * affiche le chargement
-	 * affiche la frame
+	 * demande quel workspace choisir (la ou se trouve les ressources)
+	 * affiche le chargement (avec l'ours)
+	 * affiche la frame principale
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -70,7 +70,7 @@ public class Main extends JFrame implements ComponentListener , DropTargetListen
 	public void componentMoved(ComponentEvent arg0) {
 	}
 	/**
-	 * refresh les barres
+	 * refresh les barres (ajout et select)
 	 */
 	@Override
 	public void componentResized(ComponentEvent arg0) {

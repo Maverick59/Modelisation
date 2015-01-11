@@ -38,7 +38,7 @@ public class BarreSelect extends JPanel {
 		init();
 	}
 	/**
-	 * initialise le Jpanel
+	 * initialise le Jpanel de la barre laterale gauche
 	 */
 	private void init() {
 

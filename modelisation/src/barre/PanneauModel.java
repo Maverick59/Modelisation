@@ -28,7 +28,7 @@ public class PanneauModel extends JPanel implements MouseListener {
 	private int imgY = 0;
 	
 	/**
-	 * initialise les données
+	 * initialise les donnees
 	 * @param nom du gts
 	 * @param ecran
 	 */

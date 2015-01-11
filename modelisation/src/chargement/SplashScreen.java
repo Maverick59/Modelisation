@@ -17,7 +17,7 @@ import utilitaire.Parametre;
 
 public class SplashScreen extends JWindow {
 	/**
-	 * affiche le gif de chargement
+	 * affiche le gif de chargement (ours)
 	 */
 	public void showSplash() {
 		JPanel content = (JPanel) getContentPane();

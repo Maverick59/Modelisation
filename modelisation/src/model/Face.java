@@ -9,7 +9,7 @@ public class Face implements Serializable {
 	public Point p3;
 	/**
 	 * 
-	 * transforme les 3 segment en 3 points
+	 * transforme les 3 segments en 3 points
 	 *
 	 * @param 3 segments
 	 */
@@ -37,28 +37,28 @@ public class Face implements Serializable {
 		this.p3 = p3;
 	}
 	/**
-	 * renvoye le centre X de la face
+	 * renvoie le centre X de la face
 	 * @return double
 	 */
 	public double centreX() {
 		return (p1.x + p2.x + p3.x) / 3;
 	}
 	/**
-	 * renvoye le centre Y de la face
+	 * renvoie le centre Y de la face
 	 * @return double
 	 */
 	public double centreY() {
 		return (p1.y + p2.y + p3.y) / 3;
 	}
 	/**
-	 * renvoye le centre Z de la face
+	 * renvoie le centre Z de la face
 	 * @return double
 	 */
 	public double centreZ() {
 		return (p1.z + p2.z + p3.z) / 3;
 	}
 	/**
-	 * renvoye le triangle formé par les 3 points
+	 * renvoie le triangle forme par les 3 points
 	 * @return Polygon
 	 */
 	public Polygon getTriangle(int decX, int decY) {

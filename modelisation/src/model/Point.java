@@ -40,7 +40,13 @@ public class Point implements Serializable {
 			return false;
 		return true;
 	}
+	
+	
 
+	@Override
+	public String toString() {
+		return "Point [x=" + x + ", y=" + y + ", z=" + z + "]";
+	}
 	public void set(Point p) {
 		this.x = p.x;
 		this.y = p.y;

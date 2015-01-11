@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import petiteFonction.ChangerWorkspace;
 import model.Charger;
 import model.Model3D;
 import fenetre.Ecran;
@@ -18,7 +19,7 @@ import fenetre.Ecran;
 public class GestionBDD {
 	
 	/**
-	 * met a jour la BDD en ajoutant les modeles qui ne sont pas encore présents dans celle ci en appelant la methode insert, et supprime toutes les images
+	 * met a jour la BDD en ajoutant les modeles qui ne sont pas encore presents dans celle ci en appelant la methode insert, et supprime toutes les images
 	 * qui se re-regenereront au prochain lancement du programme
 	 * @param e l'ecran du programme auquel on applique la methode
 	 */
@@ -43,7 +44,7 @@ public class GestionBDD {
 	}
 	
 	/**
-	 * vide la table de la BDD passée en paramètre
+	 * vide la table de la BDD passee en parametre
 	 * @param string la table a vider
 	 */
 
@@ -67,7 +68,7 @@ public class GestionBDD {
 	}
 	
 	/**
-	 * renvoie tous les modeles qui correspondent au(x) critere(s) donnés par le paramètre
+	 * renvoie tous les modeles qui correspondent au(x) critere(s) donnes par le parametre
 	 * @param hashtags une chaine contenant un ou plusieurs criteres de recherche, voir aucun. Ces criteres peuvent etre: 
 	 * aucune, une ou plusieurs limitation(s) en nombre de points (avec un operateur inferieur, superieur ou egal suivi du nombre de points) 
 	 * aucune, une ou plusieurs chaines de caracteres qui correspondront aux modeles voulus (soit le nom, soit un tag, soit des lettres etc..)
@@ -311,7 +312,7 @@ public class GestionBDD {
 	}
 
 	/**
-	 * renseine le nom d'un modele
+	 * renseigne le nom d'un modele
 	 * @param chemin, le chemin du modele
 	 * @return nom, le nom correspondant au modele
 	 */
@@ -421,7 +422,8 @@ public class GestionBDD {
 	}
 
 	/**
-	 * supprime un completement un tag de la base de donnees (le supprime de la table hashTags ainsi que toutes ses correspondances avec les modeles)
+	 * supprime un completement un tag de la base de donnees
+	 * (le supprime de la table hashTags ainsi que toutes ses correspondances avec les modeles)
 	 * @param tag, le tag a supprimer
 	 */
 	public static void deleteTag(String tag) {
@@ -475,6 +477,17 @@ public class GestionBDD {
 		return l;
 	}
 	
+	/**
+	  * enleve toutes les correspondances du projet, hashtags et modeles
+	  */
+	public static void clearDB(){
 	
+			ChangerWorkspace.changer();
+			clearTable("correspondances");
+			clearTable("hashTags");
+			clearTable("modeles");
+		
+	}
 
 }
+
