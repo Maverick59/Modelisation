@@ -31,7 +31,9 @@ public class UserListener implements MouseWheelListener, MouseMotionListener, Mo
 	public UserListener(Ecran ecran) {
 		this.ecran = ecran;
 	}
-
+	/**
+	 * permet le zoom ou fait defiler les tranche
+	 */
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 
@@ -61,7 +63,9 @@ public class UserListener implements MouseWheelListener, MouseMotionListener, Mo
 		}
 		ecran.repaint();
 	}
-
+	/**
+	 * permet le pivo et la translation
+	 */
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		int h = x - e.getX();
@@ -130,7 +134,7 @@ public class UserListener implements MouseWheelListener, MouseMotionListener, Mo
 		bouton = e.getButton();
 		wheeluse = false;
 	}
-
+	
 	@Override
 	public void mouseReleased(MouseEvent e) {
 
@@ -141,7 +145,9 @@ public class UserListener implements MouseWheelListener, MouseMotionListener, Mo
 		}
 		ecran.repaint();
 	}
-
+	/**
+	 * permet de supprimer 
+	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
@@ -160,7 +166,9 @@ public class UserListener implements MouseWheelListener, MouseMotionListener, Mo
 		ecran.repaint();
 
 	}
-
+	/**
+	 * le control Z 
+	 */
 	public void retourAvant() {
 		if (undoRedo.retourY()) {
 			ecran.getModels().clear();
@@ -171,7 +179,9 @@ public class UserListener implements MouseWheelListener, MouseMotionListener, Mo
 			}
 		}
 	}
-
+	/**
+	 * le control Y 
+	 */
 	public void retourArriere() {
 		if (undoRedo.retourZ()) {
 			ecran.getModels().clear();
@@ -182,7 +192,9 @@ public class UserListener implements MouseWheelListener, MouseMotionListener, Mo
 			}
 		}
 	}
-
+	/**
+	 * 
+	 */
 	public void saveUndoRedo() {
 		int nb = 0;
 		for (Model3D m : modelSelect) {
@@ -220,7 +232,9 @@ public class UserListener implements MouseWheelListener, MouseMotionListener, Mo
 	public void addModel(Model3D m3d) {
 		modelSelect.add(m3d);
 	}
-
+	/**
+	 * recalule le centre de gravite
+	 */
 	public void refreshModelSelect() {
 		Calcul.recalulerCentreGravite(modelSelect);
 	}
@@ -228,14 +242,18 @@ public class UserListener implements MouseWheelListener, MouseMotionListener, Mo
 	public Point getPoint() {
 		return new Point(x, y, 0);
 	}
-
+	/**
+	 * copier les model selectionné
+	 */
 	public void copier() {
 		copier.clear();
 		for (Model3D m : modelSelect) {
 			copier.add(m.clone());
 		}
 	}
-
+	/**
+	 * coller les model selectionné
+	 */
 	public void coller() {
 		for (Model3D m : copier) {
 			m = m.clone();

@@ -35,7 +35,9 @@ public class BarreAjout extends JPanel {
 		this.e = e;
 		init();
 	}
-
+	/**
+	 * initialise le Jpanel
+	 */
 	private void init() {
 
 		textfield = new JTextField();
@@ -88,7 +90,10 @@ public class BarreAjout extends JPanel {
 		e.add(boutonFleche);
 
 	}
-
+	/**
+	 * charche les modeles present dans la barre 
+	 * @param arraylist des modeles visible sur la barre d'ajout
+	 */
 	public void ajouterModels(ArrayList<String> tab) {
 		for (PanneauModel p : models) {
 			jp.remove(p);
@@ -107,11 +112,15 @@ public class BarreAjout extends JPanel {
 
 		this.refresh();
 	}
-
+	/**
+	 * repositionne le bouton
+	 */
 	public void repositionnerBouton() {
 		boutonFleche.setBounds(this.getX() + this.getWidth(), this.getHeight() / 2 - 40, 80, 80);
 	}
-
+	/**
+	 * refresh la barre
+	 */
 	public void refresh() {
 		if (ouvert) {
 			this.setBounds(-e.getWidth() / 5 - 25, 0, e.getWidth() / 5 + 25, e.getHeight());
@@ -131,11 +140,13 @@ public class BarreAjout extends JPanel {
 		jp.repaint();
 
 	}
-
+	/**
+	 * switch entre ouvert et fermer
+	 */
 	public void switchposition() {
 		this.ouvert = !this.ouvert;
 	}
-
+	
 	public boolean isOuvert() {
 		return ouvert;
 	}
@@ -143,7 +154,9 @@ public class BarreAjout extends JPanel {
 	public JTextField getTextfield() {
 		return textfield;
 	}
-
+	/**
+	 * refresh l'image du panel
+	 */
 	public void refreshImg() {
 		ajouterModels(GestionBDD.searchModel(textfield.getText()));
 	}

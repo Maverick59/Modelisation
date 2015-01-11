@@ -1,4 +1,4 @@
-package petitFonction;
+package petiteFonction;
 
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
@@ -21,7 +21,9 @@ public class FenetreCoupe extends JFrame {
 		this.ecran = ecran;
 		init();
 	}
-
+	/**
+	 * initialise la fenetre
+	 */
 	public void init() {
 		this.setTitle("coupe");
 		this.setResizable(true);
@@ -52,7 +54,7 @@ public class FenetreCoupe extends JFrame {
 					nb =(int)Double.parseDouble(jTextField.getText());
 							
 					if(nb>=1){
-						jlabel.setText("cela donnera "+nbTranche(nb)+" tranche");
+						jlabel.setText("cela donnera "+nbTranche(nb)+" tranche(s)");
 						if (e.getKeyCode() == e.VK_ENTER && nbTranche(nb)>0) {
 							new CoupeToPng(ecran,(int) nb);
 						}
@@ -70,7 +72,11 @@ public class FenetreCoupe extends JFrame {
 		});
 	
 	}
-	
+	/**
+	 * 
+	 * @param taille des tranches en pixel
+	 * @return nombre de tranches que ça va donner
+	 */
 	private int nbTranche(int nb) {
 		return (int) ((Calcul.maxZ(ecran.getModels())-Calcul.minZ(ecran.getModels()))/nb);
 	}

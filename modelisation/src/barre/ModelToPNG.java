@@ -27,7 +27,9 @@ public class ModelToPNG extends JPanel {
 		this.setSize(512, 512);
 		l.add(new Point(0, 0, 1));
 	}
-
+	/**
+	 * paint le model
+	 */
 	@Override
 	public void paintComponent(Graphics g) {
 		g.setColor(Color.WHITE);
@@ -35,7 +37,10 @@ public class ModelToPNG extends JPanel {
 		Calcul.zoom(model, 0.8, this.getWidth(), this.getHeight());
 		model.afficher(g, l);
 	}
-
+	/**
+	 * cherche ou crée l'image du model
+	 * @return l'addresse du model
+	 */
 	public String getScreenShot() {
 		try {
 			File f = new File(Parametre.workspace + "/" + GestionBDD.searchPNG(m));

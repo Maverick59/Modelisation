@@ -1,4 +1,4 @@
-package petitFonction;
+package petiteFonction;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -45,7 +45,9 @@ public class FenetreConfigModel extends JFrame {
 		this.ecran = ecran;
 		init();
 	}
-
+	/**
+	 * initialise la frame
+	 */
 	public void init() {
 		this.setTitle("Config Model");
 		this.setResizable(true);
@@ -258,7 +260,7 @@ public class FenetreConfigModel extends JFrame {
 
 				if (e.getKeyCode() == e.VK_ENTER) {
 					if (!ajouthashtag.getText().equals("")) {
-						GestionBDD.addHashTag(ajouthashtag.getText());
+						GestionBDD.insertTag(ajouthashtag.getText());
 					}
 					refreshJlistHashtag();
 				}
@@ -282,14 +284,18 @@ public class FenetreConfigModel extends JFrame {
 		this.refreshJlistHashtag();
 		this.refreshJListModel();
 	}
-
+	/**
+	 * refresh la JlistHashtag
+	 */
 	private void refreshJlistHashtag() {
 		listModelDefault_hashtag.clear();
 		for (String h : GestionBDD.selectAllTags()) {
 			listModelDefault_hashtag.addElement(h);
 		}
 	}
-
+	/**
+	 * refresh la JListModel
+	 */
 	private void refreshJListModel() {
 		String s = "";
 		ArrayList<String> modelavechashtag = new ArrayList<String>();

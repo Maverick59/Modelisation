@@ -33,7 +33,10 @@ public class Ecran extends JPanel {
 	private BarreAjout barreAjout;
 	private BarreSelect barreSelect;
 	private final UserListener userListener;
-
+	/**
+	 * initialise la frame
+	 * @param Main
+	 */
 	public Ecran(Main f) {
 
 		this.setPreferredSize(new Dimension(f.getWidth(), f.getHeight()));
@@ -48,17 +51,21 @@ public class Ecran extends JPanel {
 
 		init();
 	}
-
+	/**
+	 * initialise la frame
+	 */
 	private void init() {
 		barreAjout = new BarreAjout(this);
 		barreSelect = new BarreSelect(this);
 
 		affichage = 2;
 		lumiere.add(new Point(0, 0, 1));
-		fond = new ImageIcon(Parametre.workspace + "/wallpaper/fond.jpg").getImage();
+		fond = new ImageIcon(Parametre.workspace + "/wallpaper/fondDeBase.jpg").getImage();
 
 	}
-
+	/**
+	 * tri les figures
+	 */
 	public void trifigure() {
 		try {
 			Collections.sort(models, new Comparator<Model3D>() {
@@ -79,7 +86,9 @@ public class Ecran extends JPanel {
 		}
 
 	}
-
+	/**
+	 * paint sur l'ecran
+	 */
 	@Override
 	public void paintComponent(Graphics g) {
 		g.drawImage(fond, 0, 0, main.getWidth(), main.getHeight(), null);
@@ -148,7 +157,7 @@ public class Ecran extends JPanel {
 	public void setCoupeEnZ(int coupeEnZ) {
 		CoupeEnZ = coupeEnZ;
 	}
-
+	
 	public void setfond(String name) {
 		fond = new ImageIcon(name).getImage();
 		this.repaint();

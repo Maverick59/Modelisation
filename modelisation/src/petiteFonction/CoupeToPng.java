@@ -1,4 +1,4 @@
-package petitFonction;
+package petiteFonction;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -29,7 +29,9 @@ public class CoupeToPng extends JPanel {
 		this.setSize(e.getWidth(), e.getHeight());
 		export();
 	}
-
+	/**
+	 * dessine le fond et le model avec de la lumiere
+	 */
 	@Override
 	public void paintComponent(Graphics g) {
 		g.setColor(Color.WHITE);
@@ -39,7 +41,9 @@ public class CoupeToPng extends JPanel {
 		}
 		
 	}
-
+	/**
+	 * enregistre en png et les coupe des models actuel
+	 */
 	public void export() {
 		JFrame parentFrame = new JFrame();
 		File fileToSave = null;

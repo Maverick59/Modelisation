@@ -12,7 +12,10 @@ public class Point implements Serializable {
 		this.y = y;
 		this.z = z;
 	}
-
+	/**
+	 * multiplie par i le x/y/z
+	 * @param i
+	 */
 	public void zoom(double i) {
 		this.x = x * i;
 		this.y = y * i;

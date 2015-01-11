@@ -1,4 +1,4 @@
-package petitFonction;
+package petiteFonction;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,7 +31,9 @@ public class FenetreColor extends JFrame {
 		this.ecran = e;
 		init();
 	}
-
+	/**
+	 * initialise la fenetre
+	 */
 	private void init() {
 		this.setResizable(true);
 		this.setVisible(true);
@@ -90,7 +92,9 @@ public class FenetreColor extends JFrame {
 		this.add(scroll, BorderLayout.WEST);
 		this.add(jp, BorderLayout.EAST);
 	}
-
+	/**
+	 * quitte la frame
+	 */
 	private void quitter() {
 		this.dispose();
 	}

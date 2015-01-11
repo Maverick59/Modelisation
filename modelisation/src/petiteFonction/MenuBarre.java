@@ -1,4 +1,4 @@
-package petitFonction;
+package petiteFonction;
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,7 +30,9 @@ public class MenuBarre extends JMenuBar {
 		this.e = e;
 		init();
 	}
-
+	/**
+	 * initialise la jMenuBarre
+	 */
 	private void init() {
 		/*
 		 * MENU
@@ -107,12 +109,7 @@ public class MenuBarre extends JMenuBar {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 
-				try {
 					ChangerWorkspace.changer();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 
 			}
 		});

@@ -16,8 +16,8 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
-import petitFonction.ChangerWorkspace;
-import petitFonction.MenuBarre;
+import petiteFonction.ChangerWorkspace;
+import petiteFonction.MenuBarre;
 import chargement.SplashScreen;
 import utilitaire.Insert;
 import utilitaire.Parametre;
@@ -26,14 +26,14 @@ import utilitaire.Parametre;
 public class Main extends JFrame implements ComponentListener , DropTargetListener{
 
 	private final Ecran e;
-
+	/**
+	 * demande quel workspace choisir
+	 * affiche le chargement
+	 * affiche la frame
+	 * @param args
+	 */
 	public static void main(String[] args) {
-		try {
-			ChangerWorkspace.changer();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		ChangerWorkspace.changer();
 		if(Parametre.workspace!=null){
 			SplashScreen splash = new SplashScreen();
 			splash.showSplash();
@@ -42,7 +42,9 @@ public class Main extends JFrame implements ComponentListener , DropTargetListen
 			splash.dispose();
 		}
 	}
-
+	/**
+	 * initialise la frame
+	 */
 	public Main() {
 		e = new Ecran(this);
 		this.setTitle("Modelisation");
@@ -67,7 +69,9 @@ public class Main extends JFrame implements ComponentListener , DropTargetListen
 	@Override
 	public void componentMoved(ComponentEvent arg0) {
 	}
-
+	/**
+	 * refresh les barres
+	 */
 	@Override
 	public void componentResized(ComponentEvent arg0) {
 		e.getBarreAjout().refresh();
@@ -94,7 +98,9 @@ public class Main extends JFrame implements ComponentListener , DropTargetListen
 	public void dragOver(DropTargetDragEvent dtde) {
 		
 	}
-
+	/**
+	 * permet de gliser des gts dans la frame et de les inserer
+	 */
 	@Override
 	public void drop(DropTargetDropEvent dtde) {
         dtde.acceptDrop (DnDConstants.ACTION_LINK);
@@ -105,8 +111,6 @@ public class Main extends JFrame implements ComponentListener , DropTargetListen
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        
-        
         
     }
 	

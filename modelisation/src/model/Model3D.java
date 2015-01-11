@@ -37,21 +37,31 @@ public class Model3D implements Serializable {
 		this.segments = new ArrayList<Segment>();
 		this.faces = new ArrayList<Face>();
 	}
-
+	/**
+	 * affiche les segments du model
+	 * @param Graphics
+	 */
 	public void afficherSegments(Graphics g) {
 		g.setColor(color);
 		for (Segment s : segments) {
 			g.drawLine((int) (s.p1.x + decalageX), (int) (s.p1.y + decalageY), (int) (s.p2.x + decalageX), (int) (s.p2.y + decalageY));
 		}
 	}
-
+	/**
+	 * affiche les segments de la list
+	 * @param Graphics
+	 * @param ArrayList<Segment>
+	 */
 	public void afficherSegments(Graphics g, ArrayList<Segment> seg) {
 		g.setColor(Color.BLACK);
 		for (Segment s : seg) {
 			g.drawLine((int) (s.p1.x + decalageX), (int) (s.p1.y + decalageY), (int) (s.p2.x + decalageX), (int) (s.p2.y + decalageY));
 		}
 	}
-
+	/**
+	 * affiche les faces du model
+	 * @param Graphics
+	 */
 	public void afficherFaces(Graphics g) {
 		g.setColor(color);
 		tri();
@@ -62,14 +72,20 @@ public class Model3D implements Serializable {
 		}
 
 	}
-
+	/**
+	 * affiche les points du model
+	 * @param Graphics
+	 */
 	public void afficherPoint(Graphics g) {
 		g.setColor(color);
 		for (Point p : points) {
 			g.fillOval((int) (p.x + decalageX), (int) (p.y + decalageY), 2, 2);
 		}
 	}
-
+	/**
+	 * affiche les faces du model avec de la lumiere
+	 * @param Graphics
+	 */
 	public void afficher(Graphics g, ArrayList<Point> lumiere) {
 		g.setColor(color);
 		tri();
@@ -83,7 +99,12 @@ public class Model3D implements Serializable {
 			g.fillPolygon(p);
 		}
 	}
-
+	/**
+	 * return la color de la face par rapport à la lumiere
+	 * @param lumiere (ArrayList<Point>)
+	 * @param face à éclairer
+	 * @return Color
+	 */
 	private Color eclairage(ArrayList<Point> lumiere, Face f) {
 
 		Point u = new Point(f.p1.x - f.p2.x, f.p1.y - f.p2.y, f.p1.z - f.p2.z);
@@ -103,7 +124,9 @@ public class Model3D implements Serializable {
 
 		return new Color((int) (cos * color.getRed()), (int) (cos * color.getGreen()), (int) (cos * color.getBlue()));
 	}
-
+	/**
+	 * tri les faces
+	 */
 	public void tri() {
 		synchronized (this) {
 			try {
@@ -126,13 +149,19 @@ public class Model3D implements Serializable {
 		}
 
 	}
-
+	/**
+	 * zoom fois i
+	 * @param i
+	 */
 	public void zoom(double i) {
 		for (Point p : points) {
 			p.zoom(i);
 		}
 	}
-
+	/**
+	 * pivo Horizontal par rapport à i
+	 * @param i
+	 */
 	public void pivoH(double i) {
 		double tmpx;
 		double tmpz;
@@ -146,7 +175,10 @@ public class Model3D implements Serializable {
 		}
 
 	}
-
+	/**
+	 * pivo Vertical par rapport à i
+	 * @param i
+	 */
 	public void pivoV(double i) {
 		double tmpy;
 		double tmpz;
@@ -159,7 +191,10 @@ public class Model3D implements Serializable {
 
 		}
 	}
-
+	/**
+	 * pivo 2D par rapport à i
+	 * @param i
+	 */
 	public void pivoZ(double i) {
 		double tmpx;
 		double tmpy;
@@ -172,11 +207,17 @@ public class Model3D implements Serializable {
 
 		}
 	}
-
+	/**
+	 * translation Y
+	 * @param i
+	 */
 	public void deplacementV(int i) {
 		decalageY -= i;
 	}
-
+	/**
+	 * translation X
+	 * @param i
+	 */
 	public void deplacementH(int i) {
 		decalageX -= i;
 	}
@@ -213,7 +254,10 @@ public class Model3D implements Serializable {
 		// TODO Auto-generated method stub
 		return decalageY;
 	}
-
+	/**
+	 * return le centre Z du model
+	 * @return double
+	 */
 	public double centreZ() {
 		double d = 0;
 		for (Face f : faces) {
@@ -231,7 +275,10 @@ public class Model3D implements Serializable {
 		this.nom = nom;
 	}
 
-	@Override
+	/**
+	 * clone le model
+	 * @return  Model3D copie
+	 */
 	public Model3D clone() {
 
 		Model3D clone = Charger.chargerModel(nom);

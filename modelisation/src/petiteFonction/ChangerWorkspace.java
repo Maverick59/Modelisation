@@ -1,4 +1,4 @@
-package petitFonction;
+package petiteFonction;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,8 +10,10 @@ import javax.swing.JLabel;
 import utilitaire.Parametre;
 
 public class ChangerWorkspace {
-
-	public static void changer() throws IOException {
+	/**
+	 * change de workspace
+	 */
+	public static void changer(){
 		try {
 			JFileChooser chooser = new JFileChooser();
 			chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);

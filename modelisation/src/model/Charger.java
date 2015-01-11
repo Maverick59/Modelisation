@@ -7,7 +7,11 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class Charger {
-
+	/**
+	 * charge les données d'un fichier.
+	 * @param nom du fichier
+	 * @return un Model3D
+	 */
 	public static Model3D chargerModel(String fichier) {
 		try {
 			InputStream ips = new FileInputStream(fichier);
@@ -52,7 +56,12 @@ public class Charger {
 		}
 		return null;
 	}
-
+	/**
+	 * renvoye le nb de points/segment/faces du gts
+	 * @param lien du fichier
+	 * @return tableau de int avec {points,segment,faces}
+	 * @throws IOException
+	 */
 	public static int[] chargerModelHeader(String gts) throws IOException {
 		InputStream ips = new FileInputStream(gts);
 		InputStreamReader ipsr = new InputStreamReader(ips);

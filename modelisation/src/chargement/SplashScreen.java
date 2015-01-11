@@ -16,7 +16,9 @@ import javax.swing.SwingConstants;
 import utilitaire.Parametre;
 
 public class SplashScreen extends JWindow {
-
+	/**
+	 * affiche le gif de chargement
+	 */
 	public void showSplash() {
 		JPanel content = (JPanel) getContentPane();
 		content.setBackground(Color.white);
@@ -45,15 +47,5 @@ public class SplashScreen extends JWindow {
 
 		setVisible(true);
 	}
-
-	public void showSplashExit() {
-		System.exit(0);
-	}
-
-	public static void main(String[] args) {
-
-		SplashScreen splash = new SplashScreen();
-		splash.showSplash();
-
-	}
+	
 }

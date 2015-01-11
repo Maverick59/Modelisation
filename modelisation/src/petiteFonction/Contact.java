@@ -1,4 +1,4 @@
-package petitFonction;
+package petiteFonction;
 import java.awt.GridLayout;
 
 import javax.swing.JFrame;
@@ -17,7 +17,9 @@ public class Contact extends JFrame {
 		this.ecran = ecran;
 		init();
 	}
-
+	/**
+	 * initialise la frame
+	 */
 	public void init() {
 		this.setTitle("Contact");
 		this.setResizable(true);

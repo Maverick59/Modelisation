@@ -1,4 +1,4 @@
-package petitFonction;
+package petiteFonction;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -42,7 +42,9 @@ public class FenetrePivo extends JFrame {
 		this.ecran = ecran;
 		init();
 	}
-
+	/**
+	 * initialise la fenetre
+	 */
 	public void init() {
 		this.setTitle("Config Model");
 		this.setResizable(true);
@@ -273,7 +275,7 @@ public class FenetrePivo extends JFrame {
 						}
 						ecran.repaint();
 					} catch (Exception exc) {
-						messageErreur();
+						
 					}
 				}
 			}
@@ -303,7 +305,7 @@ public class FenetrePivo extends JFrame {
 						}
 						ecran.repaint();
 					} catch (Exception exc) {
-						messageErreur();
+						
 					}
 				}
 			}
@@ -333,7 +335,7 @@ public class FenetrePivo extends JFrame {
 						}
 						ecran.repaint();
 					} catch (Exception exc) {
-						messageErreur();
+						
 					}
 				}
 			}
@@ -363,7 +365,7 @@ public class FenetrePivo extends JFrame {
 						}
 						ecran.repaint();
 					} catch (Exception exc) {
-						messageErreur();
+						
 					}
 				}
 			}
@@ -393,7 +395,7 @@ public class FenetrePivo extends JFrame {
 						}
 						ecran.repaint();
 					} catch (Exception exc) {
-						messageErreur();
+				
 					}
 				}
 			}
@@ -423,7 +425,7 @@ public class FenetrePivo extends JFrame {
 						}
 						ecran.repaint();
 					} catch (Exception exc) {
-						messageErreur();
+					
 					}
 				}
 			}
@@ -435,10 +437,6 @@ public class FenetrePivo extends JFrame {
 		});
 
 		this.pack();
-	}
-
-	private void messageErreur() {
-
 	}
 
 }

@@ -1,4 +1,4 @@
-package petitFonction;
+package petiteFonction;
 import java.io.File;
 
 import javax.swing.JFileChooser;
@@ -8,7 +8,10 @@ import fenetre.Ecran;
 import utilitaire.Parametre;
 
 public class FondEcran {
-
+	/**
+	 * initialise la frame
+	 * @param ecran
+	 */
 	public FondEcran(Ecran e) {
 
 		JFileChooser chooser = new JFileChooser(new File(Parametre.workspace + "/wallpaper"));

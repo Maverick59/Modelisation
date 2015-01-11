@@ -197,7 +197,7 @@ public class GestionBDD {
 		try {
 			String nom = gts.replace(".gts", "");
 			nom = nom.split("/")[nom.split("/").length - 1];
-			Model3D model = Charger.chargerModel(gts);
+			Model3D model = Charger.chargerModel(Parametre.workspace + "/"+gts);
 			String png = "img/" + nom + ".png";
 			Class.forName("org.sqlite.JDBC");
 			con = DriverManager.getConnection("jdbc:sqlite:" + Parametre.workspace + "/bdd_models");
@@ -475,32 +475,6 @@ public class GestionBDD {
 		return l;
 	}
 	
-	/*
-	 * ajoute un hashtag
-	 * @param tag, le tag ajouté
-	 */
 	
-	public static void addHashTag(String hashtag) {
-		Connection con = null;
-		try {
-			Class.forName("org.sqlite.JDBC");
-			con = DriverManager.getConnection("jdbc:sqlite:" + Parametre.workspace + "/bdd_models");
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("select tag from hashTags where tag='" + hashtag + "'");
-			;
-			if (rs.next() != false && rs.getString("tag").toString().equals(hashtag)) {
-			} else {
-				stmt.executeUpdate("insert into hashTags values('" + hashtag + "')");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				con.close();
-			} catch (Exception e) {
-
-			}
-		}
-	}
 
 }

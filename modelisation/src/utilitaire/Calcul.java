@@ -7,7 +7,10 @@ import model.Point;
 import model.Segment;
 
 public class Calcul {
-
+	/**
+	 * recalcule le centre de gravite pour le remettre au milieu de chaque modele
+	 * @param listModel la liste des modeles pour laquelle replacer le centre de gravite
+	 */
 	public static void recalulerCentreGravite(ArrayList<Model3D> listModel) {
 
 		if (listModel.isEmpty())
@@ -69,7 +72,11 @@ public class Calcul {
 		}
 
 	}
-
+	
+	/**
+	 * recalcule et replace le centre de gravite au milieu du modele passe en parametre
+	 * @param model le modele pour lequel modifier le centre de gravite
+	 */
 	public static void recalulerCentreGravite(Model3D model) {
 		if (model.getPoints().isEmpty())
 			return;
@@ -116,6 +123,13 @@ public class Calcul {
 		}
 	}
 
+	/**
+	 * effectue un zoom sur le modele
+	 * @param m le modele sur lequel zoomer
+	 * @param d un nombre entre 0 et 1 qui defnit le coefficient du zoom
+	 * @param w la largeur de la zone ou s'affiche le modele
+	 * @param h la hauteur de la zone ou s'affiche le modele
+	 */
 	public static void zoom(Model3D m, double d, int w, int h) {
 		if (h < 6 || w < 6)
 			return;
@@ -143,6 +157,11 @@ public class Calcul {
 		}
 	}
 
+	/**
+	 * effectue la copie exacte de modeles
+	 * @param l la iste des modeles a copier
+	 * @return la liste des copies effectuees
+	 */
 	public static ArrayList<Model3D> clone(ArrayList<Model3D> l) {
 		ArrayList<Model3D> models = new ArrayList<Model3D>();
 		Model3D model;
@@ -167,6 +186,11 @@ public class Calcul {
 		return models;
 	}
 
+	/**
+	 * renvoie le point du modele le plus proche sur l'axe z
+	 * @param m le modele
+	 * @return la valeur a laquelle se trouve le point le plus proche
+	 */
 	public static double minZ(Model3D m) {
 		if(m.getPoints().isEmpty())
 			return 0;
@@ -180,6 +204,11 @@ public class Calcul {
 		return min;
 	}
 
+	/**
+	 * renvoie le point du modele le plus lointain sur l'axe z
+	 * @param m le modele
+	 * @return la valeur a laquelle se trouve le point le plus lointain
+	 */
 	public static double maxZ(Model3D m) {
 		if(m.getPoints().isEmpty())
 			return 0;
@@ -193,6 +222,11 @@ public class Calcul {
 		return max;
 	}
 	
+	/**
+	 * renvoie le point le plus proche sur l'axe des z parmis les differents modeles
+	 * @param models la liste des modeles pour laqelle regarder les points
+	 * @return la valeur ou se trouve le point le plus proche parmis tous les modeles
+	 */
 	public static double minZ(ArrayList<Model3D> models) {
 		if(models.isEmpty() || models.get(0).getPoints().isEmpty())
 			return 0;
@@ -208,6 +242,11 @@ public class Calcul {
 		return min;
 	}
 	
+	/**
+	 * renvoie le point le plus lointain sur l'axe des z parmis les differents modeles
+	 * @param models la liste des modeles pour laqelle regarder les points
+	 * @return la valeur ou se trouve le point le plus lointain parmis tous les modeles
+	 */
 	public static double maxZ(ArrayList<Model3D> models) {
 		if(models.isEmpty() || models.get(0).getPoints().isEmpty())
 			return 0;
@@ -223,6 +262,10 @@ public class Calcul {
 		return max;
 	}
 
+	/**
+	 * normalise un point
+	 * @param p le point a normaliser
+	 */
 	public static void normaliser(Point p) {
 		double longueur = Math.sqrt(p.x * p.x + p.y * p.y + p.z * p.z);
 		p.x /= longueur;

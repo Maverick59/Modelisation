@@ -8,7 +8,9 @@ public class ThreadBarreAjout extends Thread {
 	public ThreadBarreAjout(Ecran ecran) {
 		this.ecran = ecran;
 	}
-
+	/**
+	 * ouvre ou ferme la barre
+	 */
 	@Override
 	public void run() {
 		if (ecran.getBarreAjout().isOuvert()) {
@@ -18,7 +20,9 @@ public class ThreadBarreAjout extends Thread {
 		}
 		ecran.getBarreAjout().switchposition();
 	}
-
+	/**
+	 * annimation de fermeture
+	 */
 	private void fermer() {
 		while (ecran.getBarreAjout().getX() + ecran.getBarreAjout().getWidth() > 0) {
 			ecran.getBarreAjout().setLocation(ecran.getBarreAjout().getX() - ecran.getBarreAjout().getWidth() / 20, ecran.getBarreAjout().getY());
@@ -32,7 +36,9 @@ public class ThreadBarreAjout extends Thread {
 		ecran.getBarreAjout().setLocation(-ecran.getBarreAjout().getWidth(), ecran.getBarreAjout().getY());
 		ecran.getBarreAjout().repositionnerBouton();
 	}
-
+	/**
+	 * annimation de ouverture
+	 */
 	private void ouvrir() {
 		while (ecran.getBarreAjout().getX() < 0) {
 			ecran.getBarreAjout().setLocation(ecran.getBarreAjout().getX() + ecran.getBarreAjout().getWidth() / 20, ecran.getBarreAjout().getY());

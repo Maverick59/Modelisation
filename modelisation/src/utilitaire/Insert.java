@@ -14,12 +14,16 @@ import fenetre.Ecran;
 public class Insert {
 	private Ecran e;
 
+	/**
+	 * insert dans la bdd le fichier choisit 
+	 * @param ecran
+	 */
 	public static void insert(Ecran e) {
 		JFileChooser chooser = new JFileChooser();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("GTS file", "gts");
 		chooser.setFileFilter(filter);
 		int returnVal = chooser.showOpenDialog(e);
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
+		if (returnVal == JFileChooser.APPROVE_OPTION && chooser.getSelectedFile().getPath().endsWith(".gts")) {
 			try {
 				copy(chooser.getSelectedFile().getPath(), Parametre.workspace + "/model/" + chooser.getSelectedFile().getName());
 
@@ -32,22 +36,32 @@ public class Insert {
 
 		}
 	}
-	
+	/**
+	 * insert dans la bdd les fichier choisit
+	 * @param liens
+	 * @param ecran
+	 */
 	public static void insert(List<File> liens,Ecran e){
 		for(File lien : liens){
 			String nom;
-			try {
-				copy(lien.getPath(), Parametre.workspace + "/model/" + lien.getName());
-				GestionBDD.insertModel("model/" + lien.getName());
-				e.getBarreAjout().refreshImg();
-			} catch (Exception ex) {
-				// TODO Auto-generated catch block
-				ex.printStackTrace();
+			if(lien.getPath().endsWith(".gts")){
+				try {
+					copy(lien.getPath(), Parametre.workspace + "/model/" + lien.getName());
+					GestionBDD.insertModel("model/" + lien.getName());
+					e.getBarreAjout().refreshImg();
+				} catch (Exception ex) {
+					// TODO Auto-generated catch block
+					ex.printStackTrace();
+				}
 			}
 		}
 		
 	}
-
+	/**
+	 * copy un fichier
+	 * @param source
+	 * @param destination
+	 */
 	public static void copy(String source, String destination) throws IOException {
 
 		FileInputStream fis = null;

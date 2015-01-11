@@ -16,7 +16,11 @@ import fenetre.Ecran;
 import model.Model3D;
 
 public class SaveLoadProject implements Serializable {
-
+	/**
+	 * serialise l'ecran;
+	 * @param ecran
+	 * @throws IOException
+	 */
 	public static void serialise(Ecran e) throws IOException {
 		try {
 			JFrame parentFrame = new JFrame();
@@ -43,7 +47,11 @@ public class SaveLoadProject implements Serializable {
 		}
 
 	}
-
+	/**
+	 * deserialise l'ecran;
+	 * @param ecran
+	 * @throws IOException
+	 */
 	public static void deserialise(Ecran e) {
 		try {
 			JFileChooser chooser = new JFileChooser();

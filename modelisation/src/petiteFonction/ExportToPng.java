@@ -1,4 +1,4 @@
-package petitFonction;
+package petiteFonction;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -23,7 +23,9 @@ public class ExportToPng extends JPanel {
 		this.setSize(e.getWidth(), e.getHeight());
 		export();
 	}
-
+	/**
+	 * dessine le fond et le model avec de la lumiere
+	 */
 	@Override
 	public void paintComponent(Graphics g) {
 		g.drawImage(e.getFond(), 0, 0, this.getWidth(), this.getHeight(), null);
@@ -32,7 +34,9 @@ public class ExportToPng extends JPanel {
 			m.afficher(g, e.getLumiere());
 		}
 	}
-
+	/**
+	 * transforme l'ecran en png et l'enregistre
+	 */
 	public void export() {
 		JFrame parentFrame = new JFrame();
 		File fileToSave = null;

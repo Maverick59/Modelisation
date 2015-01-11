@@ -1,4 +1,4 @@
-package petitFonction;
+package petiteFonction;
 import java.awt.Color;
 import java.util.ArrayList;
 
@@ -9,7 +9,10 @@ import fenetre.Ecran;
 import model.Model3D;
 
 public class FenetreCouleur extends JFrame {
-
+	/**
+	 * l'utilisateur choisit une couleur et les models se colorissent
+	 * @param ecran
+	 */
 	public FenetreCouleur(Ecran ecran) {
 		Color c = JColorChooser.showDialog(null, "Couleur", null);
 		ArrayList<Model3D> list = ecran.getUserListener().getModelSelect();

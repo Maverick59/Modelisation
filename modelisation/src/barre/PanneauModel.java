@@ -26,7 +26,12 @@ public class PanneauModel extends JPanel implements MouseListener {
 	private Image image;
 	private int imgX = 0;
 	private int imgY = 0;
-
+	
+	/**
+	 * initialise les données
+	 * @param nom du gts
+	 * @param ecran
+	 */
 	public PanneauModel(String m, Ecran e) {
 		ModelToPNG modelPng = new ModelToPNG(m);
 		String img = modelPng.getScreenShot();
@@ -43,7 +48,9 @@ public class PanneauModel extends JPanel implements MouseListener {
 			image = new ImageIcon(img).getImage();
 		}
 	}
-
+	/**
+	 * affiche l'image du model
+	 */
 	@Override
 	public void paintComponent(Graphics g) {
 		g.drawImage(image, 0, 0, imgX, imgY, null);
@@ -71,7 +78,9 @@ public class PanneauModel extends JPanel implements MouseListener {
 	public void mousePressed(MouseEvent arg0) {
 		e.getFrame().requestFocus();
 	}
-
+	/**
+	 * ajoute le model a l'ecran principal
+	 */
 	@Override
 	public void mouseReleased(MouseEvent me) {
 		Model3D m3d = Charger.chargerModel(Parametre.workspace + "/" + m);
@@ -81,7 +90,9 @@ public class PanneauModel extends JPanel implements MouseListener {
 		e.repaint();
 		e.getUserListener().saveUndoRedo();
 	}
-
+	/**
+	 * refresh le panel
+	 */
 	public void refresh() {
 		imgX = e.getWidth() / 5;
 		imgY = e.getWidth() / 5;
