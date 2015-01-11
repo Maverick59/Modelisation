@@ -26,7 +26,7 @@ public class UserListener implements MouseWheelListener, MouseMotionListener, Mo
 	private final UndoRedo<ArrayList<Model3D>> undoRedo = new UndoRedo<ArrayList<Model3D>>();
 	private boolean reaffichage2 = false;
 	private final ArrayList<Model3D> copier = new ArrayList<Model3D>();
-	private boolean control;
+	private boolean control=false;
 
 	public UserListener(Ecran ecran) {
 		this.ecran = ecran;
