@@ -21,6 +21,7 @@ public class FenetreCoupe extends JFrame {
 		this.ecran = ecran;
 		init();
 	}
+	
 	/**
 	 * initialise la fenetre de choix pour la coupe
 	 */
@@ -72,10 +73,10 @@ public class FenetreCoupe extends JFrame {
 		});
 	
 	}
+	
 	/**
-	 * 
-	 * @param nb nombre de tranches
-	 * @return nombre de tranches que l'on va obtenir.
+	 * @param nb nombre de tranches voulus
+	 * @return nombre de tranches que l'on va obtenir
 	 */
 	private int nbTranche(int nb) {
 		return (int) ((Calcul.maxZ(ecran.getModels())-Calcul.minZ(ecran.getModels()))/nb);

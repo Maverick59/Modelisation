@@ -30,6 +30,7 @@ public class MenuBarre extends JMenuBar {
 		this.e = e;
 		init();
 	}
+	
 	/**
 	 * initialise la jMenuBarre
 	 */

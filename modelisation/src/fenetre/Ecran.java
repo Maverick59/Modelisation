@@ -33,9 +33,10 @@ public class Ecran extends JPanel {
 	private BarreAjout barreAjout;
 	private BarreSelect barreSelect;
 	private final UserListener userListener;
+	
 	/**
 	 * initialise la frame
-	 * @param f
+	 * @param f la frame a initialiser
 	 */
 	public Ecran(Main f) {
 
@@ -51,6 +52,7 @@ public class Ecran extends JPanel {
 
 		init();
 	}
+	
 	/**
 	 * initialise la frame
 	 */
@@ -63,8 +65,9 @@ public class Ecran extends JPanel {
 		fond = new ImageIcon(Parametre.workspace + "/wallpaper/fondDeBase.jpg").getImage();
 
 	}
+	
 	/**
-	 * tri les figures
+	 * tri les figures par rapport a leur distance sur l'axe Z
 	 */
 	public void trifigure() {
 		try {
@@ -86,6 +89,7 @@ public class Ecran extends JPanel {
 		}
 
 	}
+	
 	/**
 	 * paint sur l'ecran
 	 * @param g

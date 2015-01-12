@@ -29,7 +29,7 @@ public class PanneauModel extends JPanel implements MouseListener {
 	
 	/**
 	 * initialise les donnees
-	 * @param m le nom du gts
+	 * @param m le nom du modele
 	 * @param e l'ecran
 	 */
 	public PanneauModel(String m, Ecran e) {
@@ -48,6 +48,7 @@ public class PanneauModel extends JPanel implements MouseListener {
 			image = new ImageIcon(img).getImage();
 		}
 	}
+	
 	/**
 	 * affiche l'image du model
 	 */
@@ -78,8 +79,9 @@ public class PanneauModel extends JPanel implements MouseListener {
 	public void mousePressed(MouseEvent arg0) {
 		e.getFrame().requestFocus();
 	}
+	
 	/**
-	 * ajoute le model a l'ecran principal
+	 * ajoute le modele a l'ecran principal
 	 */
 	@Override
 	public void mouseReleased(MouseEvent me) {
@@ -90,6 +92,7 @@ public class PanneauModel extends JPanel implements MouseListener {
 		e.repaint();
 		e.getUserListener().saveUndoRedo();
 	}
+	
 	/**
 	 * refresh le panel
 	 */

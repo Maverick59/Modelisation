@@ -35,6 +35,7 @@ public class BarreAjout extends JPanel {
 		this.e = e;
 		init();
 	}
+	
 	/**
 	 * initialise le Jpanel dans la barre laterale gauche
 	 */
@@ -90,6 +91,7 @@ public class BarreAjout extends JPanel {
 		e.add(boutonFleche);
 
 	}
+	
 	/**
 	 * cherche les modeles presents dans la barre
 	 * @param tab l'arraylist des modeles visible sur la barre d'ajout
@@ -112,12 +114,14 @@ public class BarreAjout extends JPanel {
 
 		this.refresh();
 	}
+	
 	/**
 	 * repositionne le bouton
 	 */
 	public void repositionnerBouton() {
 		boutonFleche.setBounds(this.getX() + this.getWidth(), this.getHeight() / 2 - 40, 80, 80);
 	}
+	
 	/**
 	 * refresh la barre
 	 */
@@ -140,13 +144,18 @@ public class BarreAjout extends JPanel {
 		jp.repaint();
 
 	}
+	
 	/**
-	 * switch entre ouvert et fermer
+	 * switch entre ouvert et ferme
 	 */
 	public void switchposition() {
 		this.ouvert = !this.ouvert;
 	}
 	
+	/**
+	 * sert a savoir si ouvert ou ferme
+	 * @return booleen
+	 */
 	public boolean isOuvert() {
 		return ouvert;
 	}

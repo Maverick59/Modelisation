@@ -23,6 +23,7 @@ public class ExportToPng extends JPanel {
 		this.setSize(e.getWidth(), e.getHeight());
 		export();
 	}
+	
 	/**
 	 * dessine le fond et le model avec de la lumiere
 	 */
@@ -34,6 +35,7 @@ public class ExportToPng extends JPanel {
 			m.afficher(g, e.getLumiere());
 		}
 	}
+	
 	/**
 	 * transforme l'ecran en png et l'enregistre
 	 */

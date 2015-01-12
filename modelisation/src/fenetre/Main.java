@@ -26,6 +26,7 @@ import utilitaire.Parametre;
 public class Main extends JFrame implements ComponentListener , DropTargetListener {
 
 	private final Ecran e;
+	
 	/**
 	 * demande quel workspace choisir (la ou se trouve les ressources)
 	 * affiche le chargement (avec l'ours)
@@ -42,6 +43,7 @@ public class Main extends JFrame implements ComponentListener , DropTargetListen
 			splash.dispose();
 		}
 	}
+	
 	/**
 	 * initialise la frame
 	 */
@@ -69,6 +71,7 @@ public class Main extends JFrame implements ComponentListener , DropTargetListen
 	@Override
 	public void componentMoved(ComponentEvent arg0) {
 	}
+	
 	/**
 	 * refresh les barres (ajout et select)
 	 * @param arg0
@@ -99,8 +102,9 @@ public class Main extends JFrame implements ComponentListener , DropTargetListen
 	public void dragOver(DropTargetDragEvent dtde) {
 		
 	}
+	
 	/**
-	 * permet de gliser des gts dans la frame et de les inserer
+	 * permet de glisser des gts dans la frame et de les inserer
 	 * @param dtde
 	 */
 	@Override

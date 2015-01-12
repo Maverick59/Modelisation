@@ -42,6 +42,7 @@ public class FenetrePivot extends JFrame {
 		this.ecran = ecran;
 		init();
 	}
+	
 	/**
 	 * initialise la fenetre
 	 */

@@ -9,9 +9,10 @@ import fenetre.Ecran;
 import model.Model3D;
 
 public class FenetreCouleur extends JFrame {
+	
 	/**
 	 * l'utilisateur choisit une couleur et les models se colorent
-	 * @param ecran
+	 * @param ecran l'ecran sur lequel appliquer les changements
 	 */
 	public FenetreCouleur(Ecran ecran) {
 		Color c = JColorChooser.showDialog(null, "Couleur", null);

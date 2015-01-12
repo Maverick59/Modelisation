@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class Charger {
+	
 	/**
 	 * charge les donnees d'un fichier
 	 * @param fichier le nom du fichier
@@ -56,13 +57,10 @@ public class Charger {
 		}
 		return null;
 	}
+	
 	/**
 	 * renvoye le nb de points/segments/faces du gts
-<<<<<<< HEAD
 	 * @param gts le lien du fichier
-=======
-	 * @param lien du fichier
->>>>>>> branch 'master' of https://github.com/Maverick59/Modelisation.git
 	 * @return tableau de int avec {points,segment,faces}
 	 * @throws IOException
 	 */

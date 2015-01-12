@@ -17,6 +17,7 @@ public class Contact extends JFrame {
 		this.ecran = ecran;
 		init();
 	}
+	
 	/**
 	 * initialise la frame comportant les contacts
 	 * avec leur e-mail

@@ -27,6 +27,7 @@ public class ModelToPNG extends JPanel {
 		this.setSize(512, 512);
 		l.add(new Point(0, 0, 1));
 	}
+	
 	/**
 	 * dessine le model
 	 */
@@ -37,6 +38,7 @@ public class ModelToPNG extends JPanel {
 		Calcul.zoom(model, 0.8, this.getWidth(), this.getHeight());
 		model.afficher(g, l);
 	}
+	
 	/**
 	 * cherche ou cree l'image du model
 	 * @return l'addresse du model

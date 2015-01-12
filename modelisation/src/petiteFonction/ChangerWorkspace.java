@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import utilitaire.Parametre;
 
 public class ChangerWorkspace {
+	
 	/**
 	 * change de workspace (lieu ou se trouve les ressources)
 	 */

@@ -122,7 +122,7 @@ public class test {
 		assertTrue(m.centreZ()==2.0);
 	}
 	/*
-	 * fonction testé visuelment
+	 * les fonction suivantes ont ete testees visuellement
 	 */
 	@Test
 	public void SplashScreen() {

@@ -8,6 +8,7 @@ public class ThreadBarreSelect extends Thread {
 	ThreadBarreSelect(Ecran ecran) {
 		this.ecran = ecran;
 	}
+	
 	/**
 	 * ouvre ou ferme la barre select (laterale droite)
 	 */
@@ -20,6 +21,7 @@ public class ThreadBarreSelect extends Thread {
 		}
 		ecran.getBarreSelect().switchposition();
 	}
+	
 	/**
 	 * annimation de fermeture
 	 */
@@ -41,8 +43,9 @@ public class ThreadBarreSelect extends Thread {
 				ecran.getWidth() - ecran.getBarreSelect().getWidth(), 0);
 		ecran.getBarreSelect().repositionnerBouton();
 	}
+	
 	/**
-	 * annimation de ouverture
+	 * annimation d'ouverture
 	 */
 	private void ouvrir() {
 		while (ecran.getBarreSelect().getX() < ecran.getWidth()) {

@@ -45,6 +45,7 @@ public class FenetreConfigModel extends JFrame {
 		this.ecran = ecran;
 		init();
 	}
+	
 	/**
 	 * initialise la frame
 	 */
@@ -284,6 +285,7 @@ public class FenetreConfigModel extends JFrame {
 		this.refreshJlistHashtag();
 		this.refreshJListModel();
 	}
+	
 	/**
 	 * refresh la JlistHashtag
 	 */
@@ -293,6 +295,7 @@ public class FenetreConfigModel extends JFrame {
 			listModelDefault_hashtag.addElement(h);
 		}
 	}
+	
 	/**
 	 * refresh la JListModel
 	 */

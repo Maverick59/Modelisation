@@ -37,8 +37,9 @@ public class BarreSelect extends JPanel {
 		this.e = e;
 		init();
 	}
+	
 	/**
-	 * initialise le Jpanel de la barre laterale gauche
+	 * initialise le Jpanel de la barre latterale gauche
 	 */
 	private void init() {
 
@@ -104,22 +105,25 @@ public class BarreSelect extends JPanel {
 		listModelDefault = m;
 		listModelJList.setModel(listModelDefault);
 	}
+	
 	/**
 	 * repositionne le bouton
 	 */
 	public void repositionnerBouton() {
 		boutonFleche.setBounds(this.getX() - boutonFleche.getIcon().getIconWidth(), this.getHeight() / 2 - 40, 80, 80);
 	}
+	
 	/**
-	 * ajoute le model Ã  la barre
-	 * @param m
+	 * ajoute le model a la barre
+	 * @param m le modele a ajouter
 	 */
 	public void add(Model3D m) {
 		listModelDefault.addElement(m);
 	}
+	
 	/**
 	 * ajoute une liste de model
-	 * @param l
+	 * @param l une liste contenant les modeles a ajouter
 	 */
 	public void addAll(ArrayList<Model3D> l) {
 		listModelDefault.clear();
@@ -127,9 +131,10 @@ public class BarreSelect extends JPanel {
 			listModelDefault.addElement(m);
 		}
 	}
+	
 	/**
-	 * supprime les model passer en parametre
-	 * @param l
+	 * supprime les model passes en parametre
+	 * @param l la liste des modeles a supprimer
 	 */
 	public void removeAll(ArrayList<Model3D> l) {
 		while (!l.isEmpty()) {
@@ -140,6 +145,7 @@ public class BarreSelect extends JPanel {
 	public JList getListModels() {
 		return listModelJList;
 	}
+	
 	/**
 	 * refresh la barre
 	 */
@@ -154,8 +160,9 @@ public class BarreSelect extends JPanel {
 
 		this.repositionnerBouton();
 	}
+	
 	/**
-	 * switch entre ouvert et fermer
+	 * switch entre ouvert et ferme
 	 */
 	public void switchposition() {
 		this.ouvert = !this.ouvert;
@@ -164,6 +171,7 @@ public class BarreSelect extends JPanel {
 	public boolean isOuvert() {
 		return ouvert;
 	}
+	
 	/**
 	 * supprime tous les models de la barre
 	 */

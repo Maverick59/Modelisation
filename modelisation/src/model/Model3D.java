@@ -43,6 +43,7 @@ public class Model3D implements Serializable {
 		this.segments = new ArrayList<Segment>();
 		this.faces = new ArrayList<Face>();
 	}
+	
 	/**
 	 * affiche les segments du model
 	 * @param g
@@ -53,10 +54,11 @@ public class Model3D implements Serializable {
 			g.drawLine((int) (s.p1.x + decalageX), (int) (s.p1.y + decalageY), (int) (s.p2.x + decalageX), (int) (s.p2.y + decalageY));
 		}
 	}
+	
 	/**
 	 * affiche les segments de la list
 	 * @param g
-	 * @param seg
+	 * @param seg une liste de segments
 	 */
 	public void afficherSegments(Graphics g, ArrayList<Segment> seg) {
 		g.setColor(Color.BLACK);
@@ -64,6 +66,7 @@ public class Model3D implements Serializable {
 			g.drawLine((int) (s.p1.x + decalageX), (int) (s.p1.y + decalageY), (int) (s.p2.x + decalageX), (int) (s.p2.y + decalageY));
 		}
 	}
+	
 	/**
 	 * affiche les faces du model
 	 * @param g
@@ -78,6 +81,7 @@ public class Model3D implements Serializable {
 		}
 
 	}
+	
 	/**
 	 * affiche les points du model
 	 * @param g
@@ -88,6 +92,7 @@ public class Model3D implements Serializable {
 			g.fillOval((int) (p.x + decalageX), (int) (p.y + decalageY), 2, 2);
 		}
 	}
+	
 	/**
 	 * affiche les faces du model avec de la lumiere
 	 * @param g
@@ -106,8 +111,9 @@ public class Model3D implements Serializable {
 			g.fillPolygon(p);
 		}
 	}
+	
 	/**
-	 * return la color de la face par rapport à la lumiere
+	 * return la color de la face par rapport a la lumiere
 	 * @param lumiere
 	 * @param f face a eclairer
 	 * @return Color
@@ -131,6 +137,7 @@ public class Model3D implements Serializable {
 
 		return new Color((int) (cos * color.getRed()), (int) (cos * color.getGreen()), (int) (cos * color.getBlue()));
 	}
+	
 	/**
 	 * tri les faces
 	 */
@@ -156,17 +163,19 @@ public class Model3D implements Serializable {
 		}
 
 	}
+	
 	/**
 	 * zoom fois i
-	 * @param i
+	 * @param i le coefficient du zoom
 	 */
 	public void zoom(double i) {
 		for (Point p : points) {
 			p.zoom(i);
 		}
 	}
+	
 	/**
-	 * pivot Horizontal par rapport à i
+	 * pivot Horizontal par rapport a i
 	 * @param i
 	 */
 	public void pivoH(double i) {
@@ -182,8 +191,9 @@ public class Model3D implements Serializable {
 		}
 
 	}
+	
 	/**
-	 * pivot Vertical par rapport à i
+	 * pivot Vertical par rapport a i
 	 * @param i
 	 */
 	public void pivoV(double i) {
@@ -198,8 +208,9 @@ public class Model3D implements Serializable {
 
 		}
 	}
+	
 	/**
-	 * pivot 2D par rapport à i
+	 * pivot 2D par rapport a i
 	 * @param i
 	 */
 	public void pivoZ(double i) {
@@ -214,6 +225,7 @@ public class Model3D implements Serializable {
 
 		}
 	}
+	
 	/**
 	 * translation Y
 	 * @param i
@@ -221,6 +233,7 @@ public class Model3D implements Serializable {
 	public void deplacementV(int i) {
 		decalageY -= i;
 	}
+	
 	/**
 	 * translation X
 	 * @param i
@@ -261,6 +274,7 @@ public class Model3D implements Serializable {
 		// TODO Auto-generated method stub
 		return decalageY;
 	}
+	
 	/**
 	 * return le centre Z du model
 	 * @return double

@@ -31,6 +31,7 @@ public class FenetreColor extends JFrame {
 		this.ecran = e;
 		init();
 	}
+	
 	/**
 	 * initialise la fenetre pour changer la couleur
 	 * des models presents dans la bdd
@@ -93,6 +94,7 @@ public class FenetreColor extends JFrame {
 		this.add(scroll, BorderLayout.WEST);
 		this.add(jp, BorderLayout.EAST);
 	}
+	
 	/**
 	 * quitte la frame
 	 */

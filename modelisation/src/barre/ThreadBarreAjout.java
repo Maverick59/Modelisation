@@ -8,6 +8,7 @@ public class ThreadBarreAjout extends Thread {
 	public ThreadBarreAjout(Ecran ecran) {
 		this.ecran = ecran;
 	}
+	
 	/**
 	 * ouvre ou ferme la barre ajout (laterale gauche)
 	 */
@@ -20,6 +21,7 @@ public class ThreadBarreAjout extends Thread {
 		}
 		ecran.getBarreAjout().switchposition();
 	}
+	
 	/**
 	 * annimation de fermeture
 	 */
@@ -36,8 +38,9 @@ public class ThreadBarreAjout extends Thread {
 		ecran.getBarreAjout().setLocation(-ecran.getBarreAjout().getWidth(), ecran.getBarreAjout().getY());
 		ecran.getBarreAjout().repositionnerBouton();
 	}
+	
 	/**
-	 * annimation de ouverture
+	 * annimation d'ouverture
 	 */
 	private void ouvrir() {
 		while (ecran.getBarreAjout().getX() < 0) {

@@ -29,6 +29,7 @@ public class CoupeToPng extends JPanel {
 		this.setSize(e.getWidth(), e.getHeight());
 		export();
 	}
+	
 	/**
 	 * dessine le fond et le model avec de la lumiere
 	 */
@@ -41,6 +42,7 @@ public class CoupeToPng extends JPanel {
 		}
 		
 	}
+	
 	/**
 	 * enregistre en png et les coupe des models actuel
 	 */

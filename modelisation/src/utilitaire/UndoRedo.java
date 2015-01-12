@@ -9,7 +9,7 @@ public class UndoRedo<E> {
 	
 	/**
 	 * ajoute dans la list pour un futur controleZ
-	 * @param e
+	 * @param e l'element a ajouter
 	 */
 	public void ajouteZ(E e) {
 		if (controleZ.size() > 9)
@@ -20,9 +20,10 @@ public class UndoRedo<E> {
 
 		current = e;
 	}
+	
 	/**
 	 * ajoute dans la list pour un futur controleZ
-	 * @param e
+	 * @param e l'element a ajouter
 	 */
 	public void ajouteY(E e) {
 		if (controleY.size() > 9)
@@ -33,9 +34,10 @@ public class UndoRedo<E> {
 
 		current = e;
 	}
+	
 	/**
 	 * return E d'avant (control z)
-	 * @return E
+	 * @return E l'element precedant
 	 */
 	public E retourArriere() {
 		E e = null;
@@ -46,9 +48,10 @@ public class UndoRedo<E> {
 		}
 		return e;
 	}
+	
 	/**
-	 * return E d'avant (control y)
-	 * @return E
+	 * return E d'apres (control y)
+	 * @return E l'element suivant
 	 */
 	public E retourAvant() {
 		E e = null;
@@ -59,14 +62,16 @@ public class UndoRedo<E> {
 		}
 		return e;
 	}
+	
 	/**
-	 * supprime les données du controle z
+	 * supprime les donnees du controle z
 	 */
 	public void clearZ() {
 		controleZ.clear();
 	}
+	
 	/**
-	 * supprime les données du controle y
+	 * supprime les donnees du controle y
 	 */
 	public void clearY() {
 		controleY.clear();
@@ -90,6 +95,7 @@ public class UndoRedo<E> {
 
 		return sz + "]\n" + sy + "]";
 	}
+	
 	/**
 	 * vrai si il y a un retour possible (controle Z)
 	 * @return boolean
@@ -97,6 +103,7 @@ public class UndoRedo<E> {
 	public boolean retourZ() {
 		return !controleZ.isEmpty();
 	}
+	
 	/**
 	 * vrai si il y a un retour possible (controle Y)
 	 * @return boolean

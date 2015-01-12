@@ -18,7 +18,7 @@ import model.Model3D;
 public class SaveLoadProject implements Serializable {
 	/**
 	 * serialise l'ecran;
-	 * @param e
+	 * @param e l'ecran a serialiser
 	 * @throws IOException
 	 */
 	public static void serialise(Ecran e) throws IOException {
@@ -47,9 +47,10 @@ public class SaveLoadProject implements Serializable {
 		}
 
 	}
+	
 	/**
 	 * deserialise l'ecran;
-	 * @param e
+	 * @param e l'ecran a deserialiser
 	 */
 	public static void deserialise(Ecran e) {
 		try {

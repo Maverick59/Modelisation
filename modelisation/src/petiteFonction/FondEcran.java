@@ -8,9 +8,10 @@ import fenetre.Ecran;
 import utilitaire.Parametre;
 
 public class FondEcran {
+	
 	/**
 	 * initialise la frame
-	 * @param e
+	 * @param e l'ecran sur lequel l'initialiser
 	 */
 	public FondEcran(Ecran e) {
 

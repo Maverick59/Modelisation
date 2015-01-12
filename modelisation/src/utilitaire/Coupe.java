@@ -28,7 +28,7 @@ public class Coupe {
 	}
 
 	/**
-	 * renvoie l'endroit ou est coupee le triangle
+	 * renvoie l'endroit ou est coupe le triangle
 	 * @param f la face que l'on coupe
 	 * @param z l'endroit ou on coupe sur l'axe z
 	 * @return le segment ou le plan coupe le triangle
@@ -49,7 +49,7 @@ public class Coupe {
 	}
 
 	/**
-	 * renvoie l'endroit ou est coupee le Segment
+	 * renvoie l'endroit ou est coupe le Segment
 	 * @param a premier point du segment
 	 * @param b deuxieme point du segment
 	 * @param z l'endroit ou on coupe sur l'axe z
