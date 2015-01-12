@@ -9,7 +9,7 @@ public class UndoRedo<E> {
 	
 	/**
 	 * ajoute dans la list pour un futur controleZ
-	 * @param E 
+	 * @param e
 	 */
 	public void ajouteZ(E e) {
 		if (controleZ.size() > 9)
@@ -22,7 +22,7 @@ public class UndoRedo<E> {
 	}
 	/**
 	 * ajoute dans la list pour un futur controleZ
-	 * @param E
+	 * @param e
 	 */
 	public void ajouteY(E e) {
 		if (controleY.size() > 9)

@@ -16,7 +16,7 @@ public class Insert {
 
 	/**
 	 * insert dans la bdd le fichier choisit 
-	 * @param ecran
+	 * @param e
 	 */
 	public static void insert(Ecran e) {
 		JFileChooser chooser = new JFileChooser();
@@ -39,7 +39,7 @@ public class Insert {
 	/**
 	 * insert dans la bdd les fichiers choisis
 	 * @param liens
-	 * @param ecran
+	 * @param e
 	 */
 	public static void insert(List<File> liens,Ecran e){
 		for(File lien : liens){
@@ -59,10 +59,12 @@ public class Insert {
 		}
 		
 	}
+	
 	/**
 	 * copie un fichier
 	 * @param source
 	 * @param destination
+	 * @throws IOException
 	 */
 	public static void copy(String source, String destination) throws IOException {
 

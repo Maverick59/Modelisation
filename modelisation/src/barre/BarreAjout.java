@@ -91,8 +91,8 @@ public class BarreAjout extends JPanel {
 
 	}
 	/**
-	 * cherche les modeles presents dans la barre 
-	 * @param arraylist des modeles visible sur la barre d'ajout
+	 * cherche les modeles presents dans la barre
+	 * @param tab l'arraylist des modeles visible sur la barre d'ajout
 	 */
 	public void ajouterModels(ArrayList<String> tab) {
 		for (PanneauModel p : models) {

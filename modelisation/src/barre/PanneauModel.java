@@ -29,8 +29,8 @@ public class PanneauModel extends JPanel implements MouseListener {
 	
 	/**
 	 * initialise les donnees
-	 * @param nom du gts
-	 * @param ecran
+	 * @param m le nom du gts
+	 * @param e l'ecran
 	 */
 	public PanneauModel(String m, Ecran e) {
 		ModelToPNG modelPng = new ModelToPNG(m);

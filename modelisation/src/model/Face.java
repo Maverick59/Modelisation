@@ -11,7 +11,9 @@ public class Face implements Serializable {
 	 * 
 	 * transforme les 3 segments en 3 points
 	 *
-	 * @param 3 segments
+	 * @param s1
+	 * @param s2
+	 * @param s3
 	 */
 	public Face(Segment s1, Segment s2, Segment s3) {
 
@@ -59,6 +61,8 @@ public class Face implements Serializable {
 	}
 	/**
 	 * renvoie le triangle forme par les 3 points
+	 * @param decX
+	 * @param decY
 	 * @return Polygon
 	 */
 	public Polygon getTriangle(int decX, int decY) {

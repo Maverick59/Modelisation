@@ -35,7 +35,7 @@ public class Ecran extends JPanel {
 	private final UserListener userListener;
 	/**
 	 * initialise la frame
-	 * @param Main
+	 * @param f
 	 */
 	public Ecran(Main f) {
 
@@ -88,6 +88,7 @@ public class Ecran extends JPanel {
 	}
 	/**
 	 * paint sur l'ecran
+	 * @param g
 	 */
 	@Override
 	public void paintComponent(Graphics g) {

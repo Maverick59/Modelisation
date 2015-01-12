@@ -45,7 +45,7 @@ public class Model3D implements Serializable {
 	}
 	/**
 	 * affiche les segments du model
-	 * @param Graphics
+	 * @param g
 	 */
 	public void afficherSegments(Graphics g) {
 		g.setColor(color);
@@ -55,8 +55,8 @@ public class Model3D implements Serializable {
 	}
 	/**
 	 * affiche les segments de la list
-	 * @param Graphics
-	 * @param ArrayList<Segment>
+	 * @param g
+	 * @param seg
 	 */
 	public void afficherSegments(Graphics g, ArrayList<Segment> seg) {
 		g.setColor(Color.BLACK);
@@ -66,7 +66,7 @@ public class Model3D implements Serializable {
 	}
 	/**
 	 * affiche les faces du model
-	 * @param Graphics
+	 * @param g
 	 */
 	public void afficherFaces(Graphics g) {
 		g.setColor(color);
@@ -80,7 +80,7 @@ public class Model3D implements Serializable {
 	}
 	/**
 	 * affiche les points du model
-	 * @param Graphics
+	 * @param g
 	 */
 	public void afficherPoint(Graphics g) {
 		g.setColor(color);
@@ -90,7 +90,8 @@ public class Model3D implements Serializable {
 	}
 	/**
 	 * affiche les faces du model avec de la lumiere
-	 * @param Graphics
+	 * @param g
+	 * @param lumiere
 	 */
 	public void afficher(Graphics g, ArrayList<Point> lumiere) {
 		g.setColor(color);
@@ -107,8 +108,8 @@ public class Model3D implements Serializable {
 	}
 	/**
 	 * return la color de la face par rapport à la lumiere
-	 * @param lumiere (ArrayList<Point>)
-	 * @param face a eclairer
+	 * @param lumiere
+	 * @param f face a eclairer
 	 * @return Color
 	 */
 	private Color eclairage(ArrayList<Point> lumiere, Face f) {

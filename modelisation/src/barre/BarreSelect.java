@@ -112,14 +112,14 @@ public class BarreSelect extends JPanel {
 	}
 	/**
 	 * ajoute le model à la barre
-	 * @param Model3D
+	 * @param m
 	 */
 	public void add(Model3D m) {
 		listModelDefault.addElement(m);
 	}
 	/**
 	 * ajoute une liste de model
-	 * @param ArrayList<Model3D>
+	 * @param l
 	 */
 	public void addAll(ArrayList<Model3D> l) {
 		listModelDefault.clear();
@@ -129,7 +129,7 @@ public class BarreSelect extends JPanel {
 	}
 	/**
 	 * supprime les model passer en parametre
-	 * @param ArrayList<Model3D>
+	 * @param l
 	 */
 	public void removeAll(ArrayList<Model3D> l) {
 		while (!l.isEmpty()) {

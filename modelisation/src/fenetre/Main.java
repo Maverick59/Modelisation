@@ -71,6 +71,7 @@ public class Main extends JFrame implements ComponentListener , DropTargetListen
 	}
 	/**
 	 * refresh les barres (ajout et select)
+	 * @param arg0
 	 */
 	@Override
 	public void componentResized(ComponentEvent arg0) {
@@ -100,6 +101,7 @@ public class Main extends JFrame implements ComponentListener , DropTargetListen
 	}
 	/**
 	 * permet de gliser des gts dans la frame et de les inserer
+	 * @param dtde
 	 */
 	@Override
 	public void drop(DropTargetDropEvent dtde) {

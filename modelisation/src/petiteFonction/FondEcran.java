@@ -10,7 +10,7 @@ import utilitaire.Parametre;
 public class FondEcran {
 	/**
 	 * initialise la frame
-	 * @param ecran
+	 * @param e
 	 */
 	public FondEcran(Ecran e) {
 

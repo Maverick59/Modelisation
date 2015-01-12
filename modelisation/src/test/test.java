@@ -3,12 +3,21 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
+
+import org.junit.Test;
+
+import model.Face;
+import model.Model3D;
+import model.Point;
+import model.Segment;
+
 import model.Face;
 import model.Model3D;
 import model.Point;
 import model.Segment;
 
 import org.junit.Test;
+
 
 import utilitaire.Calcul;
 import utilitaire.Coupe;

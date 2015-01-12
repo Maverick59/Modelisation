@@ -10,7 +10,7 @@ import model.Model3D;
 
 public class FenetreCouleur extends JFrame {
 	/**
-	 * l'utilisateur choisit une couleur et les models se colorissent
+	 * l'utilisateur choisit une couleur et les models se colorent
 	 * @param ecran
 	 */
 	public FenetreCouleur(Ecran ecran) {

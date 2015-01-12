@@ -74,7 +74,7 @@ public class FenetreCoupe extends JFrame {
 	}
 	/**
 	 * 
-	 * @param taille des tranches en pixel
+	 * @param nb nombre de tranches
 	 * @return nombre de tranches que l'on va obtenir.
 	 */
 	private int nbTranche(int nb) {
